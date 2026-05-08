@@ -273,16 +273,20 @@ svg {
   justify-content: center;
   gap: 6px;
   min-height: 0;
+  margin: 0;
   padding: 8px 12px;
   border: 0;
+  -webkit-appearance: none;
   appearance: none;
   color: inherit;
-  background: transparent;
+  background: transparent none;
+  background-color: transparent;
   cursor: pointer;
   font-family: inherit;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.22;
+  text-align: inherit;
   transition: background-color 180ms ease;
 }
 
