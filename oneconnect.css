@@ -295,7 +295,8 @@ svg {
 .side-menu__item:hover,
 .side-menu__item:focus-visible,
 .side-menu__group:hover > .side-menu__item,
-.side-menu__group:focus-within > .side-menu__item {
+.side-menu__group:focus-within > .side-menu__item,
+.side-menu__group.is-open > .side-menu__item {
   background: var(--teal-500);
 }
 
@@ -342,7 +343,8 @@ svg {
 }
 
 .side-menu__group:hover .submenu-panel,
-.side-menu__group:focus-within .submenu-panel {
+.side-menu__group:focus-within .submenu-panel,
+.side-menu__group.is-open .submenu-panel {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(-50%) translateX(0);
@@ -523,7 +525,7 @@ svg {
 
   .side-menu {
     position: fixed;
-    z-index: 5;
+    z-index: 30;
     top: auto;
     right: 10px;
     bottom: 10px;
@@ -533,13 +535,12 @@ svg {
     flex-direction: row;
     border: 1px solid var(--white-20);
     border-radius: 18px;
-    overflow-x: auto;
-    overflow-y: visible;
+    overflow: visible;
   }
 
   .side-menu__group {
-    flex: 0 0 92px;
-    min-width: 92px;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .side-menu__group::before {
@@ -547,8 +548,8 @@ svg {
   }
 
   .side-menu__item {
-    flex: 0 0 92px;
-    min-width: 92px;
+    flex: 1 1 0;
+    min-width: 0;
     padding: 8px 10px;
     font-size: 11px;
     line-height: 1.1;
@@ -571,6 +572,7 @@ svg {
 
   .submenu-panel {
     position: fixed;
+    z-index: 40;
     right: 14px;
     bottom: 96px;
     top: auto;
