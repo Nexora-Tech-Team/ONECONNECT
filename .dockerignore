@@ -1,0 +1,7 @@
+.DS_Store
+.git
+.github
+DEPLOYMENT_PLAN.md
+PROJECT_NOTES.md
+docker-compose.yml
+*.md

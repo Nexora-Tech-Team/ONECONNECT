@@ -136,37 +136,44 @@ Because Traefik is already present, OneConnect should integrate with the existin
 
 For the first version, use a lightweight Nginx container serving static files.
 
-Suggested files on VPS:
+Deployment files now included in this repository:
+
+- `Dockerfile`
+- `nginx.conf`
+- `docker-compose.yml`
+- `.dockerignore`
+- `.github/workflows/deploy.yml`
+
+Expected files on VPS after GitHub Actions deploy:
 
 ```text
 /root/nexora-node/apps/oneconnect/
   docker-compose.yml
   Dockerfile
   nginx.conf
-  public/
-    oneconnect.html
-    oneconnect.css
-    login.html
-    login.css
-    login.js
-    forgot-password.html
-    forgot-password.js
-    module-detail.html
-    module-detail.css
-    module-detail.js
-    selfasesment_iso27001.html
-    assets/
+  oneconnect.html
+  oneconnect.css
+  login.html
+  login.css
+  login.js
+  forgot-password.html
+  forgot-password.js
+  module-detail.html
+  module-detail.css
+  module-detail.js
+  selfasesment_iso27001.html
+  assets/
 ```
 
-Suggested Dockerfile:
+Current Dockerfile:
 
 ```dockerfile
-FROM nginx:alpine
+FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY public/ /usr/share/nginx/html/
+COPY . /usr/share/nginx/html/
 ```
 
-Suggested Nginx config:
+Current Nginx config:
 
 ```nginx
 server {
@@ -182,12 +189,13 @@ server {
 }
 ```
 
-Suggested Docker Compose with Traefik labels:
+Current Docker Compose with Traefik labels:
 
 ```yaml
 services:
   oneconnect:
-    build: .
+    build:
+      context: .
     container_name: oneconnect-app
     restart: unless-stopped
     labels:
@@ -210,6 +218,7 @@ Note:
 - The actual external Docker network name must be confirmed on the VPS with `docker network ls`.
 - The actual Traefik certificate resolver name must be confirmed from existing compose/config. It might not be `letsencrypt`.
 - If existing apps use different label names or network names, match the existing pattern.
+- The GitHub Actions workflow is manual for now (`workflow_dispatch`) so it will not deploy automatically on every push until the VPS secrets and Traefik details are confirmed.
 
 ## GitHub Actions CI/CD Concept
 
@@ -228,7 +237,14 @@ Recommended GitHub Secrets:
 - `VPS_SSH_KEY` = private SSH key
 - `VPS_PORT` = usually `22`
 
-Suggested high-level workflow:
+Current workflow:
+
+- `.github/workflows/deploy.yml`
+- Manual trigger from GitHub Actions.
+- Copies repository files to `/root/nexora-node/apps/oneconnect`.
+- Runs `docker compose up -d --build` on the VPS.
+
+Suggested future automatic workflow:
 
 ```yaml
 name: Deploy OneConnect
@@ -298,4 +314,3 @@ TTL: Auto / 300
 8. Add deploy workflow.
 9. Test deploy on `oneconnect.nexoratech.co`.
 10. Later migrate static prototype into Next.js and Go/Postgres architecture.
-
