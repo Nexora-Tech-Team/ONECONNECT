@@ -241,8 +241,17 @@ Current workflow:
 
 - `.github/workflows/deploy.yml`
 - Manual trigger from GitHub Actions.
-- Copies repository files to `/root/nexora-node/apps/oneconnect`.
+- Connects to the VPS over SSH.
+- Ensures `/root/nexora-node/apps/oneconnect` exists as a Git checkout.
+- Fetches `origin/main` and resets the checkout to the latest `main`.
 - Runs `docker compose up -d --build` on the VPS.
+
+Current deployment blockers to confirm:
+
+- The GitHub Actions deploy SSH key must be accepted by the VPS.
+- The VPS must be able to clone `git@github.com:Nexora-Tech-Team/ONECONNECT.git`.
+- The external Docker network name in `docker-compose.yml` must match the existing Traefik network.
+- The Traefik certificate resolver name must match the existing Traefik config.
 
 Suggested future automatic workflow:
 
