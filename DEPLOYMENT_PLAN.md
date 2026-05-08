@@ -215,8 +215,8 @@ networks:
 
 Note:
 
-- The actual external Docker network name must be confirmed on the VPS with `docker network ls`.
-- The actual Traefik certificate resolver name must be confirmed from existing compose/config. It might not be `letsencrypt`.
+- The VPS Traefik external Docker network is `web`.
+- The VPS Traefik certificate resolver used by existing apps is `myresolver`.
 - If existing apps use different label names or network names, match the existing pattern.
 - The GitHub Actions workflow is manual for now (`workflow_dispatch`) so it will not deploy automatically on every push until the VPS secrets and Traefik details are confirmed.
 
@@ -250,8 +250,7 @@ Current deployment blockers to confirm:
 
 - The GitHub Actions deploy SSH key must be accepted by the VPS.
 - The VPS must be able to clone `git@github.com:Nexora-Tech-Team/ONECONNECT.git`.
-- The external Docker network name in `docker-compose.yml` must match the existing Traefik network.
-- The Traefik certificate resolver name must match the existing Traefik config.
+- DNS for `oneconnect.nexoratech.co` must point to `72.61.209.201`.
 
 Suggested future automatic workflow:
 
