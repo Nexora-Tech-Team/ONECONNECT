@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - OneConnect CBQA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-page__media" aria-hidden="true"></div>
+
+    <a class="brand" href="oneconnect.html" aria-label="Back to CBQA Global home">
+      <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    </a>
+
+    <section class="login-shell" aria-labelledby="login-title">
+      <div class="login-copy">
+        <a class="eyebrow" href="oneconnect.html">OneConnect Platform</a>
+        <h1 id="login-title">Sign in to continue</h1>
+        <p>Access certification, audit, validation, verification, and training services in one secure workspace.</p>
+      </div>
+
+      <form class="login-card" id="loginForm" action="#" method="post">
+        <div class="login-card__header">
+          <h2>Login</h2>
+          <p>Use your registered account details.</p>
+        </div>
+
+        <label class="field">
+          <span>Username</span>
+          <input type="text" name="email" id="loginEmail" placeholder="name@company.com" inputmode="email" autocomplete="off" spellcheck="false" required>
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <span class="password-control">
+            <input type="password" name="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+            <button class="password-toggle" type="button" id="togglePassword" aria-label="Show password" aria-pressed="false">
+              <svg class="icon-eye" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M12 5c5 0 8.5 4.4 9.7 6.2a1.5 1.5 0 0 1 0 1.6C20.5 14.6 17 19 12 19s-8.5-4.4-9.7-6.2a1.5 1.5 0 0 1 0-1.6C3.5 9.4 7 5 12 5Zm0 2c-3.8 0-6.7 3.2-7.8 5 1.1 1.8 4 5 7.8 5s6.7-3.2 7.8-5C18.7 10.2 15.8 7 12 7Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/>
+              </svg>
+              <svg class="icon-eye-off" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m3.3 2 18.7 18.7-1.4 1.4-3.2-3.2A10.4 10.4 0 0 1 12 20c-5 0-8.5-4.4-9.7-6.2a1.5 1.5 0 0 1 0-1.6 17.7 17.7 0 0 1 4-4.4L1.9 3.4 3.3 2Zm4.4 7.2A15.2 15.2 0 0 0 4.2 13c1.1 1.8 4 5 7.8 5 1.4 0 2.7-.4 3.8-1.1l-2.2-2.2A3 3 0 0 1 9.3 10.4L7.7 9.2ZM12 4c5 0 8.5 4.4 9.7 6.2a1.5 1.5 0 0 1 0 1.6 17 17 0 0 1-2.2 2.7l-1.4-1.4A14.7 14.7 0 0 0 19.8 11c-1.1-1.8-4-5-7.8-5a7 7 0 0 0-2.6.5L7.8 4.9A9.3 9.3 0 0 1 12 4Zm0 4a3 3 0 0 1 3 3c0 .3 0 .6-.1.9L11.1 8H12Z"/>
+              </svg>
+            </button>
+          </span>
+        </label>
+
+        <div class="form-row">
+          <label class="remember">
+            <input type="checkbox" name="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="forgot-password.html" class="forgot">Forgot password?</a>
+        </div>
+
+        <div class="captcha" aria-label="Simple captcha challenge">
+          <div class="captcha__question">
+            <span>Captcha</span>
+            <strong id="captchaQuestion">8 + 4 = ?</strong>
+          </div>
+          <button class="captcha__refresh" type="button" id="refreshCaptcha" aria-label="Refresh captcha">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M17.7 6.3A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.8-4.3L13 11h8V3l-3.3 3.3Z"/>
+            </svg>
+          </button>
+          <label class="captcha__answer">
+            <span>Your answer</span>
+            <input type="number" inputmode="numeric" id="captchaAnswer" placeholder="Result" required>
+          </label>
+        </div>
+
+        <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+
+        <button class="submit" type="submit">
+          <span>Sign In</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M10 17v-3H3v-4h7V7l6 5-6 5Zm8 3H8v-2h10V6H8V4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"/>
+          </svg>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>
