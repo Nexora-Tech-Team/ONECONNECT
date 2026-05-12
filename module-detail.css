@@ -235,6 +235,17 @@ svg {
   font-size: 15px;
 }
 
+.service-narrative {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.86);
+  background: linear-gradient(135deg, rgba(49, 158, 169, 0.2), rgba(255, 255, 255, 0.08));
+  font-size: 15px;
+  line-height: 1.68;
+}
+
 .service-card {
   display: grid;
   grid-template-columns: 44px 1fr;

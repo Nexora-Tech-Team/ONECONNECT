@@ -19,7 +19,8 @@ const modules = {
     icon: "audit",
     description: "A unified audit workspace for planning engagements, managing evidence requests, tracking findings, and producing structured audit outputs.",
     body: "Integration Audit Tools helps internal teams and assessors coordinate audit activities from preparation to reporting. The module is designed to reduce scattered documentation, improve traceability, and provide a clearer view of open actions, evidence readiness, and audit progress.",
-    service: "Run a guided self assessment to check audit readiness, evidence completeness, finding status, and improvement priorities before engaging the CBQA Global audit team."
+    service: "",
+    serviceNarrative: "CBQA Global menjadi satu-satunya badan sertifikasi di Indonesia yang mengintegrasikan client dengan sistem core dalam penerbitan sertifikat ISO, sehingga client dapat berinteraksi secara online melalui sistem terintegrasi di OneConnect."
   },
   tvra: {
     platform: "GRC Platform",
@@ -151,8 +152,24 @@ document.getElementById("moduleTitle").textContent = selected.title;
 document.getElementById("moduleSubtitle").textContent = selected.subtitle;
 document.getElementById("moduleDescription").textContent = selected.description;
 document.getElementById("descriptionBody").textContent = selected.body;
-document.getElementById("serviceBody").textContent = selected.service;
 document.getElementById("moduleIcon").innerHTML = iconMap[selected.icon] || iconMap.shield;
 
 const serviceLink = document.getElementById("serviceLink");
-serviceLink.href = moduleKey === "iso-27001" ? "selfasesment_iso27001.html" : "#";
+const serviceBody = document.getElementById("serviceBody");
+const serviceNarrative = document.getElementById("serviceNarrative");
+
+if (selected.serviceNarrative) {
+  serviceNarrative.textContent = selected.serviceNarrative;
+  serviceNarrative.hidden = false;
+} else {
+  serviceNarrative.hidden = true;
+}
+
+if (selected.service) {
+  serviceBody.textContent = selected.service;
+  serviceLink.hidden = false;
+  serviceLink.href = moduleKey === "iso-27001" ? "selfasesment_iso27001.html" : "#";
+} else {
+  serviceLink.hidden = true;
+  serviceLink.removeAttribute("href");
+}
