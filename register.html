@@ -30,6 +30,20 @@
           <p>Tell us who will manage the OneConnect account.</p>
         </div>
 
+        <section class="smart-edition" aria-label="Smart Edition email validation">
+          <div class="smart-edition__copy">
+            <span>Already contracted with CBQA?</span>
+            <strong>Smart Edition</strong>
+            <small>Use Smart E-Mail Validation to activate existing client access.</small>
+          </div>
+          <button class="smart-edition__button" type="button" id="openSmartValidation">
+            <span>Validate Email</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm0 2.2L18 6.5V11c0 3.9-2.5 7.5-6 8.8-3.5-1.3-6-4.9-6-8.8V6.5l6-2.3Zm3.7 5.1 1.4 1.4-5.8 5.8-3.4-3.4 1.4-1.4 2 2 4.4-4.4Z"/>
+            </svg>
+          </button>
+        </section>
+
         <label class="field">
           <span>Company Name</span>
           <input type="text" name="company" id="companyName" placeholder="Company legal name" autocomplete="organization" required>
@@ -94,6 +108,76 @@
       </form>
     </section>
   </main>
+
+  <div class="modal" id="smartModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-smart-modal></div>
+    <section class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="smartModalTitle">
+      <button class="modal__close" type="button" aria-label="Close Smart Edition validation" data-close-smart-modal>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="m6.4 5 12.6 12.6-1.4 1.4L5 6.4 6.4 5Zm12.6 1.4L6.4 19 5 17.6 17.6 5 19 6.4Z"/>
+        </svg>
+      </button>
+
+      <div class="smart-modal-state smart-modal-state--form" id="smartFormState">
+        <span class="smart-modal__icon">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M3 5h18v14H3V5Zm2 2v.8l7 4.2 7-4.2V7H5Zm14 3.1-7 4.2-7-4.2V17h14v-6.9Z"/>
+          </svg>
+        </span>
+        <p class="modal__eyebrow">Smart E-Mail Validation</p>
+        <h2 id="smartModalTitle">Validate existing CBQA client access</h2>
+        <p>Enter the company email previously registered with CBQA. In production, this will verify active contract status through OneDataHub CBQA.</p>
+
+        <label class="field smart-modal__field">
+          <span>Registered Company Email</span>
+          <input type="email" id="smartEmail" placeholder="name@company.com" inputmode="email" autocomplete="email" spellcheck="false">
+        </label>
+
+        <p class="form-message" id="smartMessage" role="status" aria-live="polite"></p>
+
+        <button class="submit" type="button" id="validateSmartEmail">
+          <span>Validate Email</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 4.7-4.7 1.4 1.4-6.1 6.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm0 2.2L18 6.5V11c0 3.9-2.5 7.5-6 8.8-3.5-1.3-6-4.9-6-8.8V6.5l6-2.3Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="smart-modal-state smart-modal-state--result" id="smartVerifiedState" hidden>
+        <span class="smart-modal__icon smart-modal__icon--verified">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.7 7.3 1.4 1.4-6.4 6.4-3.8-3.8 1.4-1.4 2.4 2.4 5-5Z"/>
+          </svg>
+        </span>
+        <p class="modal__eyebrow">Verified Client</p>
+        <h2>Company email verified</h2>
+        <p>Your company email has been verified. Please check your email to receive your temporary password, then sign in to OneConnect.</p>
+        <a class="submit modal__action" href="login.html">
+          <span>Go to Login</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M10 17v-3H3v-4h7V7l6 5-6 5Zm8 3H8v-2h10V6H8V4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="smart-modal-state smart-modal-state--result" id="smartNotRegisteredState" hidden>
+        <span class="smart-modal__icon smart-modal__icon--not-registered">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M11 7h2v6h-2V7Zm0 8h2v2h-2v-2ZM12 2 1 21h22L12 2Zm0 4 7.5 13h-15L12 6Z"/>
+          </svg>
+        </span>
+        <p class="modal__eyebrow">Not Registered</p>
+        <h2>No active contract found</h2>
+        <p>We could not find an active CBQA contract linked to this email. Please continue registration or contact CBQA Global sales for assistance.</p>
+        <button class="submit modal__action" type="button" data-close-smart-modal>
+          <span>Continue Registration</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+  </div>
 
   <script src="register.js"></script>
 </body>

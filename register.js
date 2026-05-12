@@ -9,6 +9,15 @@ const registerMessage = document.getElementById("registerMessage");
 const registerCaptchaQuestion = document.getElementById("registerCaptchaQuestion");
 const registerCaptchaAnswer = document.getElementById("registerCaptchaAnswer");
 const refreshRegisterCaptcha = document.getElementById("refreshRegisterCaptcha");
+const openSmartValidation = document.getElementById("openSmartValidation");
+const smartModal = document.getElementById("smartModal");
+const smartEmail = document.getElementById("smartEmail");
+const validateSmartEmail = document.getElementById("validateSmartEmail");
+const smartMessage = document.getElementById("smartMessage");
+const smartFormState = document.getElementById("smartFormState");
+const smartVerifiedState = document.getElementById("smartVerifiedState");
+const smartNotRegisteredState = document.getElementById("smartNotRegisteredState");
+const closeSmartModalControls = document.querySelectorAll("[data-close-smart-modal]");
 
 let registerCaptchaResult = 0;
 
@@ -27,7 +36,56 @@ function showRegisterMessage(message, type) {
   registerMessage.className = `form-message ${type}`;
 }
 
+function setSmartState(state) {
+  smartFormState.hidden = state !== "form";
+  smartVerifiedState.hidden = state !== "verified";
+  smartNotRegisteredState.hidden = state !== "not-registered";
+}
+
+function openSmartModal() {
+  setSmartState("form");
+  smartEmail.value = "";
+  smartMessage.textContent = "";
+  smartMessage.className = "form-message";
+  smartModal.classList.add("is-open");
+  smartModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  window.setTimeout(() => smartEmail.focus(), 80);
+}
+
+function closeSmartModal() {
+  smartModal.classList.remove("is-open");
+  smartModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
 refreshRegisterCaptcha.addEventListener("click", createRegisterCaptcha);
+openSmartValidation.addEventListener("click", openSmartModal);
+
+closeSmartModalControls.forEach((control) => {
+  control.addEventListener("click", closeSmartModal);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && smartModal.classList.contains("is-open")) {
+    closeSmartModal();
+  }
+});
+
+validateSmartEmail.addEventListener("click", () => {
+  const email = smartEmail.value.trim().toLowerCase();
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailPattern.test(email)) {
+    smartMessage.textContent = "Please enter a valid registered company email address.";
+    smartMessage.className = "form-message is-error";
+    smartEmail.focus();
+    return;
+  }
+
+  const isVerifiedPrototype = email.includes("cbqa") || email.includes("nexora") || email.includes("demo");
+  setSmartState(isVerifiedPrototype ? "verified" : "not-registered");
+});
 
 registerForm.addEventListener("submit", (event) => {
   event.preventDefault();

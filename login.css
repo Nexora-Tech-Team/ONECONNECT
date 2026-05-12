@@ -152,6 +152,72 @@ svg {
   line-height: 1.5;
 }
 
+.smart-edition {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 22px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(49, 158, 169, 0.28), rgba(255, 255, 255, 0.08));
+}
+
+.smart-edition__copy {
+  display: grid;
+  gap: 4px;
+}
+
+.smart-edition__copy span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.smart-edition__copy strong {
+  color: #ffffff;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.smart-edition__copy small {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.smart-edition__button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 12px;
+  padding: 10px 13px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  font: 700 13px/1.2 Inter, Arial, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.smart-edition__button:hover,
+.smart-edition__button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.smart-edition__button svg {
+  width: 18px;
+  height: 18px;
+}
+
 .field,
 .captcha__answer {
   display: grid;
@@ -416,6 +482,144 @@ input:focus {
   text-decoration: underline;
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 22, 27, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.modal__panel {
+  position: relative;
+  width: min(100%, 500px);
+  max-height: min(86vh, 720px);
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(25, 75, 84, 0.96), rgba(12, 40, 48, 0.96));
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.38);
+  transform: translateY(14px) scale(0.98);
+  transition: transform 180ms ease;
+}
+
+.modal.is-open .modal__panel {
+  transform: translateY(0) scale(1);
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.modal__close:hover,
+.modal__close:focus-visible {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.modal__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.smart-modal-state {
+  display: grid;
+  justify-items: start;
+}
+
+.smart-modal-state--result {
+  justify-items: center;
+  text-align: center;
+}
+
+.smart-modal__icon {
+  display: inline-flex;
+  width: 58px;
+  height: 58px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  border-radius: 18px;
+  color: #ffffff;
+  background: var(--teal-500);
+  box-shadow: 0 16px 38px rgba(49, 158, 169, 0.24);
+}
+
+.smart-modal__icon--verified {
+  background: #25b982;
+}
+
+.smart-modal__icon--not-registered {
+  background: #d85c5c;
+}
+
+.smart-modal__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.modal__eyebrow {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.modal h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1.18;
+}
+
+.modal p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.smart-modal__field {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.modal__action {
+  margin-top: 22px;
+  text-decoration: none;
+}
+
 @media (max-width: 860px) {
   .login-page {
     align-items: flex-start;
@@ -449,6 +653,14 @@ input:focus {
   .login-card {
     padding: 22px;
   }
+
+  .smart-edition {
+    grid-template-columns: 1fr;
+  }
+
+  .smart-edition__button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 460px) {
@@ -460,5 +672,9 @@ input:focus {
 
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .modal__panel {
+    padding: 24px 20px;
   }
 }
