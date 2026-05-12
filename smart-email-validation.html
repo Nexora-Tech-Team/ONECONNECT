@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart E-Mail Validation - OneConnect CBQA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-page__media" aria-hidden="true"></div>
+
+    <a class="brand" href="oneconnect.html" aria-label="Back to OneConnect Platform">
+      <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    </a>
+
+    <section class="login-shell validation-shell" aria-labelledby="validation-title">
+      <div class="login-copy">
+        <a class="eyebrow" href="register.html">Back to Register</a>
+        <h1 id="validation-title">Smart E-Mail Validation</h1>
+        <p>Validate existing CBQA client access and continue into OneConnect with the credentials delivered to your registered company email.</p>
+      </div>
+
+      <section class="login-card validation-card" aria-labelledby="validation-card-title">
+        <div class="smart-validation-state" id="smartFormState">
+          <span class="smart-modal__icon">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M3 5h18v14H3V5Zm2 2v.8l7 4.2 7-4.2V7H5Zm14 3.1-7 4.2-7-4.2V17h14v-6.9Z"/>
+            </svg>
+          </span>
+          <p class="modal__eyebrow">Smart E-Mail Validation</p>
+          <h2 id="validation-card-title">Validate existing CBQA client access</h2>
+          <p>Enter the company email previously registered with CBQA. In production, this will verify active contract status through OneDataHub CBQA.</p>
+
+          <label class="field smart-modal__field">
+            <span>Registered Company Email</span>
+            <input type="email" id="smartEmail" placeholder="name@company.com" inputmode="email" autocomplete="email" spellcheck="false">
+          </label>
+
+          <p class="form-message" id="smartMessage" role="status" aria-live="polite"></p>
+
+          <button class="submit" type="button" id="validateSmartEmail">
+            <span>Validate Email</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 4.7-4.7 1.4 1.4-6.1 6.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Zm0 2.2L18 6.5V11c0 3.9-2.5 7.5-6 8.8-3.5-1.3-6-4.9-6-8.8V6.5l6-2.3Z"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="smart-validation-state smart-validation-state--result" id="smartVerifiedState" hidden>
+          <span class="smart-modal__icon smart-modal__icon--verified">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.7 7.3 1.4 1.4-6.4 6.4-3.8-3.8 1.4-1.4 2.4 2.4 5-5Z"/>
+            </svg>
+          </span>
+          <p class="modal__eyebrow">Verified Client</p>
+          <h2>Company email verified</h2>
+          <p>Your company email has been verified. Please check your email to receive your temporary password, then sign in to OneConnect.</p>
+          <a class="submit modal__action" href="login.html">
+            <span>Go to Login</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M10 17v-3H3v-4h7V7l6 5-6 5Zm8 3H8v-2h10V6H8V4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="smart-validation-state smart-validation-state--result" id="smartNotRegisteredState" hidden>
+          <span class="smart-modal__icon smart-modal__icon--not-registered">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M11 7h2v6h-2V7Zm0 8h2v2h-2v-2ZM12 2 1 21h22L12 2Zm0 4 7.5 13h-15L12 6Z"/>
+            </svg>
+          </span>
+          <p class="modal__eyebrow">Not Registered</p>
+          <h2>No active contract found</h2>
+          <p>We could not find an active CBQA contract linked to this email. Please continue registration or contact CBQA Global sales for assistance.</p>
+          <a class="submit modal__action" href="register.html">
+            <span>Continue Registration</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M15 14a5 5 0 1 0-6 0 8 8 0 0 0-5 7h2a6 6 0 0 1 12 0h2a8 8 0 0 0-5-7ZM9 10a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm11-6v3h3v2h-3v3h-2V9h-3V7h3V4h2Z"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="smart-email-validation.js"></script>
+</body>
+</html>
