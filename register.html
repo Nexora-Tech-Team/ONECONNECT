@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - OneConnect CBQA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main class="login-page">
+    <div class="login-page__media" aria-hidden="true"></div>
+
+    <a class="brand" href="oneconnect.html" aria-label="Back to OneConnect Platform">
+      <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    </a>
+
+    <section class="login-shell register-shell" aria-labelledby="register-title">
+      <div class="login-copy">
+        <a class="eyebrow" href="oneconnect.html">OneConnect Platform</a>
+        <h1 id="register-title">Create your workspace access</h1>
+        <p>Register your company profile to start using OneConnect modules, assessments, audit tools, and CBQA Global support services.</p>
+      </div>
+
+      <form class="login-card register-card" id="registerForm" action="#" method="post">
+        <div class="login-card__header">
+          <h2>Register</h2>
+          <p>Tell us who will manage the OneConnect account.</p>
+        </div>
+
+        <label class="field">
+          <span>Company Name</span>
+          <input type="text" name="company" id="companyName" placeholder="Company legal name" autocomplete="organization" required>
+        </label>
+
+        <label class="field">
+          <span>Full Name</span>
+          <input type="text" name="fullName" id="fullName" placeholder="Account owner name" autocomplete="name" required>
+        </label>
+
+        <label class="field">
+          <span>Work Email</span>
+          <input type="email" name="email" id="registerEmail" placeholder="name@company.com" inputmode="email" autocomplete="email" spellcheck="false" required>
+        </label>
+
+        <label class="field">
+          <span>Phone / WhatsApp</span>
+          <input type="tel" name="phone" id="registerPhone" placeholder="+62 812 0000 0000" inputmode="tel" autocomplete="tel" required>
+        </label>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>Password</span>
+            <input type="password" name="password" id="registerPassword" placeholder="Minimum 8 characters" autocomplete="new-password" required>
+          </label>
+
+          <label class="field">
+            <span>Confirm Password</span>
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repeat password" autocomplete="new-password" required>
+          </label>
+        </div>
+
+        <div class="captcha" aria-label="Simple captcha challenge">
+          <div class="captcha__question">
+            <span>Captcha</span>
+            <strong id="registerCaptchaQuestion">6 + 5 = ?</strong>
+          </div>
+          <button class="captcha__refresh" type="button" id="refreshRegisterCaptcha" aria-label="Refresh captcha">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M17.7 6.3A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.8-4.3L13 11h8V3l-3.3 3.3Z"/>
+            </svg>
+          </button>
+          <label class="captcha__answer">
+            <span>Your answer</span>
+            <input type="number" inputmode="numeric" id="registerCaptchaAnswer" placeholder="Result" required>
+          </label>
+        </div>
+
+        <p class="form-message" id="registerMessage" role="status" aria-live="polite"></p>
+
+        <button class="submit" type="submit">
+          <span>Create Account</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M15 14a5 5 0 1 0-6 0 8 8 0 0 0-5 7h2a6 6 0 0 1 12 0h2a8 8 0 0 0-5-7ZM9 10a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm11-6v3h3v2h-3v3h-2V9h-3V7h3V4h2Z"/>
+          </svg>
+        </button>
+
+        <p class="account-switch">
+          Already have an account?
+          <a href="login.html">Sign in</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script src="register.js"></script>
+</body>
+</html>
