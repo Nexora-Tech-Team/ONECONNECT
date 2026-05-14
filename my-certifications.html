@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Certifications — OneConnect | CBQA Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal-400:#3db8c4;--teal-500:#319ea9;--teal-600:#278a94;
+  --navy:#0e2d35;--glass:rgba(255,255,255,0.10);--glass-b:rgba(255,255,255,0.16);
+  --line:rgba(255,255,255,0.18);--line-b:rgba(255,255,255,0.32);
+  --text:#ffffff;--muted:rgba(255,255,255,0.68);--muted-b:rgba(255,255,255,0.86);
+  --radius:16px;--radius-sm:10px;--radius-lg:22px;
+  --gold:#f5c842;--gold-bg:rgba(245,200,66,0.12);
+  --green:#6ee7b7;--green-bg:rgba(110,231,183,0.12);
+  --amber:#fcd34d;--amber-bg:rgba(252,211,77,0.12);
+  --rose:#fda4af;--rose-bg:rgba(253,164,175,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;color:var(--text);background:#12333b;min-height:100vh}
+a{color:inherit;text-decoration:none}
+svg{display:block;fill:currentColor;flex-shrink:0}
+button{font-family:inherit;cursor:pointer}
+
+/* BG */
+.page-bg{position:fixed;inset:0;z-index:-2;background-image:url("assets/oneconnect/hero-background.png");background-size:cover;background-position:center}
+.page-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,35,42,0.96),rgba(20,65,74,0.84) 50%,rgba(10,38,46,0.95))}
+
+/* ─── NAVBAR ────────────────────────────────────── */
+.navbar{position:sticky;top:0;z-index:200;height:68px;display:flex;align-items:center;padding:0 clamp(16px,3vw,48px);gap:24px;background:rgba(14,45,53,0.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-brand{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.nav-brand img{height:44px;width:82px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand-text{display:flex;flex-direction:column;gap:1px;line-height:1}
+.nav-brand-text strong{font-size:15px;font-weight:700}
+.nav-brand-text span{font-size:10.5px;color:var(--muted);letter-spacing:.4px}
+.nav-sep{width:1px;height:28px;background:var(--line);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1}
+.nav-item{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:10px;border:0;background:transparent;color:var(--muted-b);font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .18s,color .18s}
+.nav-item:hover{background:rgba(255,255,255,0.09);color:#fff}
+.nav-item svg{width:16px;height:16px;opacity:.75}
+.nav-item.active-page{background:rgba(49,158,169,0.18);color:#fff;border:1px solid rgba(49,158,169,0.32)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.nav-avatar{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,0.07);cursor:pointer}
+.avatar-circle{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#319ea9,#48b795);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.avatar-info strong{font-size:13px;font-weight:600;display:block}
+.avatar-info span{font-size:10.5px;color:var(--muted)}
+.nav-logout{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:10px;border:1px solid rgba(248,113,113,0.30);background:rgba(248,113,113,0.08);color:rgba(252,165,165,0.90);font-size:13px;font-weight:600;transition:all .18s}
+.nav-logout:hover{background:rgba(248,113,113,0.18);color:#fca5a5}
+.nav-logout svg{width:15px;height:15px}
+
+/* ─── LAYOUT ────────────────────────────────────── */
+.page-wrap{max-width:1200px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(16px,3vw,48px) 80px}
+
+/* ─── BREADCRUMB ────────────────────────────────── */
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:20px}
+.breadcrumb a{color:var(--muted);transition:color .15s}
+.breadcrumb a:hover{color:#fff}
+.breadcrumb svg{width:12px;height:12px;opacity:.5}
+
+/* ─── PAGE HERO ─────────────────────────────────── */
+.page-hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  background:linear-gradient(135deg,rgba(255,255,255,0.10),rgba(255,255,255,0.05));
+  border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-lg);
+  padding:clamp(24px,3vw,36px);margin-bottom:28px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;right:-80px;top:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,200,66,0.12),transparent 70%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hero-eyebrow::before{content:'';width:18px;height:1.5px;background:var(--gold);border-radius:2px}
+.page-hero h1{font-size:clamp(22px,3.5vw,34px);font-weight:700;margin-bottom:8px}
+.page-hero p{font-size:14px;color:var(--muted);line-height:1.65;max-width:580px}
+.hero-stats{display:flex;gap:28px;margin-top:20px}
+.hstat{text-align:center}
+.hstat-num{font-size:28px;font-weight:300;line-height:1}
+.hstat-lbl{font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
+.hero-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;position:relative;z-index:1}
+.cert-seal{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,rgba(245,200,66,0.24),rgba(245,200,66,0.08));border:2px solid rgba(245,200,66,0.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center}
+.cert-seal svg{width:28px;height:28px;color:var(--gold)}
+.cert-seal span{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:.5px;text-transform:uppercase}
+
+/* ─── FILTER BAR ────────────────────────────────── */
+.filter-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.filter-bar-left{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.ftab{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,0.06);color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
+.ftab:hover{border-color:var(--line-b);color:#fff;background:rgba(255,255,255,0.1)}
+.ftab.active{background:rgba(49,158,169,0.18);border-color:rgba(49,158,169,0.38);color:#fff}
+.ftab .ftab-count{font-size:10.5px;background:rgba(255,255,255,0.14);border-radius:20px;padding:1px 7px;font-weight:700}
+.ftab.active .ftab-count{background:rgba(255,255,255,0.22)}
+.search-wrap{position:relative}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);pointer-events:none}
+.search-input{height:36px;padding:0 12px 0 34px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,0.06);color:#fff;font:500 13px Inter,Arial,sans-serif;outline:none;width:200px;transition:all .18s}
+.search-input::placeholder{color:rgba(255,255,255,0.32)}
+.search-input:focus{border-color:rgba(49,158,169,0.55);background:rgba(255,255,255,0.09);width:240px}
+
+/* ─── CERT GRID ─────────────────────────────────── */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;margin-bottom:32px}
+
+/* ─── CERTIFICATE CARD ──────────────────────────── */
+.cert-card{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;transition:transform .22s,border-color .22s,box-shadow .22s;display:flex;flex-direction:column}
+.cert-card:hover{transform:translateY(-4px);border-color:rgba(49,158,169,0.4);box-shadow:0 24px 60px rgba(0,0,0,0.28)}
+
+/* Thumbnail */
+.cert-thumb{position:relative;aspect-ratio:297/210;overflow:hidden;background:#0d3540;flex-shrink:0;cursor:pointer}
+.cert-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .4s ease}
+.cert-card:hover .cert-thumb img{transform:scale(1.03)}
+.cert-thumb-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,rgba(49,158,169,0.18),rgba(14,45,53,0.9))}
+.cert-thumb-placeholder svg{width:40px;height:40px;color:var(--teal-400);opacity:.5}
+.cert-thumb-placeholder span{font-size:12px;color:var(--muted);font-weight:500}
+
+/* Overlay on hover */
+.cert-thumb-overlay{position:absolute;inset:0;background:rgba(10,35,42,0.78);display:flex;align-items:center;justify-content:center;gap:14px;opacity:0;transition:opacity .25s;backdrop-filter:blur(2px)}
+.cert-card:hover .cert-thumb-overlay{opacity:1}
+.thumb-action{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:transform .18s}
+.thumb-action:hover{transform:scale(1.08)}
+.thumb-action-btn{width:48px;height:48px;border-radius:14px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.thumb-action-btn svg{width:22px;height:22px}
+.thumb-action-btn.teal-btn{background:rgba(49,158,169,0.38);border-color:rgba(49,158,169,0.65)}
+.thumb-action span{font-size:10.5px;color:rgba(255,255,255,0.85);font-weight:600;letter-spacing:.2px}
+
+/* Status ribbon */
+.cert-ribbon{position:absolute;top:14px;left:14px}
+.ribbon-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;backdrop-filter:blur(8px)}
+.rp-active{background:rgba(110,231,183,0.2);border:1px solid rgba(110,231,183,0.35);color:#6ee7b7}
+.rp-progress{background:rgba(252,211,77,0.2);border:1px solid rgba(252,211,77,0.35);color:#fcd34d}
+.rp-expired{background:rgba(248,113,113,0.2);border:1px solid rgba(248,113,113,0.35);color:#fca5a5}
+.rp-pending{background:rgba(163,163,163,0.2);border:1px solid rgba(163,163,163,0.3);color:rgba(255,255,255,0.75)}
+.ribbon-dot{width:6px;height:6px;border-radius:50%}
+.rd-active{background:#6ee7b7;box-shadow:0 0 6px #6ee7b7}
+.rd-progress{background:#fcd34d}
+.rd-expired{background:#fca5a5}
+.rd-pending{background:rgba(255,255,255,0.5)}
+
+/* Cert number badge */
+.cert-num-badge{position:absolute;bottom:10px;right:10px;background:rgba(10,35,42,0.82);border:1px solid rgba(255,255,255,0.18);border-radius:7px;padding:3px 9px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.75);backdrop-filter:blur(8px);font-family:monospace,monospace}
+
+/* Body */
+.cert-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;gap:12px}
+.cert-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.cert-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-teal{background:rgba(49,158,169,0.2);color:var(--teal-400)}
+.ci-purple{background:rgba(167,139,250,0.18);color:#c4b5fd}
+.ci-amber{background:rgba(251,191,36,0.16);color:#fcd34d}
+.ci-green{background:rgba(110,231,183,0.16);color:#6ee7b7}
+.ci-blue{background:rgba(99,102,241,0.16);color:#a5b4fc}
+.cert-icon svg{width:20px;height:20px}
+.cert-standard-code{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(49,158,169,0.14);border:1px solid rgba(49,158,169,0.24);color:var(--teal-400);white-space:nowrap}
+
+.cert-name{font-size:15px;font-weight:700;line-height:1.3;margin-bottom:3px}
+.cert-system{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* Info rows */
+.cert-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cert-info-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px}
+.cert-info-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.cert-info-value{font-size:12.5px;font-weight:600;color:var(--muted-b);line-height:1.3}
+.cert-info-item.full{grid-column:1/-1}
+
+/* Expiry bar */
+.expiry-wrap{margin-top:2px}
+.expiry-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
+.expiry-label strong{color:var(--muted-b)}
+.expiry-track{height:5px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden}
+.expiry-fill{height:100%;border-radius:5px;transition:width .8s ease}
+.ef-good{background:linear-gradient(90deg,#319ea9,#6ee7b7)}
+.ef-warn{background:linear-gradient(90deg,#f59e0b,#fcd34d)}
+.ef-danger{background:linear-gradient(90deg,#ef4444,#f87171)}
+
+/* Footer actions */
+.cert-footer{display:flex;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.07);margin-top:auto}
+.cfooter-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:38px;border-radius:10px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .18s;border:0}
+.cfb-primary{background:var(--teal-500);color:#fff;box-shadow:0 6px 18px rgba(49,158,169,0.22)}
+.cfb-primary:hover{background:var(--teal-600);transform:translateY(-1px)}
+.cfb-ghost{background:rgba(255,255,255,0.07);color:var(--muted-b);border:1px solid var(--line)}
+.cfb-ghost:hover{background:rgba(255,255,255,0.13);color:#fff;border-color:var(--line-b)}
+.cfooter-btn svg{width:14px;height:14px}
+.cfb-icon{flex:0 0 38px;display:inline-flex;align-items:center;justify-content:center;height:38px;border-radius:10px;background:rgba(255,255,255,0.07);color:var(--muted-b);border:1px solid var(--line);cursor:pointer;transition:all .18s}
+.cfb-icon:hover{background:rgba(255,255,255,0.14);color:#fff}
+.cfb-icon svg{width:15px;height:15px}
+
+/* ─── EMPTY STATE ───────────────────────────────── */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center;color:var(--muted)}
+.empty-state svg{width:56px;height:56px;opacity:.3;margin-bottom:18px}
+.empty-state h3{font-size:17px;font-weight:600;color:var(--muted-b);margin-bottom:8px}
+.empty-state p{font-size:14px;line-height:1.6;max-width:360px}
+
+/* ─── CERT PREVIEW MODAL ────────────────────────── */
+.modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(5,18,22,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{width:min(100%,900px);max-height:92vh;background:rgba(12,42,52,0.98);border:1px solid rgba(255,255,255,0.18);border-radius:24px;box-shadow:0 40px 100px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 16px;border-bottom:1px solid var(--line)}
+.modal-head h3{font-size:17px;font-weight:700;margin-bottom:3px}
+.modal-head p{font-size:12px;color:var(--muted);line-height:1.5}
+.modal-close{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,0.07);color:var(--muted-b);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .18s}
+.modal-close:hover{background:rgba(255,255,255,0.14);color:#fff}
+.modal-close svg{width:18px;height:18px}
+.modal-body{flex:1;overflow:auto;padding:20px 24px}
+.cert-preview-img{width:100%;border-radius:12px;border:1px solid var(--line);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.modal-foot-meta{font-size:12px;color:var(--muted);line-height:1.6}
+.modal-foot-actions{display:flex;gap:8px}
+.mbtn{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;border:0}
+.mbtn-primary{background:var(--teal-500);color:#fff}
+.mbtn-primary:hover{background:var(--teal-600);transform:translateY(-1px)}
+.mbtn-ghost{background:rgba(255,255,255,0.08);color:var(--muted-b);border:1px solid var(--line)}
+.mbtn-ghost:hover{background:rgba(255,255,255,0.14);color:#fff}
+.mbtn svg{width:15px;height:15px}
+
+/* ─── SUMMARY PANEL ─────────────────────────────── */
+.summary-panel{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-bottom:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;position:relative;overflow:hidden;backdrop-filter:blur(12px)}
+.summary-panel::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(49,158,169,0.06),transparent);pointer-events:none}
+.sp-item{padding:12px 18px;position:relative}
+.sp-item+.sp-item::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--line)}
+.sp-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px}
+.sp-val{font-size:28px;font-weight:300;line-height:1;margin-bottom:4px}
+.sp-sub{font-size:11.5px;color:var(--muted)}
+.sp-val.gold{color:var(--gold)}
+.sp-val.green{color:var(--green)}
+.sp-val.amber{color:var(--amber)}
+
+/* ─── RESPONSIVE ────────────────────────────────── */
+@media(max-width:900px){
+  .page-hero{grid-template-columns:1fr}
+  .hero-right{align-items:flex-start;flex-direction:row}
+  .summary-panel{grid-template-columns:1fr 1fr}
+  .sp-item+.sp-item::before{display:none}
+}
+@media(max-width:600px){
+  .cert-grid{grid-template-columns:1fr}
+  .summary-panel{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:18px}
+  .avatar-info{display:none}
+  .modal-box{border-radius:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg" aria-hidden="true"></div>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+  <a class="nav-brand" href="dashboard.html">
+    <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    <div class="nav-brand-text">
+      <strong>OneConnect</strong>
+      <span>CBQA Global Platform</span>
+    </div>
+  </a>
+  <div class="nav-sep"></div>
+  <div class="nav-links">
+    <a class="nav-item" href="dashboard.html">
+      <svg viewBox="0 0 24 24"><path d="M10 19v-5h4v5h5v-7h3L12 3 2 12h3v7h5Z"/></svg>
+      Home
+    </a>
+    <a class="nav-item" href="account-settings.html">
+      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
+      My Profile
+    </a>
+    <a class="nav-item active-page" href="my-certifications.html">
+      <svg viewBox="0 0 24 24"><path d="M12 1 9 9H1l6.6 4.8L5.2 22 12 17l6.8 5-2.4-8.2L22 9h-8L12 1Z"/></svg>
+      My Certifications
+    </a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-avatar">
+      <div class="avatar-circle">PT</div>
+      <div class="avatar-info">
+        <strong>PT. Nexora Tech</strong>
+        <span>Enterprise Client</span>
+      </div>
+    </div>
+    <a class="nav-logout" href="login.html">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
+      Logout
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════ CONTENT ═══════════ -->
+<div class="page-wrap">
+
+  <div class="breadcrumb">
+    <a href="dashboard.html">Home</a>
+    <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+    <a href="account-settings.html">My Profile</a>
+    <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+    <span>My Certifications</span>
+  </div>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div>
+      <div class="hero-eyebrow">Certification Portfolio</div>
+      <h1>My Certifications</h1>
+      <p>All your ISO certifications issued and managed by CBQA Global. Download, share, or verify each certificate directly from this page.</p>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num" style="color:var(--green)">2</div><div class="hstat-lbl">Active</div></div>
+        <div class="hstat"><div class="hstat-num" style="color:var(--amber)">1</div><div class="hstat-lbl">In Progress</div></div>
+        <div class="hstat"><div class="hstat-num" style="color:var(--muted)">1</div><div class="hstat-lbl">Expired</div></div>
+        <div class="hstat"><div class="hstat-num" style="color:var(--gold)">4</div><div class="hstat-lbl">Total</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="cert-seal">
+        <svg viewBox="0 0 24 24"><path d="M12 1 9 9H1l6.6 4.8L5.2 22 12 17l6.8 5-2.4-8.2L22 9h-8L12 1Z"/></svg>
+        <span>CBQA<br>Certified</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Panel -->
+  <div class="summary-panel">
+    <div class="sp-item">
+      <div class="sp-label">Total Certified</div>
+      <div class="sp-val gold">4</div>
+      <div class="sp-sub">Standards achieved</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">Currently Active</div>
+      <div class="sp-val green">2</div>
+      <div class="sp-sub">Valid certificates</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">Next Renewal</div>
+      <div class="sp-val amber" style="font-size:20px;padding-top:4px">Mar 2027</div>
+      <div class="sp-sub">ISO/IEC 27001:2022</div>
+    </div>
+    <div class="sp-item">
+      <div class="sp-label">Accreditation Body</div>
+      <div class="sp-val" style="font-size:18px;padding-top:4px;color:#fff">KAN</div>
+      <div class="sp-sub">CBQA Global · Indonesia</div>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-bar-left">
+      <button class="ftab active" onclick="filterCerts('all',this)">All <span class="ftab-count">4</span></button>
+      <button class="ftab" onclick="filterCerts('active',this)">Active <span class="ftab-count">2</span></button>
+      <button class="ftab" onclick="filterCerts('progress',this)">In Progress <span class="ftab-count">1</span></button>
+      <button class="ftab" onclick="filterCerts('expired',this)">Expired <span class="ftab-count">1</span></button>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0Z"/></svg>
+      <input class="search-input" type="search" placeholder="Search certificates..." oninput="searchCerts(this.value)">
+    </div>
+  </div>
+
+  <!-- Certificate Grid -->
+  <div class="cert-grid" id="certGrid">
+
+    <!-- ★ CERT 1: ISO 27001 — ACTIVE (with real thumbnail) -->
+    <div class="cert-card" data-status="active" data-name="iso 27001 information security isms">
+      <div class="cert-thumb" onclick="openPreview('iso27001')">
+        <img src="assets/oneconnect/cert_iso27001_sample.png" alt="ISO 27001 Certificate" loading="lazy">
+        <div class="cert-ribbon">
+          <div class="ribbon-pill rp-active"><div class="ribbon-dot rd-active"></div>Active</div>
+        </div>
+        <div class="cert-num-badge">ISMS1001765</div>
+        <div class="cert-thumb-overlay">
+          <div class="thumb-action" onclick="event.stopPropagation();openPreview('iso27001')">
+            <div class="thumb-action-btn teal-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5ZM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+            </div>
+            <span>Preview</span>
+          </div>
+          <div class="thumb-action" onclick="event.stopPropagation();downloadCert('iso27001')">
+            <div class="thumb-action-btn">
+              <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm7-18-7 7h4v6h6v-6h4l-7-7Z" transform="rotate(180,12,12)"/><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg>
+            </div>
+            <span>Download</span>
+          </div>
+          <div class="thumb-action" onclick="event.stopPropagation();shareCert('iso27001')">
+            <div class="thumb-action-btn">
+              <svg viewBox="0 0 24 24"><path d="M18 16.1a3 3 0 0 0-2 .8l-7.1-4.2a3 3 0 0 0 0-1.4L16 7.1a3 3 0 1 0-.7-1.9l-7.2 4.2A3 3 0 1 0 8 15l7.1 4.2a3 3 0 1 0 2.9-3.1Z"/></svg>
+            </div>
+            <span>Share</span>
+          </div>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-header">
+          <div class="cert-icon ci-teal"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
+          <div class="cert-standard-code">ISO/IEC 27001:2022</div>
+        </div>
+        <div>
+          <div class="cert-name">Information Security Management System</div>
+          <div class="cert-system">ISMS · KAN Accredited · CBQA Global</div>
+        </div>
+        <div class="cert-info-grid">
+          <div class="cert-info-item">
+            <div class="cert-info-label">Issued Date</div>
+            <div class="cert-info-value">25 March 2026</div>
+          </div>
+          <div class="cert-info-item">
+            <div class="cert-info-label">Expiry Date</div>
+            <div class="cert-info-value">22 March 2029</div>
+          </div>
+          <div class="cert-info-item full">
+            <div class="cert-info-label">Scope of Certification</div>
+            <div class="cert-info-value">ISMS for The Provision of Operational Marketplace on Orami Application and Website</div>
+          </div>
+        </div>
+        <div class="expiry-wrap">
+          <div class="expiry-label"><span>Validity period</span><strong>~35 months remaining</strong></div>
+          <div class="expiry-track"><div class="expiry-fill ef-good" style="width:96%"></div></div>
+        </div>
+        <div class="cert-footer">
+          <button class="cfooter-btn cfb-primary" onclick="openPreview('iso27001')">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5ZM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+            View Certificate
+          </button>
+          <button class="cfooter-btn cfb-ghost" onclick="downloadCert('iso27001')">
+            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg>
+            Download
+          </button>
+          <button class="cfb-icon" onclick="shareCert('iso27001')" title="Share">
+            <svg viewBox="0 0 24 24"><path d="M18 16.1a3 3 0 0 0-2 .8l-7.1-4.2a3 3 0 0 0 0-1.4L16 7.1a3 3 0 1 0-.7-1.9l-7.2 4.2A3 3 0 1 0 8 15l7.1 4.2a3 3 0 1 0 2.9-3.1Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ CERT 2: ISO 45001 — ACTIVE -->
+    <div class="cert-card" data-status="active" data-name="iso 45001 occupational health safety ohs">
+      <div class="cert-thumb" onclick="openPreview('iso45001')">
+        <div class="cert-thumb-placeholder">
+          <svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>
+          <span>Certificate Preview</span>
+        </div>
+        <div class="cert-ribbon">
+          <div class="ribbon-pill rp-active"><div class="ribbon-dot rd-active"></div>Active</div>
+        </div>
+        <div class="cert-num-badge">OHS1000892</div>
+        <div class="cert-thumb-overlay">
+          <div class="thumb-action" onclick="event.stopPropagation();openPreview('iso45001')">
+            <div class="thumb-action-btn teal-btn"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5Z"/></svg></div>
+            <span>Preview</span>
+          </div>
+          <div class="thumb-action" onclick="event.stopPropagation();downloadCert('iso45001')">
+            <div class="thumb-action-btn"><svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg></div>
+            <span>Download</span>
+          </div>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-header">
+          <div class="cert-icon ci-green"><svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
+          <div class="cert-standard-code" style="background:rgba(110,231,183,0.12);border-color:rgba(110,231,183,0.22);color:#6ee7b7">ISO 45001:2018</div>
+        </div>
+        <div>
+          <div class="cert-name">Occupational Health & Safety Management System</div>
+          <div class="cert-system">OHS · KAN Accredited · CBQA Global</div>
+        </div>
+        <div class="cert-info-grid">
+          <div class="cert-info-item">
+            <div class="cert-info-label">Issued Date</div>
+            <div class="cert-info-value">14 June 2024</div>
+          </div>
+          <div class="cert-info-item">
+            <div class="cert-info-label">Expiry Date</div>
+            <div class="cert-info-value">13 June 2027</div>
+          </div>
+          <div class="cert-info-item full">
+            <div class="cert-info-label">Scope of Certification</div>
+            <div class="cert-info-value">Workplace safety management for all operational sites and office locations</div>
+          </div>
+        </div>
+        <div class="expiry-wrap">
+          <div class="expiry-label"><span>Validity period</span><strong>~25 months remaining</strong></div>
+          <div class="expiry-track"><div class="expiry-fill ef-good" style="width:70%"></div></div>
+        </div>
+        <div class="cert-footer">
+          <button class="cfooter-btn cfb-primary" onclick="openPreview('iso45001')">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5ZM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/></svg>
+            View Certificate
+          </button>
+          <button class="cfooter-btn cfb-ghost" onclick="downloadCert('iso45001')">
+            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg>
+            Download
+          </button>
+          <button class="cfb-icon" onclick="shareCert('iso45001')" title="Share"><svg viewBox="0 0 24 24"><path d="M18 16.1a3 3 0 0 0-2 .8l-7.1-4.2a3 3 0 0 0 0-1.4L16 7.1a3 3 0 1 0-.7-1.9l-7.2 4.2A3 3 0 1 0 8 15l7.1 4.2a3 3 0 1 0 2.9-3.1Z"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ CERT 3: ISO 9001 — EXPIRED -->
+    <div class="cert-card" data-status="expired" data-name="iso 9001 quality management system qms">
+      <div class="cert-thumb" onclick="openPreview('iso9001')">
+        <div class="cert-thumb-placeholder" style="background:linear-gradient(135deg,rgba(248,113,113,0.10),rgba(14,45,53,0.9))">
+          <svg viewBox="0 0 24 24" style="color:rgba(248,113,113,0.4)"><path d="M9 17H7v-7h2v7Zm4 0h-2V7h2v10Zm4 0h-2v-4h2v4Zm2 2H5V5h14v14Z"/></svg>
+          <span>Expired Certificate</span>
+        </div>
+        <div class="cert-ribbon">
+          <div class="ribbon-pill rp-expired"><div class="ribbon-dot rd-expired"></div>Expired</div>
+        </div>
+        <div class="cert-num-badge">QMS1000344</div>
+        <div class="cert-thumb-overlay">
+          <div class="thumb-action" onclick="event.stopPropagation();downloadCert('iso9001')">
+            <div class="thumb-action-btn"><svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg></div>
+            <span>Download</span>
+          </div>
+          <div class="thumb-action" onclick="event.stopPropagation();renewCert('iso9001')">
+            <div class="thumb-action-btn" style="background:rgba(245,200,66,0.25);border-color:rgba(245,200,66,0.5)"><svg viewBox="0 0 24 24" style="color:#fcd34d"><path d="M12 6v3l4-4-4-4v3a8 8 0 0 0-8 8 8 8 0 0 0 1.3 4.4L6.7 15A6 6 0 0 1 6 12a6 6 0 0 1 6-6Zm6.7.6L17.3 9A6 6 0 0 1 18 12a6 6 0 0 1-6 6v-3l-4 4 4 4v-3a8 8 0 0 0 8-8 8 8 0 0 0-1.3-4.4Z"/></svg></div>
+            <span>Renew</span>
+          </div>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-header">
+          <div class="cert-icon ci-amber"><svg viewBox="0 0 24 24"><path d="M9 17H7v-7h2v7Zm4 0h-2V7h2v10Zm4 0h-2v-4h2v4Zm2 2H5V5h14v14Zm0-16H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg></div>
+          <div class="cert-standard-code" style="background:rgba(252,211,77,0.12);border-color:rgba(252,211,77,0.22);color:#fcd34d">ISO 9001:2015</div>
+        </div>
+        <div>
+          <div class="cert-name">Quality Management System</div>
+          <div class="cert-system">QMS · KAN Accredited · CBQA Global</div>
+        </div>
+        <div class="cert-info-grid">
+          <div class="cert-info-item">
+            <div class="cert-info-label">Issued Date</div>
+            <div class="cert-info-value">10 March 2021</div>
+          </div>
+          <div class="cert-info-item">
+            <div class="cert-info-label">Expired</div>
+            <div class="cert-info-value" style="color:#fca5a5">9 March 2024</div>
+          </div>
+          <div class="cert-info-item full">
+            <div class="cert-info-label">Scope of Certification</div>
+            <div class="cert-info-value">Quality management for product development and customer delivery services</div>
+          </div>
+        </div>
+        <div class="expiry-wrap">
+          <div class="expiry-label"><span>Validity period</span><strong style="color:#fca5a5">Expired 14 months ago</strong></div>
+          <div class="expiry-track"><div class="expiry-fill ef-danger" style="width:100%"></div></div>
+        </div>
+        <div class="cert-footer">
+          <button class="cfooter-btn cfb-ghost" onclick="downloadCert('iso9001')">
+            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg>
+            Download
+          </button>
+          <button class="cfooter-btn cfb-primary" style="background:rgba(245,200,66,0.8);color:#0e2d35" onclick="renewCert('iso9001')">
+            <svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3a8 8 0 0 0-8 8 8 8 0 0 0 1.3 4.4L6.7 15A6 6 0 0 1 6 12a6 6 0 0 1 6-6Zm6.7.6L17.3 9A6 6 0 0 1 18 12a6 6 0 0 1-6 6v-3l-4 4 4 4v-3a8 8 0 0 0 8-8 8 8 0 0 0-1.3-4.4Z"/></svg>
+            Renew Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ CERT 4: ISO 27001 — IN PROGRESS (surveillance) -->
+    <div class="cert-card" data-status="progress" data-name="iso 27001 information security surveillance audit">
+      <div class="cert-thumb">
+        <div class="cert-thumb-placeholder" style="background:linear-gradient(135deg,rgba(252,211,77,0.10),rgba(14,45,53,0.9))">
+          <svg viewBox="0 0 24 24" style="color:rgba(252,211,77,0.5)"><path d="M12 .5a11.5 11.5 0 1 0 0 23A11.5 11.5 0 0 0 12 .5Zm.5 17.5h-1v-6h1v6Zm0-8h-1V8h1v2Z"/></svg>
+          <span>Certificate Pending Issuance</span>
+        </div>
+        <div class="cert-ribbon">
+          <div class="ribbon-pill rp-progress"><div class="ribbon-dot rd-progress"></div>Surveillance Audit</div>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-header">
+          <div class="cert-icon ci-teal"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
+          <div class="cert-standard-code">ISO/IEC 27001:2022</div>
+        </div>
+        <div>
+          <div class="cert-name">Information Security — Surveillance Year 1</div>
+          <div class="cert-system">ISMS · Surveillance Audit · CBQA Global</div>
+        </div>
+        <div class="cert-info-grid">
+          <div class="cert-info-item">
+            <div class="cert-info-label">Audit Date</div>
+            <div class="cert-info-value">March 2027</div>
+          </div>
+          <div class="cert-info-item">
+            <div class="cert-info-label">Status</div>
+            <div class="cert-info-value" style="color:#fcd34d">Scheduled</div>
+          </div>
+          <div class="cert-info-item full">
+            <div class="cert-info-label">Current Phase</div>
+            <div class="cert-info-value">Preparation · Self-assessment in progress (72% complete)</div>
+          </div>
+        </div>
+        <div class="expiry-wrap">
+          <div class="expiry-label"><span>Assessment readiness</span><strong style="color:#fcd34d">72% complete</strong></div>
+          <div class="expiry-track"><div class="expiry-fill ef-warn" style="width:72%"></div></div>
+        </div>
+        <div class="cert-footer">
+          <button class="cfooter-btn cfb-primary" onclick="window.location.href='selfasesment_iso27001.html'">
+            <svg viewBox="0 0 24 24"><path d="M9 7h6v2H9V7Zm0 4h6v2H9v-2Zm0 4h4v2H9v-2ZM5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/></svg>
+            Continue Assessment
+          </button>
+          <button class="cfooter-btn cfb-ghost" onclick="showToast('Consultant notified. You will be contacted within 24 hours.')">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2c1.1.4 2.3.6 3.6.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.3.2 2.5.6 3.6a1 1 0 0 1-.2 1L6.6 10.8Z"/></svg>
+            Contact Auditor
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end cert-grid -->
+
+</div><!-- end page-wrap -->
+
+<!-- ═══════════ PREVIEW MODAL ═══════════ -->
+<div class="modal-overlay" id="previewModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="modalTitle">Certificate Preview</h3>
+        <p id="modalSub">CBQA Global · Issued Certificate</p>
+      </div>
+      <button class="modal-close" onclick="closePreview()">
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImg" class="cert-preview-img" src="" alt="Certificate Preview">
+      <div id="modalNoImg" style="display:none;padding:60px 0;text-align:center;color:var(--muted)">
+        <svg viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"/></svg>
+        <p style="font-size:14px">Certificate preview not available.<br>Use the download button to access the PDF.</p>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div class="modal-foot-meta" id="modalMeta">
+        Certificate No: ISMS1001765 · Issued: 25 March 2026 · Expires: 22 March 2029
+      </div>
+      <div class="modal-foot-actions">
+        <button class="mbtn mbtn-ghost" onclick="closePreview()">Close</button>
+        <button class="mbtn mbtn-ghost" id="modalShareBtn" onclick="shareCert(currentCert)">
+          <svg viewBox="0 0 24 24"><path d="M18 16.1a3 3 0 0 0-2 .8l-7.1-4.2a3 3 0 0 0 0-1.4L16 7.1a3 3 0 1 0-.7-1.9l-7.2 4.2A3 3 0 1 0 8 15l7.1 4.2a3 3 0 1 0 2.9-3.1Z"/></svg>
+          Share
+        </button>
+        <button class="mbtn mbtn-primary" id="modalDownloadBtn" onclick="downloadCert(currentCert)">
+          <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm4-7v-6h6v6h4l-7 7-7-7h4Z"/></svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" style="position:fixed;bottom:28px;right:28px;z-index:999;background:rgba(14,50,60,0.97);border:1px solid rgba(49,158,169,0.4);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;font-size:13.5px;box-shadow:0 16px 48px rgba(0,0,0,0.4);backdrop-filter:blur(16px);transform:translateY(20px);opacity:0;transition:all .3s ease;pointer-events:none">
+  <div style="width:28px;height:28px;border-radius:8px;background:rgba(110,231,183,0.16);color:#6ee7b7;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+    <svg viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+  </div>
+  <span id="toastMsg">Done.</span>
+</div>
+
+<script>
+// ─── CERT DATA ────────────────────────────────────────────────────────────────
+const certData = {
+  iso27001: {
+    title: 'ISO/IEC 27001:2022 — ISMS',
+    sub: 'Certificate No: ISMS1001765 · Issued: 25 March 2026 · Expires: 22 March 2029',
+    img: 'assets/oneconnect/cert_iso27001_sample.png',
+    pdf: 'assets/oneconnect/cert_iso27001_sample.pdf',
+    filename: 'Certificate_ISO27001_PT_Nexora_Tech.pdf'
+  },
+  iso45001: {
+    title: 'ISO 45001:2018 — OHS Management',
+    sub: 'Certificate No: OHS1000892 · Issued: 14 June 2024 · Expires: 13 June 2027',
+    img: null,
+    pdf: null,
+    filename: 'Certificate_ISO45001_PT_Nexora_Tech.pdf'
+  },
+  iso9001: {
+    title: 'ISO 9001:2015 — Quality Management',
+    sub: 'Certificate No: QMS1000344 · Issued: 10 March 2021 · Expired: 9 March 2024',
+    img: null,
+    pdf: null,
+    filename: 'Certificate_ISO9001_PT_Nexora_Tech.pdf'
+  }
+};
+
+let currentCert = null;
+
+// ─── FILTER ───────────────────────────────────────────────────────────────────
+function filterCerts(status, btn) {
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cert-card').forEach(card => {
+    const show = status === 'all' || card.dataset.status === status;
+    card.style.display = show ? '' : 'none';
+  });
+}
+
+function searchCerts(val) {
+  const q = val.toLowerCase();
+  document.querySelectorAll('.cert-card').forEach(card => {
+    card.style.display = !q || card.dataset.name.includes(q) ? '' : 'none';
+  });
+}
+
+// ─── PREVIEW MODAL ────────────────────────────────────────────────────────────
+function openPreview(id) {
+  const d = certData[id];
+  if (!d) return;
+  currentCert = id;
+  document.getElementById('modalTitle').textContent = d.title;
+  document.getElementById('modalSub').textContent = 'CBQA Global — Issued Certificate';
+  document.getElementById('modalMeta').textContent = d.sub;
+  const img = document.getElementById('modalImg');
+  const noImg = document.getElementById('modalNoImg');
+  if (d.img) {
+    img.src = d.img;
+    img.style.display = 'block';
+    noImg.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    noImg.style.display = 'block';
+  }
+  document.getElementById('previewModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  document.getElementById('previewModal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentCert = null;
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('previewModal')) closePreview();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePreview(); });
+
+// ─── DOWNLOAD ─────────────────────────────────────────────────────────────────
+function downloadCert(id) {
+  const d = certData[id];
+  if (!d) return;
+  if (d.pdf) {
+    const a = document.createElement('a');
+    a.href = d.pdf;
+    a.download = d.filename;
+    a.click();
+    showToast('Downloading ' + d.filename);
+  } else {
+    showToast('Certificate PDF will be available once issued by CBQA Global.');
+  }
+}
+
+// ─── SHARE ────────────────────────────────────────────────────────────────────
+function shareCert(id) {
+  const d = certData[id];
+  if (!d) return;
+  if (navigator.share) {
+    navigator.share({ title: d.title, text: 'View my ' + d.title + ' certificate issued by CBQA Global.', url: window.location.href });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href);
+    showToast('Certificate link copied to clipboard.');
+  } else {
+    showToast('Share link: ' + window.location.href);
+  }
+}
+
+// ─── RENEW ────────────────────────────────────────────────────────────────────
+function renewCert(id) {
+  showToast('Renewal request sent to CBQA Global. A consultant will contact you shortly.');
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  clearTimeout(toastTimer);
+  t.style.transform = 'translateY(0)';
+  t.style.opacity = '1';
+  toastTimer = setTimeout(() => { t.style.transform = 'translateY(20px)'; t.style.opacity = '0'; }, 3200);
+}
+
+// ─── ANIMATE PROGRESS BARS ────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  document.querySelectorAll('.expiry-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.transition = 'width 1s ease'; bar.style.width = w; }, 300);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Training Records — OneConnect by CBQA Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ── TOKENS ─────────────────────────────────────── */
+  :root {
+    --navy:       #0e2d35;
+    --teal-600:   #1f7a86;
+    --teal-500:   #319ea9;
+    --teal-400:   #48b8c4;
+    --teal-300:   #7fd0d8;
+    --green-500:  #48b795;
+    --amber-500:  #e07b20;
+    --red-500:    #d94f4f;
+    --purple-500: #7c5cbf;
+    --bg:         #12333b;
+    --surface:    rgba(255,255,255,0.07);
+    --surface-2:  rgba(255,255,255,0.12);
+    --border:     rgba(255,255,255,0.13);
+    --border-2:   rgba(255,255,255,0.22);
+    --text-1:     #e8f4f6;
+    --text-2:     rgba(232,244,246,0.70);
+    --text-3:     rgba(232,244,246,0.45);
+    --radius:     14px;
+    --radius-sm:  8px;
+    --shadow:     0 8px 32px rgba(0,0,0,0.35);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-1); min-height: 100vh; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── NAVBAR ─────────────────────────────────────── */
+  .navbar {
+    position: sticky; top: 0; z-index: 200;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 32px; height: 62px;
+    background: rgba(14,45,53,0.82); backdrop-filter: blur(22px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--teal-400); font-size: 13px; font-weight: 500;
+    padding: 6px 10px; border-radius: 8px; transition: background 0.2s;
+  }
+  .nav-back:hover { background: var(--surface-2); }
+  .nav-back svg { width: 16px; height: 16px; fill: currentColor; }
+  .nav-divider { width: 1px; height: 20px; background: var(--border); }
+  .nav-title { font-size: 15px; font-weight: 600; }
+  .nav-brand { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .brand-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal-500); }
+  .brand-name { font-size: 13px; font-weight: 700; color: var(--teal-400); letter-spacing: 0.5px; }
+
+  /* ── PAGE HEADER ─────────────────────────────────── */
+  .page-header {
+    background: linear-gradient(135deg, rgba(49,158,169,0.14) 0%, transparent 60%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 40px 32px;
+  }
+  .breadcrumb {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 18px;
+    font-size: 12px; color: var(--text-3);
+  }
+  .breadcrumb a { color: var(--teal-400); }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb svg { width: 12px; height: 12px; fill: var(--text-3); }
+  .page-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; color: var(--text-2); }
+  .header-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+  /* ── STAT STRIP ──────────────────────────────────── */
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;
+    padding: 28px 40px;
+    background: rgba(0,0,0,0.12);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--teal-400); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+
+  /* ── MAIN ─────────────────────────────────────────── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 36px 40px 80px; }
+
+  /* ── SECTION LABEL ───────────────────────────────── */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--teal-400); margin-bottom: 18px;
+  }
+
+  /* ── CPD PROGRESS ─────────────────────────────────── */
+  .cpd-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 32px; margin-bottom: 40px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+  @media (max-width: 640px) { .cpd-card { grid-template-columns: 1fr; } }
+  .cpd-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .cpd-sub { font-size: 13px; color: var(--text-2); margin-bottom: 18px; }
+  .cpd-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 99px; height: 10px; position: relative; overflow: hidden; margin-bottom: 10px; }
+  .cpd-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal-500), var(--teal-400)); transition: width 1.2s ease; width: 0; }
+  .cpd-bar-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-2); }
+  .cpd-bar-label strong { color: var(--teal-400); }
+  .cpd-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .cpd-ring { position: relative; width: 110px; height: 110px; }
+  .cpd-ring svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+  .cpd-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 10; }
+  .cpd-ring-fg { fill: none; stroke: var(--teal-400); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 283; stroke-dashoffset: 283; transition: stroke-dashoffset 1.4s ease; }
+  .cpd-ring-label {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .cpd-ring-label span { font-size: 20px; font-weight: 800; color: var(--teal-400); line-height: 1; }
+  .cpd-ring-label small { font-size: 10px; color: var(--text-2); font-weight: 500; }
+  .cpd-ring-year { font-size: 12px; font-weight: 600; color: var(--text-2); }
+
+  /* ── FILTERS ──────────────────────────────────────── */
+  .filter-row {
+    display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 24px;
+    justify-content: space-between;
+  }
+  .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ftab {
+    padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-2); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ftab.active, .ftab:hover { background: rgba(49,158,169,0.15); border-color: var(--teal-500); color: var(--teal-400); }
+  .filter-search {
+    padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-1); font-size: 13px; font-family: inherit;
+    outline: none; min-width: 200px; transition: border-color 0.2s;
+  }
+  .filter-search:focus { border-color: var(--teal-500); }
+  .filter-search::placeholder { color: var(--text-3); }
+
+  /* ── RECORD TABLE ─────────────────────────────────── */
+  .records-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 48px;
+  }
+  .records-table { width: 100%; border-collapse: collapse; }
+  .records-table th {
+    padding: 14px 18px; text-align: left; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--text-3);
+    background: rgba(0,0,0,0.15); border-bottom: 1px solid var(--border);
+  }
+  .records-table td {
+    padding: 16px 18px; font-size: 13.5px; color: var(--text-1);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    vertical-align: middle;
+  }
+  .records-table tr:last-child td { border-bottom: none; }
+  .records-table tr { transition: background 0.15s; }
+  .records-table tr:hover td { background: rgba(255,255,255,0.04); }
+  .records-table tr[style*="display:none"] { display: none !important; }
+
+  /* Course title cell */
+  .course-cell { display: flex; flex-direction: column; gap: 3px; }
+  .course-name { font-weight: 600; color: var(--text-1); }
+  .course-provider { font-size: 12px; color: var(--text-3); }
+
+  /* Badge */
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .badge-completed { background: rgba(72,183,149,0.15); color: var(--green-500); border: 1px solid rgba(72,183,149,0.25); }
+  .badge-in-progress { background: rgba(49,158,169,0.15); color: var(--teal-400); border: 1px solid rgba(49,158,169,0.25); }
+  .badge-expired { background: rgba(217,79,79,0.15); color: var(--red-500); border: 1px solid rgba(217,79,79,0.25); }
+  .badge-enrolled { background: rgba(224,123,32,0.15); color: var(--amber-500); border: 1px solid rgba(224,123,32,0.25); }
+
+  /* Type pill */
+  .type-pill {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+    background: var(--surface-2); color: var(--text-2);
+  }
+
+  /* CPD hours */
+  .cpd-hours { font-weight: 700; color: var(--teal-400); }
+
+  /* Action btn */
+  .btn-row { display: flex; gap: 8px; align-items: center; }
+  .btn-sm {
+    padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text-2); font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: all 0.2s; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .btn-sm svg { width: 13px; height: 13px; fill: currentColor; }
+  .btn-sm:hover { background: var(--surface-2); border-color: var(--teal-500); color: var(--text-1); }
+  .btn-sm.primary { background: rgba(49,158,169,0.15); border-color: rgba(49,158,169,0.30); color: var(--teal-400); }
+  .btn-sm.primary:hover { background: rgba(49,158,169,0.25); }
+
+  /* Empty row */
+  .empty-row td { text-align: center; padding: 40px; color: var(--text-3); font-size: 14px; }
+
+  /* ── LEARNING PATH ────────────────────────────────── */
+  .lp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .lp-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px; transition: all 0.25s;
+    cursor: pointer;
+  }
+  .lp-card:hover { border-color: var(--teal-500); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .lp-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .lp-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lp-icon svg { width: 22px; height: 22px; fill: #fff; }
+  .lp-meta h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .lp-meta span { font-size: 12px; color: var(--text-3); }
+  .lp-progress-bar { height: 6px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 8px; }
+  .lp-progress-fill { height: 100%; border-radius: 99px; transition: width 1.2s ease; width: 0; }
+  .lp-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-2); }
+  .lp-progress-label strong { color: var(--text-1); font-weight: 600; }
+
+  /* ── CERTIFICATES EARNED ─────────────────────────── */
+  .cert-strip { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+  .cert-chip {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 18px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cert-chip:hover { border-color: var(--teal-500); background: var(--surface-2); }
+  .cert-chip-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cert-chip-icon svg { width: 18px; height: 18px; fill: #fff; }
+  .cert-chip-text strong { display: block; font-size: 13px; font-weight: 700; }
+  .cert-chip-text span { font-size: 11px; color: var(--text-3); }
+  .cert-chip-arrow { margin-left: 8px; color: var(--text-3); font-size: 14px; }
+
+  /* ── TOAST ────────────────────────────────────────── */
+  .toast-wrap { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+  .toast {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(20,55,65,0.96); backdrop-filter: blur(16px);
+    border: 1px solid var(--border-2); border-radius: 10px;
+    padding: 14px 18px; box-shadow: var(--shadow); min-width: 260px;
+    animation: toastIn 0.3s ease;
+  }
+  @keyframes toastIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .toast svg { width: 18px; height: 18px; fill: var(--green-500); flex-shrink: 0; }
+  .toast p { font-size: 13px; color: var(--text-1); }
+
+  @media (max-width: 768px) {
+    .page-header, .stat-strip, .main { padding-left: 20px; padding-right: 20px; }
+    .records-table th:nth-child(3), .records-table td:nth-child(3),
+    .records-table th:nth-child(4), .records-table td:nth-child(4) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-back" href="dashboard.html">
+    <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59Z"/></svg>
+    Dashboard
+  </a>
+  <div class="nav-divider"></div>
+  <span class="nav-title">Training Records</span>
+  <div class="nav-brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">ONECONNECT</span>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="dashboard.html">Home</a>
+    <svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41Z"/></svg>
+    <span>My Profile</span>
+    <svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41Z"/></svg>
+    <span>Training Records</span>
+  </div>
+  <div class="header-row">
+    <div>
+      <h1>Training Records</h1>
+      <p>Your complete professional development history, CPD hours, and learning achievements.</p>
+    </div>
+    <button class="btn-sm primary" style="font-size:13px;padding:10px 18px;" onclick="exportRecords()">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7Zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11Zm-6 8v2h14v-2H5Z"/></svg>
+      Export PDF
+    </button>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-item">
+    <div class="stat-num" id="s1">0</div>
+    <div class="stat-label">Courses Completed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="s2">0</div>
+    <div class="stat-label">CPD Hours Earned</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="s3">0</div>
+    <div class="stat-label">Certificates Earned</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="s4">0</div>
+    <div class="stat-label">In Progress</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" id="s5">0</div>
+    <div class="stat-label">Years of CPD</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- CPD PROGRESS -->
+  <p class="section-label">CPD Progress — 2026</p>
+  <div class="cpd-card">
+    <div>
+      <div class="cpd-title">Continuing Professional Development (CPD) Target</div>
+      <div class="cpd-sub">Annual CPD requirement: 40 hours · Current year: 2026</div>
+      <div class="cpd-bar-wrap">
+        <div class="cpd-bar" id="cpdBar"></div>
+      </div>
+      <div class="cpd-bar-label">
+        <span><strong id="cpdDone">0</strong> hours completed</span>
+        <span>Target: <strong>40 hrs</strong></span>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:20px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--green-500);"></div>
+          <span style="font-size:12px;color:var(--text-2);">Completed: <strong style="color:var(--text-1);">28 hrs</strong></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--teal-400);"></div>
+          <span style="font-size:12px;color:var(--text-2);">In Progress: <strong style="color:var(--text-1);">8 hrs</strong></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.12);"></div>
+          <span style="font-size:12px;color:var(--text-2);">Remaining: <strong style="color:var(--text-1);">12 hrs</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="cpd-ring-wrap">
+      <div class="cpd-ring">
+        <svg viewBox="0 0 100 100">
+          <circle class="cpd-ring-bg" cx="50" cy="50" r="45"/>
+          <circle class="cpd-ring-fg" id="cpdRing" cx="50" cy="50" r="45"/>
+        </svg>
+        <div class="cpd-ring-label">
+          <span id="cpdPct">0%</span>
+          <small>of target</small>
+        </div>
+      </div>
+      <div class="cpd-ring-year">Year 2026</div>
+    </div>
+  </div>
+
+  <!-- TRAINING RECORDS TABLE -->
+  <p class="section-label">Training History</p>
+  <div class="filter-row">
+    <div class="filter-tabs">
+      <div class="ftab active" onclick="filterRecords('all',this)">All</div>
+      <div class="ftab" onclick="filterRecords('completed',this)">Completed</div>
+      <div class="ftab" onclick="filterRecords('in-progress',this)">In Progress</div>
+      <div class="ftab" onclick="filterRecords('enrolled',this)">Enrolled</div>
+    </div>
+    <input class="filter-search" type="text" placeholder="Search courses…" oninput="searchRecords(this.value)" />
+  </div>
+
+  <div class="records-wrap">
+    <table class="records-table" id="recordsTable">
+      <thead>
+        <tr>
+          <th>Course / Programme</th>
+          <th>Type</th>
+          <th>Completed</th>
+          <th>CPD Hours</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="recordsBody">
+        <!-- Completed -->
+        <tr data-status="completed" data-name="ISO/IEC 27001:2022 Lead Implementer">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">ISO/IEC 27001:2022 Lead Implementer</span>
+              <span class="course-provider">CBQA Academy · Certificate No: ISMS1001765</span>
+            </div>
+          </td>
+          <td><span class="type-pill">Certification</span></td>
+          <td>25 Mar 2026</td>
+          <td><span class="cpd-hours">16 hrs</span></td>
+          <td><span class="badge badge-completed"><span class="badge-dot" style="background:var(--green-500)"></span>Completed</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="viewCert('iso27001')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5ZM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                Certificate
+              </button>
+              <button class="btn-sm" onclick="downloadRecord('ISO 27001 Lead Implementer')">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7Zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11Zm-6 8v2h14v-2H5Z"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr data-status="completed" data-name="ISO/IEC 42001:2023 AI Management Systems Auditor">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">ISO/IEC 42001:2023 AI Management Systems Auditor</span>
+              <span class="course-provider">CBQA Academy · Exam Score: 88/100</span>
+            </div>
+          </td>
+          <td><span class="type-pill">Certification</span></td>
+          <td>10 Jan 2026</td>
+          <td><span class="cpd-hours">14 hrs</span></td>
+          <td><span class="badge badge-completed"><span class="badge-dot" style="background:var(--green-500)"></span>Completed</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="viewCert('iso42001')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5ZM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                Certificate
+              </button>
+              <button class="btn-sm" onclick="downloadRecord('ISO 42001 Auditor')">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7Zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11Zm-6 8v2h14v-2H5Z"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr data-status="completed" data-name="Risk Management Fundamentals (ISO 31000)">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">Risk Management Fundamentals (ISO 31000)</span>
+              <span class="course-provider">CBQA Academy · Online Self-Paced</span>
+            </div>
+          </td>
+          <td><span class="type-pill">E-Learning</span></td>
+          <td>18 Nov 2025</td>
+          <td><span class="cpd-hours">8 hrs</span></td>
+          <td><span class="badge badge-completed"><span class="badge-dot" style="background:var(--green-500)"></span>Completed</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="showToast('Certificate of Completion downloaded.','success')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5ZM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                Certificate
+              </button>
+              <button class="btn-sm" onclick="downloadRecord('ISO 31000 Fundamentals')">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7Zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11Zm-6 8v2h14v-2H5Z"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr data-status="completed" data-name="GDPR & Privacy by Design">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">GDPR &amp; Privacy by Design</span>
+              <span class="course-provider">CBQA Academy · Live Webinar Series</span>
+            </div>
+          </td>
+          <td><span class="type-pill">Webinar</span></td>
+          <td>03 Sep 2025</td>
+          <td><span class="cpd-hours">6 hrs</span></td>
+          <td><span class="badge badge-completed"><span class="badge-dot" style="background:var(--green-500)"></span>Completed</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="showToast('Certificate of Attendance downloaded.','success')">
+                <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5ZM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                Certificate
+              </button>
+              <button class="btn-sm" onclick="downloadRecord('GDPR Privacy by Design')">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7Zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11Zm-6 8v2h14v-2H5Z"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- In Progress -->
+        <tr data-status="in-progress" data-name="ISO/IEC 27701:2019 Privacy Information Management">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">ISO/IEC 27701:2019 Privacy Information Management</span>
+              <span class="course-provider">CBQA Academy · Progress: 65%</span>
+            </div>
+          </td>
+          <td><span class="type-pill">Certification</span></td>
+          <td>—</td>
+          <td><span class="cpd-hours">— / 16 hrs</span></td>
+          <td><span class="badge badge-in-progress"><span class="badge-dot" style="background:var(--teal-400)"></span>In Progress</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="showToast('Resuming ISO 27701 course…','success')">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                Resume
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr data-status="in-progress" data-name="AI Impact Assessment Practitioner (ISO 42005)">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">AI Impact Assessment Practitioner (ISO 42005)</span>
+              <span class="course-provider">CBQA Academy · Progress: 30%</span>
+            </div>
+          </td>
+          <td><span class="type-pill">E-Learning</span></td>
+          <td>—</td>
+          <td><span class="cpd-hours">— / 10 hrs</span></td>
+          <td><span class="badge badge-in-progress"><span class="badge-dot" style="background:var(--teal-400)"></span>In Progress</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm primary" onclick="showToast('Resuming ISO 42005 course…','success')">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></svg>
+                Resume
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Enrolled -->
+        <tr data-status="enrolled" data-name="Business Continuity Management (ISO 22301)">
+          <td>
+            <div class="course-cell">
+              <span class="course-name">Business Continuity Management (ISO 22301)</span>
+              <span class="course-provider">CBQA Academy · Starts 1 Jun 2026</span>
+            </div>
+          </td>
+          <td><span class="type-pill">Certification</span></td>
+          <td>—</td>
+          <td><span class="cpd-hours">— / 14 hrs</span></td>
+          <td><span class="badge badge-enrolled"><span class="badge-dot" style="background:var(--amber-500)"></span>Enrolled</span></td>
+          <td>
+            <div class="btn-row">
+              <button class="btn-sm" onclick="showToast('Course details sent to your email.','success')">Details</button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div id="noResults" style="display:none;text-align:center;padding:40px;color:var(--text-3);font-size:14px;">
+      No training records match your search.
+    </div>
+  </div>
+
+  <!-- LEARNING PATHS -->
+  <p class="section-label">Learning Paths</p>
+  <div class="lp-grid">
+    <div class="lp-card">
+      <div class="lp-header">
+        <div class="lp-icon" style="background:linear-gradient(135deg,#319ea9,#1f7a86)">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg>
+        </div>
+        <div class="lp-meta">
+          <h3>ISMS Professional</h3>
+          <span>4 courses · ISO 27001 track</span>
+        </div>
+      </div>
+      <div class="lp-progress-bar">
+        <div class="lp-progress-fill lp-p1" style="background:linear-gradient(90deg,var(--teal-500),var(--teal-400));"></div>
+      </div>
+      <div class="lp-progress-label"><span>Progress</span><strong>75%</strong></div>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-header">
+        <div class="lp-icon" style="background:linear-gradient(135deg,#7c5cbf,#5c3e9f)">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>
+        </div>
+        <div class="lp-meta">
+          <h3>AI Governance Specialist</h3>
+          <span>3 courses · ISO 42001 &amp; 42005</span>
+        </div>
+      </div>
+      <div class="lp-progress-bar">
+        <div class="lp-progress-fill lp-p2" style="background:linear-gradient(90deg,#7c5cbf,#9c7cdf);"></div>
+      </div>
+      <div class="lp-progress-label"><span>Progress</span><strong>40%</strong></div>
+    </div>
+
+    <div class="lp-card">
+      <div class="lp-header">
+        <div class="lp-icon" style="background:linear-gradient(135deg,#48b795,#2e9870)">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm0 4 6 2.67V11c0 3.96-2.61 7.65-6 8.93C8.61 18.65 6 14.96 6 11V7.67L12 5Z"/></svg>
+        </div>
+        <div class="lp-meta">
+          <h3>Privacy & Data Protection</h3>
+          <span>3 courses · ISO 27701 &amp; GDPR</span>
+        </div>
+      </div>
+      <div class="lp-progress-bar">
+        <div class="lp-progress-fill lp-p3" style="background:linear-gradient(90deg,var(--green-500),#5ed8a5);"></div>
+      </div>
+      <div class="lp-progress-label"><span>Progress</span><strong>55%</strong></div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATES EARNED -->
+  <p class="section-label">Certificates Earned</p>
+  <div class="cert-strip">
+    <div class="cert-chip" onclick="viewCert('iso27001')">
+      <div class="cert-chip-icon" style="background:linear-gradient(135deg,#319ea9,#1f7a86)">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z"/></svg>
+      </div>
+      <div class="cert-chip-text">
+        <strong>ISO/IEC 27001:2022</strong>
+        <span>Lead Implementer · Mar 2026</span>
+      </div>
+      <span class="cert-chip-arrow">›</span>
+    </div>
+
+    <div class="cert-chip" onclick="viewCert('iso42001')">
+      <div class="cert-chip-icon" style="background:linear-gradient(135deg,#7c5cbf,#5c3e9f)">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9Z"/></svg>
+      </div>
+      <div class="cert-chip-text">
+        <strong>ISO/IEC 42001:2023</strong>
+        <span>AI Auditor · Jan 2026</span>
+      </div>
+      <span class="cert-chip-arrow">›</span>
+    </div>
+
+    <div class="cert-chip" onclick="showToast('Certificate details opened.','success')">
+      <div class="cert-chip-icon" style="background:linear-gradient(135deg,#48b795,#2e9870)">
+        <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82ZM12 3 1 9l11 6 9-4.91V17h2V9L12 3Z"/></svg>
+      </div>
+      <div class="cert-chip-text">
+        <strong>Risk Management (ISO 31000)</strong>
+        <span>Completion · Nov 2025</span>
+      </div>
+      <span class="cert-chip-arrow">›</span>
+    </div>
+
+    <div class="cert-chip" onclick="showToast('Certificate details opened.','success')">
+      <div class="cert-chip-icon" style="background:linear-gradient(135deg,#e07b20,#c06010)">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 14H4V8l8 5 8-5v10Zm-8-7L4 6h16l-8 5Z"/></svg>
+      </div>
+      <div class="cert-chip-text">
+        <strong>GDPR &amp; Privacy by Design</strong>
+        <span>Attendance · Sep 2025</span>
+      </div>
+      <span class="cert-chip-arrow">›</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+  // ── ANIMATED COUNTERS ─────────────────────────────
+  const targets = { s1: 7, s2: 28, s3: 4, s4: 2, s5: 3 };
+  Object.entries(targets).forEach(([id, target]) => {
+    const el = document.getElementById(id);
+    let cur = 0;
+    const step = target / 50;
+    const t = setInterval(() => {
+      cur = Math.min(cur + step, target);
+      el.textContent = Math.round(cur);
+      if (cur >= target) clearInterval(t);
+    }, 25);
+  });
+
+  // ── CPD RING & BAR ────────────────────────────────
+  const CPD_DONE = 28, CPD_TARGET = 40;
+  const pct = Math.round((CPD_DONE / CPD_TARGET) * 100);
+  setTimeout(() => {
+    // bar
+    document.getElementById('cpdBar').style.width = pct + '%';
+    // ring (circumference = 2π×45 ≈ 283)
+    const offset = 283 - (283 * CPD_DONE / CPD_TARGET);
+    document.getElementById('cpdRing').style.strokeDashoffset = offset;
+    // counter
+    let cur = 0;
+    const t = setInterval(() => {
+      cur = Math.min(cur + 1, CPD_DONE);
+      document.getElementById('cpdDone').textContent = cur;
+      document.getElementById('cpdPct').textContent = Math.round((cur / CPD_TARGET) * 100) + '%';
+      if (cur >= CPD_DONE) clearInterval(t);
+    }, 40);
+  }, 300);
+
+  // ── LEARNING PATH BARS ────────────────────────────
+  const lpData = [{ cls: 'lp-p1', w: '75%' }, { cls: 'lp-p2', w: '40%' }, { cls: 'lp-p3', w: '55%' }];
+  setTimeout(() => {
+    lpData.forEach(d => document.querySelectorAll('.' + d.cls).forEach(el => el.style.width = d.w));
+  }, 400);
+
+  // ── FILTER RECORDS ────────────────────────────────
+  let activeFilter = 'all', activeSearch = '';
+  function applyFilters() {
+    const rows = document.querySelectorAll('#recordsBody tr');
+    let visible = 0;
+    rows.forEach(row => {
+      const matchFilter = activeFilter === 'all' || row.dataset.status === activeFilter;
+      const matchSearch = row.dataset.name.toLowerCase().includes(activeSearch);
+      if (matchFilter && matchSearch) { row.style.display = ''; visible++; }
+      else row.style.display = 'none';
+    });
+    document.getElementById('noResults').style.display = visible === 0 ? '' : 'none';
+  }
+  function filterRecords(status, tab) {
+    activeFilter = status;
+    document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    applyFilters();
+  }
+  function searchRecords(val) {
+    activeSearch = val.trim().toLowerCase();
+    applyFilters();
+  }
+
+  // ── NAVIGATE TO CERT ──────────────────────────────
+  function viewCert(id) {
+    window.location.href = `my-certifications.html`;
+  }
+
+  // ── DOWNLOAD RECORD ───────────────────────────────
+  function downloadRecord(name) {
+    showToast(`Downloading training record: ${name}`, 'success');
+  }
+
+  // ── EXPORT PDF ────────────────────────────────────
+  function exportRecords() {
+    showToast('Generating your Training Records PDF…', 'success');
+  }
+
+  // ── TOAST ─────────────────────────────────────────
+  function showToast(msg, type='success') {
+    const wrap = document.getElementById('toastWrap');
+    const t = document.createElement('div');
+    t.className = 'toast';
+    const color = type === 'success' ? 'var(--green-500)' : 'var(--teal-400)';
+    const path = 'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z';
+    t.innerHTML = `<svg viewBox="0 0 24 24" style="fill:${color}"><path d="${path}"/></svg><p>${msg}</p>`;
+    wrap.appendChild(t);
+    setTimeout(() => { t.style.opacity='0'; t.style.transform='translateY(12px)'; t.style.transition='all 0.3s'; setTimeout(()=>t.remove(),300); }, 4000);
+  }
+</script>
+</body>
+</html>

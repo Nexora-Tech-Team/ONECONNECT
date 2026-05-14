@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings — OneConnect | CBQA Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal-400:#3db8c4;--teal-500:#319ea9;--teal-600:#278a94;
+  --navy:#0e2d35;--glass:rgba(255,255,255,0.10);--glass-b:rgba(255,255,255,0.16);
+  --line:rgba(255,255,255,0.18);--line-b:rgba(255,255,255,0.32);
+  --text:#ffffff;--muted:rgba(255,255,255,0.68);--muted-b:rgba(255,255,255,0.86);
+  --radius:16px;--radius-sm:10px;--radius-lg:22px;
+  --danger:#f87171;--danger-bg:rgba(248,113,113,0.12);
+  --success:#6ee7b7;--success-bg:rgba(110,231,183,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;color:var(--text);background:#12333b;min-height:100vh}
+a{color:inherit;text-decoration:none}
+svg{display:block;fill:currentColor;flex-shrink:0}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+
+/* BG */
+.page-bg{position:fixed;inset:0;z-index:-2;background-image:url("assets/oneconnect/hero-background.png");background-size:cover;background-position:center}
+.page-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,35,42,0.95),rgba(20,65,74,0.82) 50%,rgba(10,38,46,0.94))}
+
+/* ─── NAVBAR ─────────────────────────────────────── */
+.navbar{position:sticky;top:0;z-index:200;height:68px;display:flex;align-items:center;padding:0 clamp(16px,3vw,48px);gap:24px;background:rgba(14,45,53,0.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-brand{display:flex;align-items:center;gap:14px;flex-shrink:0;text-decoration:none}
+.nav-brand img{height:44px;width:82px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand-text{display:flex;flex-direction:column;gap:1px;line-height:1}
+.nav-brand-text strong{font-size:15px;font-weight:700;letter-spacing:.2px}
+.nav-brand-text span{font-size:10.5px;color:var(--muted);letter-spacing:.4px}
+.nav-sep{width:1px;height:28px;background:var(--line);flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1}
+.nav-item{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:10px;border:0;background:transparent;color:var(--muted-b);font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .18s,color .18s;text-decoration:none}
+.nav-item:hover{background:rgba(255,255,255,0.09);color:#fff}
+.nav-item svg{width:16px;height:16px;opacity:.75}
+.nav-item.active-page{background:rgba(49,158,169,0.18);color:#fff;border:1px solid rgba(49,158,169,0.32)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.nav-avatar{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,0.07);transition:background .18s;cursor:pointer}
+.nav-avatar:hover{background:rgba(255,255,255,0.13)}
+.avatar-circle{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#319ea9,#48b795);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.avatar-info{display:flex;flex-direction:column;gap:1px;line-height:1}
+.avatar-info strong{font-size:13px;font-weight:600}
+.avatar-info span{font-size:10.5px;color:var(--muted)}
+.nav-logout{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:10px;border:1px solid rgba(248,113,113,0.30);background:rgba(248,113,113,0.08);color:rgba(252,165,165,0.90);font-size:13px;font-weight:600;transition:all .18s}
+.nav-logout:hover{background:rgba(248,113,113,0.18);color:#fca5a5}
+.nav-logout svg{width:15px;height:15px}
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+.page-wrap{max-width:1100px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(16px,3vw,48px) 80px}
+
+/* ─── PAGE HEADER ────────────────────────────────── */
+.page-header{margin-bottom:32px}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-bottom:14px}
+.breadcrumb a{color:var(--muted);transition:color .15s}
+.breadcrumb a:hover{color:#fff}
+.breadcrumb svg{width:12px;height:12px;opacity:.5}
+.page-header h1{font-size:clamp(22px,3vw,30px);font-weight:700;margin-bottom:6px}
+.page-header p{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* ─── SETTINGS LAYOUT ────────────────────────────── */
+.settings-layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+
+/* Sidebar nav */
+.settings-nav{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(12px);padding:10px;position:sticky;top:88px}
+.sn-label{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:10px 12px 6px}
+.sn-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;color:var(--muted-b);cursor:pointer;transition:all .18s;border:0;background:transparent;width:100%;text-align:left}
+.sn-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.sn-item.active{background:rgba(49,158,169,0.18);color:#fff;border:1px solid rgba(49,158,169,0.28)}
+.sn-item svg{width:15px;height:15px;opacity:.7;flex-shrink:0}
+.sn-item.active svg{opacity:1}
+.sn-divider{height:1px;background:var(--line);margin:8px 4px}
+.sn-item.danger{color:rgba(252,165,165,0.85)}
+.sn-item.danger:hover{background:rgba(248,113,113,0.10);color:#fca5a5}
+
+/* Sections */
+.settings-section{display:none}
+.settings-section.active{display:flex;flex-direction:column;gap:18px}
+
+/* Glass card */
+.s-card{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(12px);overflow:hidden}
+.s-card-head{padding:18px 24px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.s-card-head-left{display:flex;align-items:center;gap:12px}
+.s-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(49,158,169,0.18);color:var(--teal-400);flex-shrink:0}
+.s-card-icon svg{width:18px;height:18px}
+.s-card-title{font-size:15px;font-weight:700}
+.s-card-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.s-card-body{padding:22px 24px}
+
+/* Avatar upload area */
+.avatar-upload{display:flex;align-items:center;gap:22px;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.avatar-big{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#319ea9,#48b795);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;flex-shrink:0;border:3px solid rgba(49,158,169,0.4)}
+.avatar-upload-actions{display:flex;flex-direction:column;gap:8px}
+.avatar-upload-actions strong{font-size:14px;font-weight:600}
+.avatar-upload-actions p{font-size:12px;color:var(--muted);line-height:1.5}
+.btn-upload{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 16px;border-radius:9px;border:1px solid var(--line-b);background:rgba(255,255,255,0.09);color:var(--muted-b);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .18s}
+.btn-upload:hover{background:rgba(255,255,255,0.15);color:#fff}
+.btn-upload svg{width:14px;height:14px}
+
+/* Form grid */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid.single{grid-template-columns:1fr}
+.form-field{display:flex;flex-direction:column;gap:7px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:12px;font-weight:700;color:var(--muted-b);letter-spacing:.2px}
+.form-field input,.form-field select,.form-field textarea{width:100%;min-height:44px;border:1px solid rgba(255,255,255,0.22);border-radius:11px;background:rgba(8,31,37,0.35);color:#fff;font:500 14px Inter,Arial,sans-serif;padding:10px 14px;outline:none;transition:border-color .18s,box-shadow .18s,background .18s}
+.form-field input::placeholder,.form-field textarea::placeholder{color:rgba(255,255,255,0.32)}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:rgba(49,158,169,0.7);background:rgba(8,31,37,0.5);box-shadow:0 0 0 4px rgba(49,158,169,0.14)}
+.form-field select option{background:#143f49;color:#fff}
+.form-field textarea{min-height:96px;resize:vertical;line-height:1.6}
+.form-field input:disabled,.form-field select:disabled{opacity:.55;cursor:not-allowed}
+.field-hint{font-size:11px;color:var(--muted);margin-top:-3px}
+.field-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:20px;background:rgba(110,231,183,0.14);color:#6ee7b7;border:1px solid rgba(110,231,183,0.22)}
+
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.toggle-row:last-child{border-bottom:none;padding-bottom:0}
+.toggle-row:first-child{padding-top:0}
+.toggle-info strong{font-size:13.5px;font-weight:600;display:block;margin-bottom:3px}
+.toggle-info p{font-size:12px;color:var(--muted);line-height:1.5;max-width:420px}
+.toggle-switch{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;border-radius:24px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);cursor:pointer;transition:background .25s,border-color .25s}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);transition:transform .25s}
+.toggle-switch input:checked ~ .toggle-track{background:var(--teal-500);border-color:var(--teal-600)}
+.toggle-switch input:checked ~ .toggle-track + .toggle-thumb,
+.toggle-switch input:checked + .toggle-track ~ .toggle-thumb{transform:translateX(20px)}
+.ts-checked .toggle-track{background:var(--teal-500);border-color:var(--teal-600)}
+.ts-checked .toggle-thumb{transform:translateX(20px)}
+
+/* Password strength */
+.pw-strength{margin-top:8px}
+.pw-bars{display:flex;gap:4px;margin-bottom:5px}
+.pw-bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,0.12);transition:background .3s}
+.pw-bar.weak{background:#f87171}
+.pw-bar.fair{background:#fbbf24}
+.pw-bar.strong{background:#6ee7b7}
+.pw-label{font-size:11px;color:var(--muted)}
+
+/* Action buttons */
+.s-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding-top:18px;border-top:1px solid var(--line);margin-top:4px}
+.btn-save{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 22px;border-radius:11px;border:0;background:var(--teal-500);color:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(49,158,169,0.24);transition:all .18s}
+.btn-save:hover{background:var(--teal-600);transform:translateY(-1px)}
+.btn-save svg{width:15px;height:15px}
+.btn-cancel{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:11px;border:1px solid var(--line-b);background:rgba(255,255,255,0.07);color:var(--muted-b);font-size:14px;font-weight:600;cursor:pointer;transition:all .18s}
+.btn-cancel:hover{background:rgba(255,255,255,0.13);color:#fff}
+
+/* Danger zone */
+.danger-zone{border-color:rgba(248,113,113,0.25)}
+.danger-zone .s-card-head{border-bottom-color:rgba(248,113,113,0.2)}
+.danger-zone .s-card-icon{background:rgba(248,113,113,0.14);color:#f87171}
+.dz-item{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(248,113,113,0.1)}
+.dz-item:last-child{border-bottom:none;padding-bottom:0}
+.dz-item:first-child{padding-top:0}
+.dz-info strong{font-size:13.5px;font-weight:600;margin-bottom:3px;display:block;color:#fca5a5}
+.dz-info p{font-size:12px;color:rgba(252,165,165,0.65);line-height:1.5;max-width:420px}
+.btn-danger{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 16px;border-radius:9px;border:1px solid rgba(248,113,113,0.35);background:rgba(248,113,113,0.08);color:#fca5a5;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0}
+.btn-danger:hover{background:rgba(248,113,113,0.2);border-color:rgba(248,113,113,0.6);color:#fff}
+.btn-danger svg{width:14px;height:14px}
+
+/* Connected apps */
+.app-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.app-row:last-child{border-bottom:none;padding-bottom:0}
+.app-row:first-child{padding-top:0}
+.app-logo{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;background:rgba(255,255,255,0.06)}
+.app-info{flex:1}
+.app-info strong{font-size:13px;font-weight:600;display:block;margin-bottom:2px}
+.app-info span{font-size:11.5px;color:var(--muted)}
+.app-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.as-connected{background:rgba(110,231,183,0.14);color:#6ee7b7}
+.as-pending{background:rgba(251,191,36,0.12);color:#fcd34d}
+.btn-disconnect{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,0.06);color:var(--muted);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .18s;margin-left:8px}
+.btn-disconnect:hover{border-color:rgba(248,113,113,0.4);color:#fca5a5;background:rgba(248,113,113,0.08)}
+
+/* Toast */
+.toast{position:fixed;bottom:28px;right:28px;z-index:999;background:rgba(14,50,60,0.97);border:1px solid rgba(49,158,169,0.4);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:12px;font-size:13.5px;font-weight:500;box-shadow:0 16px 48px rgba(0,0,0,0.4);backdrop-filter:blur(16px);transform:translateY(20px);opacity:0;transition:all .3s ease;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-icon{width:28px;height:28px;border-radius:8px;background:rgba(110,231,183,0.16);color:#6ee7b7;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast-icon svg{width:15px;height:15px}
+
+/* Responsive */
+@media(max-width:860px){
+  .settings-layout{grid-template-columns:1fr}
+  .settings-nav{position:static;display:flex;flex-wrap:wrap;gap:6px;padding:8px}
+  .sn-label,.sn-divider{display:none}
+  .sn-item{width:auto;flex:0 0 auto}
+  .form-grid{grid-template-columns:1fr}
+  .avatar-upload{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:540px){
+  .avatar-info{display:none}
+  .dz-item{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg" aria-hidden="true"></div>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar">
+  <a class="nav-brand" href="dashboard.html">
+    <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    <div class="nav-brand-text">
+      <strong>OneConnect</strong>
+      <span>CBQA Global Platform</span>
+    </div>
+  </a>
+  <div class="nav-sep"></div>
+  <div class="nav-links">
+    <a class="nav-item" href="dashboard.html">
+      <svg viewBox="0 0 24 24"><path d="M10 19v-5h4v5h5v-7h3L12 3 2 12h3v7h5Z"/></svg>
+      Home
+    </a>
+    <a class="nav-item active-page" href="account-settings.html">
+      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
+      My Profile
+    </a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-avatar">
+      <div class="avatar-circle">PT</div>
+      <div class="avatar-info">
+        <strong>PT. Nexora Tech</strong>
+        <span>Enterprise Client</span>
+      </div>
+    </div>
+    <a class="nav-logout" href="login.html">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
+      Logout
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════ CONTENT ═══════════════ -->
+<div class="page-wrap">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="dashboard.html">Home</a>
+      <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      <a href="account-settings.html">My Profile</a>
+      <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      <span>Account Settings</span>
+    </div>
+    <h1>Account Settings</h1>
+    <p>Manage your profile, security, notifications and connected applications.</p>
+  </div>
+
+  <div class="settings-layout">
+
+    <!-- Sidebar -->
+    <nav class="settings-nav" aria-label="Settings navigation">
+      <div class="sn-label">Profile</div>
+      <button class="sn-item active" onclick="showSection('personal',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
+        Personal Info
+      </button>
+      <button class="sn-item" onclick="showSection('org',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12Zm-2 12H4v-2h6v2Zm0-4H4v-2h6v2Zm0-4H4V9h6v2Zm0-4H4V5h6v2Zm10 12h-8V9h8v10Zm-2-8h-4v2h4v-2Zm0 4h-4v2h4v-2Z"/></svg>
+        Organisation
+      </button>
+      <div class="sn-divider"></div>
+      <div class="sn-label">Security</div>
+      <button class="sn-item" onclick="showSection('security',this)">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM9 6a3 3 0 0 1 6 0v2H9V6Zm3 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+        Password
+      </button>
+      <button class="sn-item" onclick="showSection('mfa',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Zm-1 14-3-3 1.4-1.4L11 12.2l4.6-4.6L17 9l-6 6Z"/></svg>
+        Two-Factor Auth
+      </button>
+      <button class="sn-item" onclick="showSection('sessions',this)">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
+        Active Sessions
+      </button>
+      <div class="sn-divider"></div>
+      <div class="sn-label">Preferences</div>
+      <button class="sn-item" onclick="showSection('notifications',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.9V4a1 1 0 0 0-2 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z"/></svg>
+        Notifications
+      </button>
+      <button class="sn-item" onclick="showSection('integrations',this)">
+        <svg viewBox="0 0 24 24"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5Zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2Zm-3-4h8v2H8v-2Z"/></svg>
+        Integrations
+      </button>
+      <div class="sn-divider"></div>
+      <button class="sn-item danger" onclick="showSection('danger',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm1 15h-2v-2h2v2Zm0-4h-2V9h2v4Z"/></svg>
+        Danger Zone
+      </button>
+    </nav>
+
+    <!-- Sections -->
+    <div>
+
+      <!-- ── PERSONAL INFO ──────────────────────────── -->
+      <div class="settings-section active" id="section-personal">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Personal Information</div>
+                <div class="s-card-sub">Your name, contact, and basic details</div>
+              </div>
+            </div>
+            <div class="field-badge">
+              <svg viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+              Verified
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="avatar-upload">
+              <div class="avatar-big">PT</div>
+              <div class="avatar-upload-actions">
+                <strong>Profile Photo</strong>
+                <p>Upload a photo that represents your account.<br>JPG, PNG or GIF · max 2 MB</p>
+                <button class="btn-upload" onclick="document.getElementById('photoInput').click()">
+                  <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6Zm-4 2h14v2H5v-2Z"/></svg>
+                  Upload Photo
+                </button>
+                <input type="file" id="photoInput" accept="image/*" style="display:none">
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>First Name</label>
+                <input type="text" value="Administrator" placeholder="First name">
+              </div>
+              <div class="form-field">
+                <label>Last Name</label>
+                <input type="text" value="User" placeholder="Last name">
+              </div>
+              <div class="form-field">
+                <label>Email Address</label>
+                <input type="email" value="admin@nexoratech.co" placeholder="email@company.com">
+                <div class="field-hint">This is also your login username.</div>
+              </div>
+              <div class="form-field">
+                <label>Phone Number</label>
+                <input type="tel" value="+62 811 2345 6789" placeholder="+62 ...">
+              </div>
+              <div class="form-field">
+                <label>Job Title / Role</label>
+                <input type="text" value="Compliance Manager" placeholder="Your role or title">
+              </div>
+              <div class="form-field">
+                <label>Department</label>
+                <input type="text" value="Quality & Risk Management" placeholder="Your department">
+              </div>
+              <div class="form-field full">
+                <label>Bio / Notes</label>
+                <textarea placeholder="Brief description about you or your responsibilities...">Responsible for overseeing ISO compliance activities and coordinating with CBQA Global for certification readiness.</textarea>
+              </div>
+              <div class="form-field">
+                <label>Language</label>
+                <select>
+                  <option value="en" selected>English</option>
+                  <option value="id">Bahasa Indonesia</option>
+                  <option value="ms">Bahasa Melayu</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Timezone</label>
+                <select>
+                  <option>Asia/Jakarta (WIB, UTC+7)</option>
+                  <option>Asia/Makassar (WITA, UTC+8)</option>
+                  <option>Asia/Jayapura (WIT, UTC+9)</option>
+                  <option>Asia/Singapore (SGT, UTC+8)</option>
+                </select>
+              </div>
+            </div>
+            <div class="s-actions">
+              <button class="btn-cancel">Discard</button>
+              <button class="btn-save" onclick="showToast('Personal information saved.')">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ORGANISATION ───────────────────────────── -->
+      <div class="settings-section" id="section-org">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12ZM6 19H4v-2h2v2Zm0-4H4v-2h2v2Zm0-4H4V9h2v2Zm0-4H4V5h2v2Zm4 12H8v-2h2v2Zm0-4H8v-2h2v2Zm0-4H8V9h2v2Zm0-4H8V5h2v2Zm10 12h-8V9h8v10Zm-2-8h-4v2h4v-2Zm0 4h-4v2h4v-2Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Organisation Details</div>
+                <div class="s-card-sub">Your company profile and contact information</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="form-grid">
+              <div class="form-field full">
+                <label>Organisation / Company Name</label>
+                <input type="text" value="PT. Nexora Technology Indonesia">
+              </div>
+              <div class="form-field">
+                <label>Industry Sector</label>
+                <select>
+                  <option selected>Information Technology</option>
+                  <option>Financial Services</option>
+                  <option>Healthcare</option>
+                  <option>Manufacturing</option>
+                  <option>Energy & Utilities</option>
+                  <option>Government & Public Sector</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Organisation Size</label>
+                <select>
+                  <option>1–50 employees</option>
+                  <option selected>51–200 employees</option>
+                  <option>201–500 employees</option>
+                  <option>500+ employees</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Country / Region</label>
+                <select>
+                  <option selected>Indonesia</option>
+                  <option>Malaysia</option>
+                  <option>Singapore</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>City</label>
+                <input type="text" value="Jakarta">
+              </div>
+              <div class="form-field full">
+                <label>Office Address</label>
+                <input type="text" value="Jl. Sudirman Kav. 52-53, Jakarta Selatan, 12190">
+              </div>
+              <div class="form-field">
+                <label>Website</label>
+                <input type="url" value="https://nexoratech.co">
+              </div>
+              <div class="form-field">
+                <label>Tax ID / NPWP</label>
+                <input type="text" placeholder="00.000.000.0-000.000">
+              </div>
+              <div class="form-field full">
+                <label>CBQA Client ID</label>
+                <input type="text" value="CBQA-2024-NT-0412" disabled>
+                <div class="field-hint">Assigned by CBQA Global. Contact support to update.</div>
+              </div>
+            </div>
+            <div class="s-actions">
+              <button class="btn-cancel">Discard</button>
+              <button class="btn-save" onclick="showToast('Organisation details saved.')">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PASSWORD ───────────────────────────────── -->
+      <div class="settings-section" id="section-security">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM9 6a3 3 0 0 1 6 0v2H9V6Zm3 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Change Password</div>
+                <div class="s-card-sub">Update your login password regularly for security</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="form-grid single">
+              <div class="form-field">
+                <label>Current Password</label>
+                <input type="password" placeholder="Enter your current password">
+              </div>
+              <div class="form-field">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Min. 8 characters" oninput="checkStrength(this.value)">
+                <div class="pw-strength">
+                  <div class="pw-bars">
+                    <div class="pw-bar" id="pb1"></div>
+                    <div class="pw-bar" id="pb2"></div>
+                    <div class="pw-bar" id="pb3"></div>
+                    <div class="pw-bar" id="pb4"></div>
+                  </div>
+                  <div class="pw-label" id="pwLabel">Enter a password to check strength</div>
+                </div>
+              </div>
+              <div class="form-field">
+                <label>Confirm New Password</label>
+                <input type="password" placeholder="Re-enter new password">
+              </div>
+            </div>
+            <div class="s-actions">
+              <button class="btn-cancel">Cancel</button>
+              <button class="btn-save" onclick="showToast('Password updated successfully.')">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2ZM12 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+                Update Password
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TWO-FACTOR AUTH ────────────────────────── -->
+      <div class="settings-section" id="section-mfa">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Zm-1 14-3-3 1.4-1.4L11 12.2l4.6-4.6L17 9l-6 6Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Two-Factor Authentication</div>
+                <div class="s-card-sub">Add an extra layer of security to your account</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Authenticator App (TOTP)</strong>
+                <p>Use Google Authenticator, Authy, or any TOTP app to generate time-based verification codes.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('2FA setting updated.')">
+                <div class="toggle-track"></div>
+                <div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>SMS Verification</strong>
+                <p>Receive a one-time code via SMS to your registered mobile number (+62 811 *** **89).</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="showToast('SMS 2FA setting updated.')">
+                <div class="toggle-track"></div>
+                <div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Email OTP</strong>
+                <p>Receive a verification code to your registered email address on each login.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="showToast('Email OTP setting updated.')">
+                <div class="toggle-track"></div>
+                <div class="toggle-thumb"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ACTIVE SESSIONS ────────────────────────── -->
+      <div class="settings-section" id="section-sessions">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H4V4Zm2 2v8h12V6H6Zm4 12h4v2h3v2H7v-2h3v-2Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Active Sessions</div>
+                <div class="s-card-sub">Devices currently logged in to your account</div>
+              </div>
+            </div>
+            <button class="btn-danger" onclick="showToast('All other sessions revoked.')">
+              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
+              Revoke All Others
+            </button>
+          </div>
+          <div class="s-card-body">
+            <div class="app-row">
+              <div class="app-logo" style="background:rgba(49,158,169,0.15);color:var(--teal-400)"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 4h16v12H4V4Z"/></svg></div>
+              <div class="app-info">
+                <strong>Chrome · Windows 11 — Jakarta, ID</strong>
+                <span>This device · Last active: just now</span>
+              </div>
+              <div class="app-status as-connected">Current</div>
+            </div>
+            <div class="app-row">
+              <div class="app-logo"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-5 18a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm5-4H7V4h10v12Z"/></svg></div>
+              <div class="app-info">
+                <strong>Safari · iPhone 15 — Jakarta, ID</strong>
+                <span>Last active: 2 hours ago</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="app-status as-connected">Active</div>
+                <button class="btn-disconnect" onclick="this.closest('.app-row').style.opacity='.4';showToast('Session revoked.')">Revoke</button>
+              </div>
+            </div>
+            <div class="app-row">
+              <div class="app-logo"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 4h16v12H4V4Z"/></svg></div>
+              <div class="app-info">
+                <strong>Chrome · MacBook Pro — Singapore</strong>
+                <span>Last active: 3 days ago</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="app-status as-pending">Idle</div>
+                <button class="btn-disconnect" onclick="this.closest('.app-row').style.opacity='.4';showToast('Session revoked.')">Revoke</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOTIFICATIONS ──────────────────────────── -->
+      <div class="settings-section" id="section-notifications">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.9V4a1 1 0 0 0-2 0v1.1A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Notification Preferences</div>
+                <div class="s-card-sub">Choose what updates you want to receive</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Assessment Reminders</strong>
+                <p>Receive reminders when self-assessment items are pending or overdue.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Certification Milestones</strong>
+                <p>Get notified when your certification progresses to a new phase.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Consultant Messages</strong>
+                <p>Notifications when your assigned CBQA consultant sends a message or update.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>New Standards Available</strong>
+                <p>Be the first to know when new ISO modules are added to OneConnect.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Weekly Progress Summary</strong>
+                <p>Receive a weekly digest of your certification progress via email every Monday.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <strong>Product Updates & News</strong>
+                <p>Announcements about new features, improvements, and CBQA Global news.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="showToast('Preference saved.')">
+                <div class="toggle-track"></div><div class="toggle-thumb"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── INTEGRATIONS ───────────────────────────── -->
+      <div class="settings-section" id="section-integrations">
+        <div class="s-card">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5Zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2Zm-3-4h8v2H8v-2Z"/></svg></div>
+              <div>
+                <div class="s-card-title">Connected Applications</div>
+                <div class="s-card-sub">Manage third-party integrations and API access</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="app-row">
+              <div class="app-logo" style="background:rgba(49,158,169,0.16);color:var(--teal-400);font-size:10px;font-weight:700">ONE</div>
+              <div class="app-info">
+                <strong>CBQA Global ONE — OneGRC</strong>
+                <span>Connected · Syncs risk and compliance data automatically</span>
+              </div>
+              <div class="app-status as-connected">Connected</div>
+            </div>
+            <div class="app-row">
+              <div class="app-logo" style="font-size:10px;font-weight:700">ODA</div>
+              <div class="app-info">
+                <strong>OneDataHub</strong>
+                <span>Connected · Document and evidence repository</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="app-status as-connected">Connected</div>
+                <button class="btn-disconnect" onclick="showToast('Integration disconnected.')">Disconnect</button>
+              </div>
+            </div>
+            <div class="app-row">
+              <div class="app-logo" style="font-size:10px;font-weight:700">OAL</div>
+              <div class="app-info">
+                <strong>OneAlpha — Audit Tools</strong>
+                <span>Pending setup · Complete configuration to enable</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div class="app-status as-pending">Pending</div>
+                <button class="btn-upload" style="flex-shrink:0" onclick="showToast('Setup initiated. Check your email for instructions.')">Setup</button>
+              </div>
+            </div>
+            <div class="app-row">
+              <div class="app-logo" style="font-size:10px;font-weight:700">API</div>
+              <div class="app-info">
+                <strong>OneConnect API Access</strong>
+                <span>API Key: oc_live_••••••••••••••••3f9a</span>
+              </div>
+              <button class="btn-upload" onclick="showToast('New API key generated and copied.')">
+                <svg viewBox="0 0 24 24" style="width:12px;height:12px"><path d="M12.65 10A5.99 5.99 0 0 0 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 0 0 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                Regenerate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DANGER ZONE ─────────────────────────────── -->
+      <div class="settings-section" id="section-danger">
+        <div class="s-card danger-zone">
+          <div class="s-card-head">
+            <div class="s-card-head-left">
+              <div class="s-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm1 15h-2v-2h2v2Zm0-4h-2V9h2v4Z"/></svg></div>
+              <div>
+                <div class="s-card-title" style="color:#fca5a5">Danger Zone</div>
+                <div class="s-card-sub">Irreversible actions — proceed with caution</div>
+              </div>
+            </div>
+          </div>
+          <div class="s-card-body">
+            <div class="dz-item">
+              <div class="dz-info">
+                <strong>Export All My Data</strong>
+                <p>Download a complete archive of your account data, assessments, and activity history.</p>
+              </div>
+              <button class="btn-danger" onclick="showToast('Data export requested. You will receive an email when ready.')">
+                <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2Zm7-18-7 7h4v6h6v-6h4l-7-7Z"/></svg>
+                Export Data
+              </button>
+            </div>
+            <div class="dz-item">
+              <div class="dz-info">
+                <strong>Suspend Account</strong>
+                <p>Temporarily suspend access to this account. You can reactivate at any time by contacting CBQA Global support.</p>
+              </div>
+              <button class="btn-danger" onclick="if(confirm('Suspend your account? You can reactivate via CBQA support.')) showToast('Suspend request sent to CBQA Global support.')">
+                <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14Zm8-14v14h4V5h-4Z"/></svg>
+                Suspend Account
+              </button>
+            </div>
+            <div class="dz-item">
+              <div class="dz-info">
+                <strong>Delete Account</strong>
+                <p>Permanently delete your account and all associated data. This action cannot be undone and requires confirmation from CBQA Global.</p>
+              </div>
+              <button class="btn-danger" onclick="if(confirm('This will permanently delete your account. Are you absolutely sure?')) showToast('Deletion request submitted. A CBQA admin will contact you within 48 hours.')">
+                <svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12ZM8 9h8v10H8V9Zm7.5-5-1-1h-5l-1 1H5v2h14V4h-3.5Z"/></svg>
+                Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end sections -->
+  </div><!-- end settings-layout -->
+
+</div><!-- end page-wrap -->
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg></div>
+  <span id="toastMsg">Saved.</span>
+</div>
+
+<script>
+// ─── SECTION NAVIGATION ────────────────────────────────────────────────────
+function showSection(id, btn) {
+  document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sn-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── PASSWORD STRENGTH ─────────────────────────────────────────────────────
+function checkStrength(val) {
+  const bars = [1,2,3,4].map(i => document.getElementById('pb' + i));
+  const label = document.getElementById('pwLabel');
+  let score = 0;
+  if (val.length >= 8) score++;
+  if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+  if (/\d/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+
+  bars.forEach((b, i) => {
+    b.className = 'pw-bar';
+    if (i < score) {
+      b.classList.add(score <= 1 ? 'weak' : score <= 2 ? 'fair' : 'strong');
+    }
+  });
+
+  const labels = ['', 'Weak — add uppercase, numbers and symbols', 'Fair — add more complexity', 'Good — almost there!', 'Strong password ✓'];
+  label.textContent = val.length ? labels[score] || labels[0] : 'Enter a password to check strength';
+  label.style.color = score >= 3 ? '#6ee7b7' : score >= 2 ? '#fcd34d' : '#f87171';
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  clearTimeout(toastTimer);
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── TOGGLE THUMBS (CSS workaround for Safari) ─────────────────────────────
+document.querySelectorAll('.toggle-switch input').forEach(input => {
+  const track = input.nextElementSibling;
+  const thumb = track.nextElementSibling;
+  function sync() {
+    if (input.checked) {
+      track.style.background = '#319ea9';
+      track.style.borderColor = '#278a94';
+      thumb.style.transform = 'translateX(20px)';
+    } else {
+      track.style.background = '';
+      track.style.borderColor = '';
+      thumb.style.transform = '';
+    }
+  }
+  sync();
+  input.addEventListener('change', sync);
+});
+</script>
+</body>
+</html>
