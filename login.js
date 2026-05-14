@@ -51,7 +51,7 @@ loginForm.addEventListener("submit", (event) => {
   formMessage.textContent = "Login successful. Redirecting to your dashboard...";
   formMessage.className = "form-message is-success";
   setTimeout(() => {
-    window.location.href = "dashboard.html";
+    window.location.href = "dashboard";
   }, 800);
 });
 
