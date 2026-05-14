@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO/IEC 42005:2025 Self-Assessment | CBQA Global</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{
+  --navy:#174e59;--navy-dark:#143f49;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;
+  --green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;
+  --text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;
+  --success:#0d8c72;--success-bg:#e6f8f3;--danger:#e84040;--danger-bg:#fef1f1;
+  --warning:#e07b20;--warning-bg:#fef3e8;--info:#174e59;--info-bg:#e7f8f9;
+  --shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px
+}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+
+/* NAV */
+.topnav{height:76px;background:linear-gradient(135deg,#143f49 0%,#1e6470 55%,#2b8a96 100%);box-shadow:0 14px 36px rgba(16,37,43,.22);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand{display:flex;flex-direction:column;gap:1px}
+.nav-brand-main{font-size:17px;font-weight:700;color:#fff;letter-spacing:.2px;line-height:1.2}
+.nav-brand-sub{font-size:11.5px;font-weight:400;color:rgba(255,255,255,.65);letter-spacing:.1px;line-height:1.3}
+.nav-back-link{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 26px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:.1px;box-shadow:0 4px 20px rgba(16,37,43,.15);transition:background .2s ease,border-color .2s ease,transform .18s ease;white-space:nowrap}
+.nav-back-link:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.85);transform:translateY(-1px)}
+.nav-back-link svg{width:18px;height:18px;flex-shrink:0}
+
+/* LAYOUT */
+.layout{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+
+/* INTRO PAGE */
+.intro-hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2.5rem 2rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.intro-hero:after{content:'';position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.intro-eyebrow{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px}
+.intro-hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;position:relative;z-index:1}
+.intro-hero p{font-size:13.5px;color:rgba(255,255,255,.76);line-height:1.68;max-width:720px;position:relative;z-index:1}
+.intro-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.istat{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;text-align:center;box-shadow:var(--shadow-sm)}
+.istat-val{font-size:28px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.istat-lbl{font-size:11px;color:var(--text-tertiary)}
+.scope-note{background:#e9f8fa;border:1px solid #b7e0e5;border-radius:var(--radius-md);padding:16px 20px;margin-bottom:1.5rem;font-size:13px;color:#174e59;line-height:1.72}
+.scope-note strong{font-weight:700}
+.scope-note ul{margin-left:18px;margin-top:6px}
+.btn-start-solo{background:var(--teal);color:#fff;font-size:16px;font-weight:700;padding:15px 40px;border-radius:var(--radius-lg);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:12px;transition:all .2s;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.btn-start-solo:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 18px 36px rgba(49,158,169,.28)}
+
+/* WIZARD */
+.wizard-steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(49,158,169,.18);padding:1rem 1.5rem;overflow-x:auto;box-shadow:var(--shadow-sm)}
+.wstep{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-tertiary);transition:all .3s}
+.wstep.active .wstep-dot{background:var(--teal);border-color:var(--teal);color:#fff}
+.wstep.done .wstep-dot{background:var(--success);border-color:var(--success);color:#fff}
+.wstep-label{font-size:12px;font-weight:500;color:var(--text-tertiary);white-space:nowrap}
+.wstep.active .wstep-label{color:var(--text-primary)}
+.wstep.done .wstep-label{color:var(--success)}
+.wstep-line{flex:1;height:1px;background:var(--border);margin:0 8px;min-width:24px}
+
+/* PROGRESS */
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.76);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card{background:linear-gradient(180deg,#fff,#f8fcfd);border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:500;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:#174e59}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+
+/* DOMAIN TABS */
+.domain-tabs{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:8px;box-shadow:var(--shadow-sm)}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+.tab-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-tertiary);padding:4px 8px 4px 4px;align-self:center;white-space:nowrap}
+.tab-divider{width:1px;background:var(--border);height:32px;align-self:center;margin:0 4px}
+
+/* NOTE */
+.note{background:#e9f8fa;border:1px solid #b7e0e5;padding:14px 16px;border-radius:10px;margin-bottom:1.5rem}
+.note-title{font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.note ul{margin-left:18px;font-size:12.5px;color:#4A6360;line-height:1.7}
+
+/* ASSESSMENT CARD */
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.ac-objective{background:#f0fbfc;border-left:3px solid var(--teal);padding:10px 14px;font-size:12px;color:#174e59;line-height:1.6;border-bottom:1px solid var(--border)}
+.ac-objective strong{font-weight:700}
+
+/* TOOLBAR */
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:.6rem 1.5rem;border-bottom:1px solid var(--border);background:#fafcfc}
+.tba-btn{height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font:600 11px Helvetica,Arial,sans-serif;color:var(--text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tba-btn:hover{border-color:var(--teal);color:var(--navy);background:var(--teal-light)}
+.tba-doc{border-color:rgba(49,158,169,.3);color:#174e59;background:#edfbfc}
+.tba-impl{border-color:rgba(13,140,114,.3);color:#0d5c3c;background:#e6f8f3}
+.tba-clear{border-color:rgba(232,64,64,.25);color:#8a1010;background:#fef8f8}
+.tba-save{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-load{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-divider{width:1px;height:22px;background:var(--border);margin:0 4px}
+
+/* CONTROL LIST */
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:92px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #f3f5f8;border-radius:12px;transition:background-color .18s ease,box-shadow .18s ease}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:#f2fbfc;box-shadow:inset 3px 0 0 var(--teal)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary)}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+
+/* ACTION BAR */
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:12px;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);background:var(--green-mid)}
+.btn-secondary:hover{background:var(--off-white)}
+
+/* SUMMARY PAGE */
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+
+/* SUM GRID */
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm)}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+
+/* SECTION CARDS */
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-icon-success{background:var(--success-bg);color:var(--success)}
+.sc-body{padding:.75rem 1.25rem}
+
+/* GAUGE */
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:230px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f5f8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+
+/* REC */
+.rec-item{padding:12px 0;border-bottom:1px solid #f3f5f8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+
+/* TEMPLATE CTA */
+.template-cta{display:inline-flex;align-items:center;justify-content:min-height:26px;padding:5px 10px;border:1px solid rgba(49,158,169,.3);border-radius:999px;background:#e7f8f9;color:#174e59;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s ease}
+.template-cta:hover{background:#d7f2f5;border-color:rgba(49,158,169,.62);transform:translateY(-1px)}
+
+/* RADAR */
+.radar-wrap{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.25rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center}
+.radar-canvas-wrap{display:flex;justify-content:center}
+.radar-legend{display:flex;flex-direction:column;gap:10px}
+.radar-legend-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary)}
+.radar-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* FOOTER */
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid rgba(49,158,169,.22);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+
+/* LEAD MODAL */
+.lead-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,30,36,.58);backdrop-filter:blur(10px)}
+.lead-modal.active{display:flex}
+.lead-dialog{width:min(100%,720px);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.32);border-radius:24px;background:linear-gradient(180deg,#fff,#f4fbfc);box-shadow:0 32px 90px rgba(16,37,43,.28)}
+.lead-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:26px 28px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#143f49,#319ea9);color:#fff;border-radius:24px 24px 0 0}
+.lead-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:8px}
+.lead-head h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.lead-head p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.76);max-width:560px;margin:0}
+.lead-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lead-form{padding:24px 28px 28px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-field{display:grid;gap:7px}
+.lead-field.lead-full{grid-column:1 / -1}
+.lead-field span{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{width:100%;min-height:42px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text-primary);font:13px Helvetica,Arial,sans-serif;padding:10px 12px;outline:none}
+.lead-field textarea{min-height:88px;resize:vertical}
+.lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(49,158,169,.14)}
+.lead-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.lead-note{font-size:12px;line-height:1.55;color:var(--text-tertiary);max-width:360px}
+.lead-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 14px Helvetica,Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.lead-submit:hover{background:var(--green-mid)}
+.lead-success{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(13,140,114,.28);border-radius:14px;background:var(--success-bg);color:var(--success);font-size:13px;line-height:1.55}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:10px;background:var(--success);color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}
+  .control-row{grid-template-columns:76px 1fr 130px 130px}
+  .control-evidence{grid-column:2 / -1}
+  .toolbar{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .intro-stats{grid-template-columns:repeat(2,1fr)}
+  .radar-wrap{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .topnav{padding:0 1rem}
+  .layout{padding:1.25rem .9rem}
+  .nav-brand-sub{display:none}
+  .intro-stats{grid-template-columns:repeat(2,1fr)}
+  .sum-grid{grid-template-columns:repeat(2,1fr)}
+  .control-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto auto}
+  .control-ref{grid-column:1 / -1}
+  .control-text{grid-column:1 / -1}
+  .control-evidence{grid-column:1 / -1}
+}
+@media print{
+  .topnav,.domain-tabs,.toolbar,.toolbar-actions,.action-bar,.footer-bar button,.btn,.lead-modal,.template-cta,.btn-start-solo{display:none!important}
+  body{background:#fff}
+  .layout{max-width:100%;padding:0}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="OneConnect navigation">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO/IEC 42005:2025 Self-Assessment</span>
+    </div>
+  </div>
+  <a class="nav-back-link" href="module-detail.html?module=iso-42005">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M10.8 5.2 4 12l6.8 6.8 1.4-1.4L7.8 13H20v-2H7.8l4.4-4.4-1.4-1.4Z"/></svg>
+    Back to OneConnect
+  </a>
+</nav>
+
+<div class="layout">
+
+<!-- INTRO PAGE -->
+<div id="page-intro">
+  <div class="intro-hero">
+    <p class="intro-eyebrow">CBQA Global — GRC Platform</p>
+    <h1>ISO/IEC 42005:2025 ASIA Self-Assessment</h1>
+    <p>Evaluate your organisation's readiness to conduct AI System Impact Assessments (ASIA) in accordance with ISO/IEC 42005:2025. This checklist covers the full ASIA process (Clause 5) and documentation requirements (Clause 6), helping you identify gaps before initiating or submitting a formal ASIA.</p>
+  </div>
+
+  <div class="intro-stats">
+    <div class="istat"><div class="istat-val">20</div><div class="istat-lbl">Process Items (Cl. 5)</div></div>
+    <div class="istat"><div class="istat-val">22</div><div class="istat-lbl">Documentation Items (Cl. 6)</div></div>
+    <div class="istat"><div class="istat-val">42</div><div class="istat-lbl">Total Assessment Items</div></div>
+    <div class="istat"><div class="istat-val">10</div><div class="istat-lbl">Domain Sections</div></div>
+  </div>
+
+  <div class="scope-note">
+    <strong>About ISO/IEC 42005:2025</strong><br>
+    ISO/IEC 42005:2025 provides guidance for conducting AI System Impact Assessments (ASIA) — a structured process to identify and evaluate the potential effects of an AI system on individuals, organizations, and society. This self-assessment covers two main areas:
+    <ul>
+      <li><strong>ASIA Process (Clause 5)</strong> — How the organization establishes, integrates, scopes, governs, and monitors its ASIA process.</li>
+      <li><strong>ASIA Documentation (Clause 6)</strong> — What the ASIA record should contain: AI system description, data, algorithms, interested parties, and impact analysis.</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;padding:1rem 0 0.5rem">
+    <button class="btn-start-solo" onclick="startAssessment()">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M5 3l14 9-14 9V3zm2 3.3V17.7L15.5 12 7 6.3z"/></svg>
+      Start Self-Assessment
+    </button>
+  </div>
+</div>
+
+<!-- ASSESSMENT PAGE -->
+<div id="page-assessment" style="display:none">
+
+  <!-- Wizard Steps -->
+  <div class="wizard-steps" id="wizardSteps"></div>
+
+  <!-- Progress -->
+  <div class="progress-header">
+    <span id="progressLabel">0 of 42 items completed</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <h1>ISO/IEC 42005:2025 — AI System Impact Assessment</h1>
+      <p id="heroSubtitle">Review each item. Mark "Documented" when evidence exists, "Implemented" when the practice is active. Use the domain tabs to navigate across all 10 sections.</p>
+    </div>
+    <div class="hero-badge" id="heroBadge">ASIA Readiness</div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard-grid">
+    <div class="score-card">
+      <div class="eyebrow">Readiness Score</div>
+      <div class="score-main">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-denom">/ 42</div>
+      </div>
+      <div class="score-level" id="scoreLevel">Not Started</div>
+      <div class="score-desc" id="scoreDesc">Begin by reviewing the ASIA process domains.</div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="scoreBarFill"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Process Readiness (Cl. 5)</div>
+      <div class="metric-value" id="metricProcess">0%</div>
+      <div class="metric-sub" id="metricProcessSub">0 / 20 items</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Documentation Readiness (Cl. 6)</div>
+      <div class="metric-value" id="metricDoc">0%</div>
+      <div class="metric-sub" id="metricDocSub">0 / 22 items</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Domains Complete</div>
+      <div class="metric-value" id="metricDomains">0 / 10</div>
+      <div class="metric-sub" id="metricDomainsSub">domains fully addressed</div>
+    </div>
+  </div>
+
+  <!-- Domain Tabs -->
+  <div class="domain-tabs" id="domainTabs"></div>
+
+  <!-- Note -->
+  <div class="note">
+    <div class="note-title">How to use this checklist</div>
+    <ul>
+      <li><strong>Documented</strong> — Evidence or records exist but the practice may not yet be fully active.</li>
+      <li><strong>Implemented</strong> — The practice is active and consistently applied within the organization.</li>
+      <li>Mark both for items where both conditions are true. Each checkbox is worth 1 point.</li>
+      <li>Use <em>Save Progress</em> to store your session and <em>Load Progress</em> to resume later.</li>
+    </ul>
+  </div>
+
+  <!-- Assessment Card -->
+  <div class="assessment-card" id="assessmentCard">
+    <div class="ac-header">
+      <div class="ac-title-wrap">
+        <div class="ac-code" id="acCode">P1</div>
+        <div>
+          <h2 id="acTitle">Domain Title</h2>
+          <p id="acClause">Clause reference</p>
+        </div>
+      </div>
+      <div class="ac-meta">
+        <div class="big" id="acScore">0/0</div>
+        <div class="small">items addressed</div>
+      </div>
+    </div>
+    <div class="ac-objective" id="acObjective"></div>
+
+    <div class="toolbar">
+      <input class="search-box" type="search" placeholder="Search items..." id="searchBox" oninput="filterRows()">
+      <select class="filter-select" id="filterSelect" onchange="filterRows()">
+        <option value="">All Items</option>
+        <option value="documented">Documented ✓</option>
+        <option value="implemented">Implemented ✓</option>
+        <option value="none">Not Addressed</option>
+      </select>
+    </div>
+    <div class="toolbar-actions">
+      <button class="tba-btn tba-doc" onclick="markAll('documented')">✓ Mark All Documented</button>
+      <button class="tba-btn tba-impl" onclick="markAll('implemented')">✓ Mark All Implemented</button>
+      <div class="tba-divider"></div>
+      <button class="tba-btn tba-clear" onclick="clearDomain()">✗ Clear Domain</button>
+      <div class="tba-divider"></div>
+      <button class="tba-btn tba-save" onclick="saveProgress()">💾 Save Progress</button>
+      <button class="tba-btn tba-load" onclick="loadProgress()">📂 Load Progress</button>
+    </div>
+
+    <div class="control-list" id="controlList"></div>
+  </div>
+
+  <!-- Action Bar -->
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="prevDomain()">← Previous Domain</button>
+    <button class="btn btn-teal" onclick="showLeadModal()">📋 Get Full Report</button>
+    <button class="btn btn-primary" onclick="nextDomain()">Next Domain →</button>
+  </div>
+
+</div>
+
+<!-- SUMMARY PAGE -->
+<div id="page-summary" style="display:none">
+
+  <div class="summary-banner">
+    <div class="summary-banner-content">
+      <div class="sb-eyebrow">ISO/IEC 42005:2025 — ASIA Self-Assessment Results</div>
+      <div class="sb-title">Assessment Complete</div>
+      <div class="sb-sub">Review your ASIA readiness profile across process and documentation dimensions.</div>
+      <div class="sb-score-row">
+        <div class="sb-score-big" id="sbScore">0</div>
+        <div class="sb-score-denom">/ 42</div>
+        <div class="sb-level-pill" id="sbLevelPill" style="background:rgba(255,255,255,.18);color:#fff">—</div>
+      </div>
+      <div class="sb-meta" id="sbMeta"></div>
+    </div>
+  </div>
+
+  <!-- Summary Metrics -->
+  <div class="sum-grid">
+    <div class="sum-metric"><div class="sm-val" id="sumPct">0%</div><div class="sm-lbl">Overall Readiness</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sumProcess">0%</div><div class="sm-lbl">Process (Cl. 5)</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sumDoc">0%</div><div class="sm-lbl">Documentation (Cl. 6)</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sumDomains">0/10</div><div class="sm-lbl">Domains Complete</div></div>
+  </div>
+
+  <!-- Radar Chart -->
+  <div class="radar-wrap">
+    <div class="radar-canvas-wrap">
+      <canvas id="radarChart" width="300" height="300"></canvas>
+    </div>
+    <div>
+      <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px">ASIA Readiness by Area</div>
+      <div class="radar-legend" id="radarLegend"></div>
+    </div>
+  </div>
+
+  <!-- Domain Performance -->
+  <div class="section-card">
+    <div class="sc-head">
+      <div class="sc-icon sc-icon-teal">📊</div>
+      Domain Performance Overview
+    </div>
+    <div class="sc-body" id="domainGauges"></div>
+  </div>
+
+  <!-- Status Table -->
+  <div class="section-card">
+    <div class="sc-head">
+      <div class="sc-icon sc-icon-teal">📋</div>
+      Domain Status Summary
+    </div>
+    <div class="sc-body" id="domainStatusList"></div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="section-card">
+    <div class="sc-head">
+      <div class="sc-icon sc-icon-warn">⚠</div>
+      Priority Recommendations
+    </div>
+    <div class="sc-body" id="recommendations"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goBackToAssessment()">← Back to Assessment</button>
+    <button class="btn btn-teal" onclick="showLeadModal()">📋 Get Expert Support</button>
+  </div>
+
+</div>
+
+</div><!-- end .layout -->
+
+<!-- LEAD MODAL -->
+<div class="lead-modal" id="leadModal">
+  <div class="lead-dialog">
+    <div class="lead-head">
+      <div>
+        <div class="lead-eyebrow">CBQA Global — ASIA Advisory</div>
+        <h2>Get Expert Support for Your ASIA</h2>
+        <p>Our ISO/IEC 42005:2025 specialists can help you design and conduct a compliant AI System Impact Assessment, from scoping through impact analysis and documentation.</p>
+      </div>
+      <button class="lead-close" onclick="closeLeadModal()">×</button>
+    </div>
+    <div class="lead-form">
+      <div class="lead-grid">
+        <div class="lead-field"><span>First Name *</span><input type="text" id="lf-fname" placeholder="First name"></div>
+        <div class="lead-field"><span>Last Name *</span><input type="text" id="lf-lname" placeholder="Last name"></div>
+        <div class="lead-field"><span>Organisation *</span><input type="text" id="lf-org" placeholder="Organisation name"></div>
+        <div class="lead-field"><span>Email Address *</span><input type="email" id="lf-email" placeholder="you@organisation.com"></div>
+        <div class="lead-field"><span>AI System Name</span><input type="text" id="lf-system" placeholder="Name of the AI system being assessed"></div>
+        <div class="lead-field"><span>Your Role</span>
+          <select id="lf-role">
+            <option value="">Select role...</option>
+            <option>AI Developer</option>
+            <option>AI Provider / Vendor</option>
+            <option>AI Deployer / Operator</option>
+            <option>AI User / Customer</option>
+            <option>Risk / Compliance Officer</option>
+            <option>Privacy / Data Protection Officer</option>
+            <option>External Consultant</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="lead-field lead-full"><span>Assessment Objective</span>
+          <textarea id="lf-objective" placeholder="Describe your main goal for conducting the ASIA (e.g., regulatory compliance, internal governance, pre-deployment review, stakeholder transparency...)"></textarea>
+        </div>
+      </div>
+      <div id="leadSuccess" class="lead-success">
+        <strong>Thank you! Your request has been received.</strong><br>
+        A CBQA Global specialist will contact you within 1 business day to discuss your ASIA requirements and next steps.
+        <div class="lead-success-actions">
+          <a href="module-detail.html?module=iso-42005">Back to ISO 42005 Module</a>
+        </div>
+      </div>
+      <div class="lead-actions">
+        <div class="lead-note">Your information is handled in accordance with CBQA Global's privacy policy and will not be shared with third parties.</div>
+        <button class="lead-submit" onclick="submitLead()">Submit Request →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const DOMAINS = [
+  {
+    code:"P1", title:"Establishing the ASIA", clause:"Clause 5.1–5.2", group:"ASIA Process",
+    objective:"The organisation has established a policy and defined objectives for conducting AI System Impact Assessments, with assigned resources and authority.",
+    items:[
+      {ref:"P1.1", text:"A policy or mandate for conducting AI System Impact Assessments (ASIA) has been established by the organisation.", evidence:"ASIA policy, management directive"},
+      {ref:"P1.2", text:"Objectives for the ASIA process have been defined and aligned with the organisation's AI governance strategy.", evidence:"ASIA objectives document, strategic alignment records"},
+      {ref:"P1.3", text:"Resources, competencies, and authority for conducting ASIAs have been formally assigned.", evidence:"Role assignments, competency records, budget allocation"},
+      {ref:"P1.4", text:"Relationships between the ASIA and other processes (risk management, DPIA, ethics review, compliance) have been identified and coordinated.", evidence:"Process integration map, DPIA/risk cross-reference"}
+    ]
+  },
+  {
+    code:"P2", title:"ASIA Integration & Timing", clause:"Clause 5.3–5.4", group:"ASIA Process",
+    objective:"The ASIA is embedded in the AI system lifecycle and conducted at appropriate stages, with defined triggers for review and iteration.",
+    items:[
+      {ref:"P2.1", text:"The ASIA is integrated into the AI system development or procurement lifecycle at defined checkpoints.", evidence:"SDLC/procurement policy, lifecycle integration diagram"},
+      {ref:"P2.2", text:"The timing of ASIA activities relative to AI system lifecycle phases (design, pre-deployment, operation) is defined.", evidence:"Timeline documentation, project plan with ASIA milestones"},
+      {ref:"P2.3", text:"An ASIA is conducted before AI system deployment or when significant changes to the system are planned.", evidence:"Pre-deployment records, change management log with ASIA entries"},
+      {ref:"P2.4", text:"Triggers for revisiting or updating the ASIA are defined (e.g., significant system changes, incidents, regulatory updates).", evidence:"Review trigger policy, ASIA update and revision records"}
+    ]
+  },
+  {
+    code:"P3", title:"Scope & Responsibilities", clause:"Clause 5.5–5.6", group:"ASIA Process",
+    objective:"The AI system in scope and its assessment boundaries are clearly defined, with documented roles and stakeholder participation mechanisms.",
+    items:[
+      {ref:"P3.1", text:"The AI system subject to the ASIA has been clearly identified with sufficient description to bound the assessment.", evidence:"AI system register, scope statement in ASIA documentation"},
+      {ref:"P3.2", text:"The scope of the ASIA, including geographic, operational, and contextual boundaries, has been defined.", evidence:"Scope definition document, boundary rationale"},
+      {ref:"P3.3", text:"Roles and responsibilities for conducting, reviewing, and approving the ASIA are documented.", evidence:"RACI chart, role descriptions, governance structure"},
+      {ref:"P3.4", text:"Mechanisms for including relevant stakeholder input into the ASIA have been established.", evidence:"Stakeholder consultation records, participation plan, interview logs"}
+    ]
+  },
+  {
+    code:"P4", title:"Thresholds, Methodology & Performance", clause:"Clause 5.7–5.9", group:"ASIA Process",
+    objective:"Criteria for triggering a formal ASIA are defined, a structured methodology is adopted, and performance measures are in place to evaluate process effectiveness.",
+    items:[
+      {ref:"P4.1", text:"Criteria and thresholds for determining when a formal ASIA is required have been established and documented.", evidence:"ASIA screening criteria, threshold policy, decision matrix"},
+      {ref:"P4.2", text:"A documented methodology or framework for performing the ASIA has been adopted and communicated.", evidence:"ASIA methodology document, framework reference (e.g., ISO 42005)"},
+      {ref:"P4.3", text:"The adopted ASIA methodology covers identification, analysis, evaluation, and treatment of potential impacts.", evidence:"Methodology documentation showing all ASIA phases"},
+      {ref:"P4.4", text:"Performance measures for evaluating the effectiveness of the ASIA process have been defined and are tracked.", evidence:"KPI definitions, performance review records, audit results"}
+    ]
+  },
+  {
+    code:"P5", title:"Recording, Approval & Monitoring", clause:"Clause 5.10–5.12", group:"ASIA Process",
+    objective:"ASIA findings are documented, reviewed, approved, and communicated; the process is subject to periodic review and continuous improvement.",
+    items:[
+      {ref:"P5.1", text:"ASIA records are documented including findings, rationale, decisions, and supporting evidence.", evidence:"ASIA report, assessment records, decision log"},
+      {ref:"P5.2", text:"ASIA reports are reviewed and approved by accountable individuals or governance bodies.", evidence:"Approval records, sign-off documentation, governance minutes"},
+      {ref:"P5.3", text:"ASIA outcomes and treatment measures are communicated to relevant stakeholders as appropriate.", evidence:"Communication plan, disclosure records, stakeholder notifications"},
+      {ref:"P5.4", text:"The ASIA process is subject to periodic review and continuous improvement based on outcomes and lessons learned.", evidence:"Review meeting minutes, process improvement log, audit findings"}
+    ]
+  },
+  {
+    code:"D1", title:"AI System Description & Purposes", clause:"Clause 6.2–6.3", group:"ASIA Documentation",
+    objective:"The ASIA documentation contains a comprehensive description of the AI system, its functionalities, intended purposes, foreseeable misuse, and lifecycle stage.",
+    items:[
+      {ref:"D1.1", text:"The ASIA documentation includes the AI system name, version, type, and general capabilities.", evidence:"AI system description section in ASIA report"},
+      {ref:"D1.2", text:"AI system functionalities relevant to the assessment are described in sufficient detail.", evidence:"Functional description, system architecture or design document"},
+      {ref:"D1.3", text:"The intended purpose(s) and use context of the AI system are clearly articulated.", evidence:"Use case documentation, intended use statement, product brief"},
+      {ref:"D1.4", text:"Reasonably foreseeable unintended uses and misuse scenarios are identified and documented.", evidence:"Misuse analysis, foreseeable risk register, red-team findings"},
+      {ref:"D1.5", text:"AI system lifecycle information including development stage, planned deployment scope, and end-of-life considerations is captured.", evidence:"Lifecycle plan, deployment roadmap, decommission policy"}
+    ]
+  },
+  {
+    code:"D2", title:"Data Information & Quality", clause:"Clause 6.4", group:"ASIA Documentation",
+    objective:"The ASIA documents data sources, quality assessments, personal and sensitive data categories, and data governance practices relevant to the AI system.",
+    items:[
+      {ref:"D2.1", text:"Data sources used for training, validation, and testing are identified and described.", evidence:"Data inventory, training data provenance records"},
+      {ref:"D2.2", text:"A data quality assessment addressing accuracy, completeness, representativeness, and bias has been performed and documented.", evidence:"Data quality report, bias assessment, validation results"},
+      {ref:"D2.3", text:"Personal data and sensitive data categories processed by the AI system are identified.", evidence:"Data mapping, DPIA cross-reference, data classification records"},
+      {ref:"D2.4", text:"Data governance practices including retention periods, access controls, and data lineage are documented.", evidence:"Data governance policy, lineage records, access logs"}
+    ]
+  },
+  {
+    code:"D3", title:"Algorithm, Model & Deployment Environment", clause:"Clause 6.5", group:"ASIA Documentation",
+    objective:"The ASIA documents the AI techniques employed, the geographic and jurisdictional deployment context, and the technical environment including integrations and dependencies.",
+    items:[
+      {ref:"D3.1", text:"The algorithms, models, and AI techniques used are described at a level of detail appropriate to the ASIA.", evidence:"Model description, technical specification, model card"},
+      {ref:"D3.2", text:"The geographic and jurisdictional deployment context, including applicable laws and regulations, is identified.", evidence:"Deployment scope document, regulatory mapping, jurisdiction list"},
+      {ref:"D3.3", text:"The technical deployment environment, including integration points, third-party components, and operational dependencies, is documented.", evidence:"Architecture diagram, integration map, dependency register"}
+    ]
+  },
+  {
+    code:"D4", title:"Interested Parties & Stakeholder Analysis", clause:"Clause 6.6–6.7", group:"ASIA Documentation",
+    objective:"Parties directly affected by the AI system and other interested parties are identified, their interests and concerns are analysed, and specific attention is given to vulnerable or marginalised groups.",
+    items:[
+      {ref:"D4.1", text:"Parties directly affected by the AI system (subjects, end users) are identified in the ASIA documentation.", evidence:"Stakeholder register, affected parties list, user research"},
+      {ref:"D4.2", text:"Other interested parties including indirect stakeholders, regulators, and societal groups are identified.", evidence:"Extended stakeholder map, regulatory bodies list"},
+      {ref:"D4.3", text:"The interests, concerns, and rights of directly affected parties are analysed and documented.", evidence:"Stakeholder needs analysis, rights impact record, consultation summary"},
+      {ref:"D4.4", text:"Potential disproportionate impacts on vulnerable, marginalised, or protected groups are specifically considered.", evidence:"Equity analysis, vulnerable groups assessment, demographic impact review"}
+    ]
+  },
+  {
+    code:"D5", title:"Impact Analysis & Treatment Measures", clause:"Clause 6.8–6.9", group:"ASIA Documentation",
+    objective:"The ASIA documents a structured analysis of potential impacts across key dimensions and defines concrete measures to address identified harms and enhance benefits.",
+    items:[
+      {ref:"D5.1", text:"Potential impacts on accountability and transparency of AI decisions are analysed and documented.", evidence:"Accountability impact analysis, transparency assessment"},
+      {ref:"D5.2", text:"Potential impacts on fairness, non-discrimination, and equal treatment are assessed.", evidence:"Fairness assessment, bias impact analysis, protected attribute review"},
+      {ref:"D5.3", text:"Potential impacts on privacy and personal data protection are evaluated.", evidence:"Privacy impact analysis, DPIA linkage, data minimisation review"},
+      {ref:"D5.4", text:"Potential impacts on safety, reliability, security, and robustness of the AI system are analysed.", evidence:"Safety analysis, security risk assessment, robustness testing records"},
+      {ref:"D5.5", text:"Potential environmental, societal, and economic impacts are identified and considered.", evidence:"Societal impact analysis, environmental footprint assessment"},
+      {ref:"D5.6", text:"Measures to address identified harms and enhance benefits are defined, with responsible parties, implementation plans, and timelines.", evidence:"Treatment plan, action register, accountability log, monitoring schedule"}
+    ]
+  }
+];
+
+const TOTAL = 42;
+const PROCESS_CODES = ["P1","P2","P3","P4","P5"];
+const DOC_CODES = ["D1","D2","D3","D4","D5"];
+const RADAR_GROUPS = [
+  {label:"Process Foundation", codes:["P1","P2"], color:"#319ea9"},
+  {label:"Scope & Governance",  codes:["P3","P4","P5"], color:"#48b795"},
+  {label:"System Documentation",codes:["D1","D2","D3"], color:"#174e59"},
+  {label:"Impact Assessment",   codes:["D4","D5"], color:"#e07b20"}
+];
+const STORAGE_KEY = "cbqa_42005_progress";
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = {};  // { "P1.1": {documented: bool, implemented: bool}, ... }
+let currentDomainIdx = 0;
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+function init(){
+  loadStateFromStorage();
+  buildWizardSteps();
+  buildDomainTabs();
+  renderDomain(currentDomainIdx);
+  updateDashboard();
+}
+
+function startAssessment(){
+  document.getElementById("page-intro").style.display = "none";
+  document.getElementById("page-assessment").style.display = "block";
+  init();
+}
+
+// ─── STORAGE ─────────────────────────────────────────────────────────────────
+function loadStateFromStorage(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) state = JSON.parse(raw);
+  } catch(e){ state = {}; }
+}
+
+function persistState(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+function saveProgress(){
+  persistState();
+  alert("Progress saved successfully!");
+}
+
+function loadProgress(){
+  loadStateFromStorage();
+  renderDomain(currentDomainIdx);
+  updateDashboard();
+  alert("Progress loaded.");
+}
+
+// ─── WIZARD STEPS ────────────────────────────────────────────────────────────
+function buildWizardSteps(){
+  const container = document.getElementById("wizardSteps");
+  container.innerHTML = "";
+  DOMAINS.forEach((d, i) => {
+    if(i > 0){
+      const line = document.createElement("div");
+      line.className = "wstep-line";
+      container.appendChild(line);
+    }
+    const step = document.createElement("div");
+    step.className = "wstep" + (i === currentDomainIdx ? " active" : "");
+    step.id = "wstep-" + i;
+    step.innerHTML = `<div class="wstep-dot">${d.code}</div><div class="wstep-label">${d.title}</div>`;
+    step.onclick = () => { currentDomainIdx = i; renderDomain(i); refreshWizard(); buildDomainTabs(); };
+    container.appendChild(step);
+  });
+}
+
+function refreshWizard(){
+  DOMAINS.forEach((d, i) => {
+    const el = document.getElementById("wstep-" + i);
+    if(!el) return;
+    const score = getDomainScore(i);
+    el.className = "wstep" + (i === currentDomainIdx ? " active" : "") + (score.total === score.max && score.max > 0 ? " done" : "");
+  });
+}
+
+// ─── DOMAIN TABS ─────────────────────────────────────────────────────────────
+function buildDomainTabs(){
+  const container = document.getElementById("domainTabs");
+  container.innerHTML = "";
+  let lastGroup = null;
+  DOMAINS.forEach((d, i) => {
+    if(d.group !== lastGroup){
+      if(lastGroup !== null){
+        const div = document.createElement("div"); div.className = "tab-divider"; container.appendChild(div);
+      }
+      const lbl = document.createElement("div");
+      lbl.className = "tab-group-label";
+      lbl.textContent = d.group;
+      container.appendChild(lbl);
+      lastGroup = d.group;
+    }
+    const score = getDomainScore(i);
+    const isDone = score.total === score.max && score.max > 0;
+    const tab = document.createElement("div");
+    tab.className = "domain-tab" + (i === currentDomainIdx ? " active" : "") + (isDone ? " done" : "");
+    tab.id = "dtab-" + i;
+    tab.innerHTML = `<span style="font-size:10px;opacity:.7">${d.code}</span> ${d.title}`;
+    tab.onclick = () => { currentDomainIdx = i; renderDomain(i); buildDomainTabs(); refreshWizard(); };
+    container.appendChild(tab);
+  });
+}
+
+// ─── RENDER DOMAIN ────────────────────────────────────────────────────────────
+function renderDomain(idx){
+  const d = DOMAINS[idx];
+  document.getElementById("acCode").textContent = d.code;
+  document.getElementById("acTitle").textContent = d.title;
+  document.getElementById("acClause").textContent = d.clause + " · " + d.group;
+  document.getElementById("acObjective").innerHTML = "<strong>Objective:</strong> " + d.objective;
+  document.getElementById("heroBadge").textContent = d.group;
+  document.getElementById("searchBox").value = "";
+  document.getElementById("filterSelect").value = "";
+  renderControlList(idx);
+  updateAcScore(idx);
+}
+
+function renderControlList(idx){
+  const d = DOMAINS[idx];
+  const list = document.getElementById("controlList");
+  list.innerHTML = "";
+  d.items.forEach((item, j) => {
+    const row = buildControlRow(idx, j, item);
+    list.appendChild(row);
+  });
+}
+
+function buildControlRow(domIdx, idx, item){
+  const key = item.ref;
+  const s = state[key] || {};
+  const row = document.createElement("div");
+  row.className = "control-row";
+  row.dataset.ref = item.ref;
+  row.dataset.text = item.text.toLowerCase();
+
+  const docChecked = s.documented ? "checked" : "";
+  const implChecked = s.implemented ? "checked" : "";
+
+  row.innerHTML = `
+    <div class="control-ref">${item.ref}</div>
+    <div class="control-text">${item.text}</div>
+    <div class="control-evidence">${item.evidence}</div>
+    <div class="check-pill ${s.documented ? 'checked' : ''}" id="doc-${item.ref}" onclick="toggleCheck('${item.ref}','documented')">
+      <div class="box">${s.documented ? '✓' : ''}</div> Documented
+    </div>
+    <div class="check-pill ${s.implemented ? 'checked' : ''}" id="impl-${item.ref}" onclick="toggleCheck('${item.ref}','implemented')">
+      <div class="box">${s.implemented ? '✓' : ''}</div> Implemented
+    </div>`;
+  return row;
+}
+
+function toggleCheck(ref, type){
+  if(!state[ref]) state[ref] = {};
+  state[ref][type] = !state[ref][type];
+
+  const pillId = (type === "documented" ? "doc-" : "impl-") + ref;
+  const pill = document.getElementById(pillId);
+  if(pill){
+    const isChecked = state[ref][type];
+    pill.className = "check-pill" + (isChecked ? " checked" : "");
+    pill.querySelector(".box").textContent = isChecked ? "✓" : "";
+  }
+  persistState();
+  updateDashboard();
+  updateAcScore(currentDomainIdx);
+  refreshWizard();
+  buildDomainTabs();
+}
+
+// ─── SCORING ─────────────────────────────────────────────────────────────────
+function getDomainScore(idx){
+  const d = DOMAINS[idx];
+  let total = 0, max = d.items.length * 2;
+  d.items.forEach(item => {
+    const s = state[item.ref] || {};
+    if(s.documented) total++;
+    if(s.implemented) total++;
+  });
+  return {total, max};
+}
+
+function getGroupScore(codes){
+  let total = 0, max = 0;
+  DOMAINS.forEach((d, i) => {
+    if(codes.includes(d.code)){
+      const sc = getDomainScore(i);
+      total += sc.total; max += sc.max;
+    }
+  });
+  return {total, max};
+}
+
+function getTotalScore(){
+  let total = 0;
+  DOMAINS.forEach((d, i) => {
+    const sc = getDomainScore(i);
+    total += sc.total;
+  });
+  return total;
+}
+
+function updateAcScore(idx){
+  const sc = getDomainScore(idx);
+  document.getElementById("acScore").textContent = sc.total + "/" + sc.max;
+}
+
+function getLevel(pct){
+  if(pct >= 90) return {label:"ASIA Ready", color:"#0d8c72", bg:"rgba(13,140,114,.12)"};
+  if(pct >= 70) return {label:"Largely Ready", color:"#278a94", bg:"rgba(39,138,148,.12)"};
+  if(pct >= 50) return {label:"Partially Ready", color:"#e07b20", bg:"rgba(224,123,32,.12)"};
+  if(pct >= 25) return {label:"Early Stage", color:"#e84040", bg:"rgba(232,64,64,.1)"};
+  return {label:"Not Started", color:"#e84040", bg:"rgba(232,64,64,.08)"};
+}
+
+function updateDashboard(){
+  const total = getTotalScore();
+  const maxTotal = TOTAL * 2;
+  const pct = Math.round(total / maxTotal * 100);
+  const level = getLevel(pct);
+
+  document.getElementById("scoreNum").textContent = total;
+  document.getElementById("scoreNum").style.color = level.color;
+  document.getElementById("scoreLevel").textContent = level.label;
+  document.getElementById("scoreLevel").style.color = level.color;
+  document.getElementById("scoreDesc").textContent = pct + "% of maximum readiness score achieved.";
+  document.getElementById("scoreBarFill").style.width = pct + "%";
+  document.getElementById("scoreBarFill").style.background = `linear-gradient(90deg,${level.color},${level.color}aa)`;
+
+  // Process score
+  let procTotal = 0, procMax = 0;
+  DOMAINS.forEach((d, i) => {
+    if(PROCESS_CODES.includes(d.code)){
+      const sc = getDomainScore(i); procTotal += sc.total; procMax += sc.max;
+    }
+  });
+  const procPct = procMax ? Math.round(procTotal / procMax * 100) : 0;
+  document.getElementById("metricProcess").textContent = procPct + "%";
+  document.getElementById("metricProcessSub").textContent = procTotal + " / " + procMax + " items";
+
+  // Doc score
+  let docTotal = 0, docMax = 0;
+  DOMAINS.forEach((d, i) => {
+    if(DOC_CODES.includes(d.code)){
+      const sc = getDomainScore(i); docTotal += sc.total; docMax += sc.max;
+    }
+  });
+  const docPct = docMax ? Math.round(docTotal / docMax * 100) : 0;
+  document.getElementById("metricDoc").textContent = docPct + "%";
+  document.getElementById("metricDocSub").textContent = docTotal + " / " + docMax + " items";
+
+  // Domains complete
+  let domComplete = 0;
+  DOMAINS.forEach((d, i) => {
+    const sc = getDomainScore(i);
+    if(sc.total === sc.max && sc.max > 0) domComplete++;
+  });
+  document.getElementById("metricDomains").textContent = domComplete + " / 10";
+
+  // Progress bar
+  const answered = DOMAINS.reduce((acc, d, i) => {
+    let cnt = 0;
+    d.items.forEach(item => {
+      const s = state[item.ref] || {};
+      if(s.documented || s.implemented) cnt++;
+    });
+    return acc + cnt;
+  }, 0);
+  document.getElementById("progressLabel").textContent = answered + " of " + TOTAL + " items addressed";
+  document.getElementById("progressPct").textContent = Math.round(answered / TOTAL * 100) + "%";
+  document.getElementById("progressFill").style.width = (answered / TOTAL * 100) + "%";
+}
+
+// ─── FILTER / SEARCH ─────────────────────────────────────────────────────────
+function filterRows(){
+  const q = document.getElementById("searchBox").value.toLowerCase();
+  const f = document.getElementById("filterSelect").value;
+  document.querySelectorAll(".control-row").forEach(row => {
+    const ref = row.dataset.ref;
+    const text = row.dataset.text;
+    const s = state[ref] || {};
+    let show = true;
+    if(q && !text.includes(q) && !ref.toLowerCase().includes(q)) show = false;
+    if(f === "documented" && !s.documented) show = false;
+    if(f === "implemented" && !s.implemented) show = false;
+    if(f === "none" && (s.documented || s.implemented)) show = false;
+    row.style.display = show ? "" : "none";
+  });
+}
+
+// ─── BULK ACTIONS ─────────────────────────────────────────────────────────────
+function markAll(type){
+  const d = DOMAINS[currentDomainIdx];
+  d.items.forEach(item => {
+    if(!state[item.ref]) state[item.ref] = {};
+    state[item.ref][type] = true;
+  });
+  persistState();
+  renderDomain(currentDomainIdx);
+  updateDashboard();
+  refreshWizard();
+  buildDomainTabs();
+}
+
+function clearDomain(){
+  if(!confirm("Clear all responses for this domain?")) return;
+  const d = DOMAINS[currentDomainIdx];
+  d.items.forEach(item => { state[item.ref] = {}; });
+  persistState();
+  renderDomain(currentDomainIdx);
+  updateDashboard();
+  refreshWizard();
+  buildDomainTabs();
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function prevDomain(){
+  if(currentDomainIdx > 0){
+    currentDomainIdx--;
+    renderDomain(currentDomainIdx);
+    buildDomainTabs();
+    refreshWizard();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+}
+
+function nextDomain(){
+  if(currentDomainIdx < DOMAINS.length - 1){
+    currentDomainIdx++;
+    renderDomain(currentDomainIdx);
+    buildDomainTabs();
+    refreshWizard();
+    window.scrollTo({top:0,behavior:"smooth"});
+  } else {
+    showSummary();
+  }
+}
+
+function goBackToAssessment(){
+  document.getElementById("page-summary").style.display = "none";
+  document.getElementById("page-assessment").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ─── SUMMARY ─────────────────────────────────────────────────────────────────
+function showSummary(){
+  document.getElementById("page-assessment").style.display = "none";
+  document.getElementById("page-summary").style.display = "block";
+
+  const total = getTotalScore();
+  const maxTotal = TOTAL * 2;
+  const pct = Math.round(total / maxTotal * 100);
+  const level = getLevel(pct);
+
+  document.getElementById("sbScore").textContent = total;
+  document.getElementById("sbMeta").textContent = "Max score: " + maxTotal + " · Readiness: " + pct + "%";
+  const pill = document.getElementById("sbLevelPill");
+  pill.textContent = level.label;
+  pill.style.background = "rgba(255,255,255,.18)";
+  pill.style.color = "#fff";
+
+  document.getElementById("sumPct").textContent = pct + "%";
+
+  let procTotal=0, procMax=0, docTotal=0, docMax=0;
+  DOMAINS.forEach((d,i) => {
+    const sc = getDomainScore(i);
+    if(PROCESS_CODES.includes(d.code)){ procTotal+=sc.total; procMax+=sc.max; }
+    else { docTotal+=sc.total; docMax+=sc.max; }
+  });
+  document.getElementById("sumProcess").textContent = procMax ? Math.round(procTotal/procMax*100)+"%":"0%";
+  document.getElementById("sumDoc").textContent = docMax ? Math.round(docTotal/docMax*100)+"%":"0%";
+
+  let domComplete=0;
+  DOMAINS.forEach((_,i) => { const sc=getDomainScore(i); if(sc.total===sc.max&&sc.max>0) domComplete++; });
+  document.getElementById("sumDomains").textContent = domComplete+"/10";
+
+  // Gauges
+  const gaugeContainer = document.getElementById("domainGauges");
+  gaugeContainer.innerHTML = "";
+  DOMAINS.forEach((d, i) => {
+    const sc = getDomainScore(i);
+    const gPct = sc.max ? Math.round(sc.total/sc.max*100) : 0;
+    const color = gPct>=80?"var(--success)":gPct>=50?"var(--warning)":"var(--danger)";
+    gaugeContainer.innerHTML += `
+      <div class="gauge-wrap">
+        <div class="gauge-lbl">${d.code} — ${d.title}</div>
+        <div class="gauge-track"><div class="gauge-bar" style="width:${gPct}%;background:${color}"></div></div>
+        <div class="gauge-pct" style="color:${color}">${gPct}%</div>
+      </div>`;
+  });
+
+  // Status list
+  const statusList = document.getElementById("domainStatusList");
+  statusList.innerHTML = "";
+  DOMAINS.forEach((d, i) => {
+    const sc = getDomainScore(i);
+    const gPct = sc.max ? Math.round(sc.total/sc.max*100) : 0;
+    const tag = gPct>=80?'<span class="status-tag tag-ok">On Track</span>':
+                gPct>=40?'<span class="status-tag tag-mid">Partial</span>':
+                '<span class="status-tag tag-ng">Needs Work</span>';
+    statusList.innerHTML += `
+      <div class="status-row">
+        <div class="status-name"><strong>${d.code}</strong> ${d.title} <span style="font-size:11px;color:var(--text-tertiary)">(${d.clause})</span></div>
+        ${tag}
+        <div style="font-size:12px;color:var(--text-secondary)">${sc.total}/${sc.max}</div>
+      </div>`;
+  });
+
+  // Recommendations
+  buildRecommendations();
+
+  // Radar
+  drawRadar();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function buildRecommendations(){
+  const container = document.getElementById("recommendations");
+  container.innerHTML = "";
+  const recs = [];
+
+  DOMAINS.forEach((d, i) => {
+    const sc = getDomainScore(i);
+    const pct = sc.max ? Math.round(sc.total/sc.max*100) : 0;
+    if(pct < 50){
+      const isImpact = d.code === "D5";
+      const isStakeholder = d.code === "D4";
+      recs.push({
+        priority: (pct < 25 || isImpact) ? "HIGH" : "MEDIUM",
+        text: `Strengthen readiness in <strong>${d.title}</strong> (${d.code}): currently at ${pct}% of the expected standard. ${d.objective}`,
+        ref: d.clause
+      });
+    }
+  });
+
+  // Specific cross-cutting recommendations
+  const d5Score = getDomainScore(9); // D5 is index 9
+  const d5Pct = d5Score.max ? Math.round(d5Score.total/d5Score.max*100) : 0;
+  if(d5Pct < 80){
+    recs.unshift({
+      priority: "HIGH",
+      text: "Ensure the Impact Analysis & Treatment Measures domain (D5) is fully completed — this is the core output of an ASIA and covers accountability, fairness, privacy, safety, societal impacts, and treatment plans.",
+      ref: "Clause 6.8–6.9"
+    });
+  }
+
+  const p5Score = getDomainScore(4); // P5 is index 4
+  const p5Pct = p5Score.max ? Math.round(p5Score.total/p5Score.max*100) : 0;
+  if(p5Pct < 60){
+    recs.push({
+      priority: "MEDIUM",
+      text: "Establish a formal ASIA approval and communication process (P5) — without documented approval and stakeholder communication, the ASIA may lack governance legitimacy.",
+      ref: "Clause 5.10–5.12"
+    });
+  }
+
+  if(recs.length === 0){
+    container.innerHTML = '<div class="empty">✓ Excellent — no major gaps identified. Continue monitoring and review the ASIA after any significant system changes.</div>';
+    return;
+  }
+
+  // Sort HIGH first
+  recs.sort((a,b) => (a.priority==="HIGH"?0:1) - (b.priority==="HIGH"?0:1));
+
+  recs.slice(0, 6).forEach(r => {
+    container.innerHTML += `
+      <div class="rec-item">
+        <span class="rec-priority ${r.priority==="HIGH"?"pri-high":"pri-med"}">${r.priority}</span>
+        <div class="rec-text">${r.text}</div>
+        <div class="rec-ref">${r.ref}</div>
+      </div>`;
+  });
+}
+
+// ─── RADAR CHART ─────────────────────────────────────────────────────────────
+function drawRadar(){
+  const canvas = document.getElementById("radarChart");
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0,0,300,300);
+
+  const cx=150, cy=150, R=110;
+  const N = RADAR_GROUPS.length;
+  const angles = RADAR_GROUPS.map((_,i) => i * 2*Math.PI/N - Math.PI/2);
+
+  // Grid
+  [0.25,0.5,0.75,1].forEach(f => {
+    ctx.beginPath();
+    angles.forEach((a,i) => {
+      const x = cx + Math.cos(a)*R*f;
+      const y = cy + Math.sin(a)*R*f;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.strokeStyle = "rgba(49,158,169,.15)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // Spokes
+  angles.forEach(a => {
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(a)*R, cy+Math.sin(a)*R);
+    ctx.strokeStyle = "rgba(49,158,169,.2)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // Data
+  const scores = RADAR_GROUPS.map(g => {
+    const sc = getGroupScore(g.codes);
+    return sc.max ? sc.total/sc.max : 0;
+  });
+
+  ctx.beginPath();
+  angles.forEach((a,i) => {
+    const x = cx + Math.cos(a)*R*scores[i];
+    const y = cy + Math.sin(a)*R*scores[i];
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = "rgba(49,158,169,.18)";
+  ctx.fill();
+  ctx.strokeStyle = "#319ea9";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Dots
+  angles.forEach((a,i) => {
+    const x = cx + Math.cos(a)*R*scores[i];
+    const y = cy + Math.sin(a)*R*scores[i];
+    ctx.beginPath();
+    ctx.arc(x,y,5,0,2*Math.PI);
+    ctx.fillStyle = RADAR_GROUPS[i].color;
+    ctx.fill();
+  });
+
+  // Labels
+  ctx.font = "bold 11px Helvetica,Arial,sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  angles.forEach((a,i) => {
+    const lx = cx + Math.cos(a)*(R+22);
+    const ly = cy + Math.sin(a)*(R+22);
+    ctx.fillStyle = "#174e59";
+    const label = RADAR_GROUPS[i].label;
+    const words = label.split(" ");
+    if(words.length > 1){
+      ctx.fillText(words.slice(0, Math.ceil(words.length/2)).join(" "), lx, ly-7);
+      ctx.fillText(words.slice(Math.ceil(words.length/2)).join(" "), lx, ly+7);
+    } else {
+      ctx.fillText(label, lx, ly);
+    }
+  });
+
+  // Legend
+  const legend = document.getElementById("radarLegend");
+  legend.innerHTML = "";
+  RADAR_GROUPS.forEach((g, i) => {
+    const sc = getGroupScore(g.codes);
+    const pct = sc.max ? Math.round(sc.total/sc.max*100) : 0;
+    legend.innerHTML += `
+      <div class="radar-legend-item">
+        <div class="radar-dot" style="background:${g.color}"></div>
+        <div>
+          <div style="font-weight:600;color:var(--text-primary);font-size:13px">${g.label}</div>
+          <div style="font-size:11px;color:var(--text-tertiary)">${pct}% · ${g.codes.join(", ")}</div>
+        </div>
+      </div>`;
+  });
+}
+
+// ─── LEAD MODAL ───────────────────────────────────────────────────────────────
+function showLeadModal(){
+  document.getElementById("leadModal").classList.add("active");
+}
+
+function closeLeadModal(){
+  document.getElementById("leadModal").classList.remove("active");
+}
+
+function submitLead(){
+  const fname = document.getElementById("lf-fname").value.trim();
+  const lname = document.getElementById("lf-lname").value.trim();
+  const email = document.getElementById("lf-email").value.trim();
+  const org = document.getElementById("lf-org").value.trim();
+  if(!fname||!lname||!email||!org){ alert("Please fill in all required fields."); return; }
+  document.getElementById("leadSuccess").classList.add("active");
+  document.querySelector(".lead-submit").style.display = "none";
+}
+
+document.getElementById("leadModal").addEventListener("click", function(e){
+  if(e.target === this) closeLeadModal();
+});
+
+// ─── AUTO-LOAD ─────────────────────────────────────────────────────────────
+loadStateFromStorage();
+</script>
+</body>
+</html>

@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO/IEC 27701:2025 Self-Assessment | CBQA Global</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{
+  --navy:#174e59;--navy-dark:#143f49;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;
+  --green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;
+  --text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;
+  --success:#0d8c72;--success-bg:#e6f8f3;--danger:#e84040;--danger-bg:#fef1f1;
+  --warning:#e07b20;--warning-bg:#fef3e8;--info:#174e59;--info-bg:#e7f8f9;
+  --shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px
+}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+
+/* NAV */
+.topnav{height:76px;background:linear-gradient(135deg,#143f49 0%,#1e6470 55%,#2b8a96 100%);box-shadow:0 14px 36px rgba(16,37,43,.22);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:50px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand{display:flex;flex-direction:column;gap:1px}
+.nav-brand-main{font-size:17px;font-weight:700;color:#fff;letter-spacing:.2px;line-height:1.2}
+.nav-brand-sub{font-size:11.5px;font-weight:400;color:rgba(255,255,255,.65);letter-spacing:.1px;line-height:1.3}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-badge{display:none}
+.nav-back-link{
+  display:inline-flex;align-items:center;gap:10px;
+  height:46px;padding:0 26px;
+  border-radius:999px;
+  border:2px solid rgba(255,255,255,.55);
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  color:#fff;
+  font-size:15px;font-weight:700;
+  text-decoration:none;
+  letter-spacing:.1px;
+  box-shadow:0 4px 20px rgba(16,37,43,.15);
+  transition:background .2s ease,border-color .2s ease,transform .18s ease;
+  white-space:nowrap
+}
+.nav-back-link:hover{
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.85);
+  transform:translateY(-1px)
+}
+.nav-back-link svg{width:18px;height:18px;flex-shrink:0}
+
+/* LAYOUT */
+.layout{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+
+/* ROLE SELECTOR PAGE */
+#page-role{display:block}
+.role-hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem 2rem 1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.role-hero:after{content:'';position:absolute;right:-60px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08)}
+.role-hero h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;position:relative;z-index:1}
+.role-hero p{font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.65;max-width:680px;position:relative;z-index:1}
+.role-eyebrow{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px}
+.role-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:1.5rem}
+.role-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;cursor:pointer;transition:all .22s ease;position:relative}
+.role-card:hover{border-color:var(--teal);box-shadow:0 8px 28px rgba(49,158,169,.16);transform:translateY(-2px)}
+.role-card.selected{border-color:var(--teal);background:var(--teal-light);box-shadow:0 8px 28px rgba(49,158,169,.22)}
+.role-card .rc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px}
+.rc-ctrl .rc-icon{background:#e7f8f9;color:#174e59}
+.rc-proc .rc-icon{background:#e7eef8;color:#185fa5}
+.rc-both .rc-icon{background:#e6f8f3;color:#0d5c3c}
+.role-card h3{font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.role-card p{font-size:12px;color:var(--text-secondary);line-height:1.6}
+.role-card .rc-tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:10px;text-transform:uppercase;letter-spacing:.4px}
+.rc-ctrl .rc-tag{background:#e7f8f9;color:#174e59}
+.rc-proc .rc-tag{background:#e7eef8;color:#185fa5}
+.rc-both .rc-tag{background:#e6f8f3;color:#0d5c3c}
+.role-card .rc-check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:var(--teal);display:none;align-items:center;justify-content:center;color:#fff;font-size:13px}
+.role-card.selected .rc-check{display:flex}
+.role-note{background:#e9f8fa;border:1px solid #b7e0e5;border-radius:var(--radius-md);padding:14px 18px;margin-bottom:1.5rem;font-size:13px;color:#174e59;line-height:1.7}
+.role-note strong{font-weight:700}
+.role-items-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.rip{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;text-align:center}
+.rip-val{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.rip-lbl{font-size:11px;color:var(--text-tertiary)}
+.btn-start{background:var(--teal);color:#fff;font-size:15px;font-weight:700;padding:14px 36px;border-radius:var(--radius-lg);border:none;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s;box-shadow:0 14px 30px rgba(49,158,169,.22);animation:fadeUp .3s ease}
+.btn-start:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 18px 36px rgba(49,158,169,.28)}
+.btn-start:disabled,.btn-start[disabled]{display:none!important}
+
+/* WIZARD */
+.wizard-steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(49,158,169,.18);padding:1rem 1.5rem;overflow-x:auto;box-shadow:var(--shadow-sm)}
+.wstep{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-tertiary);transition:all .3s}
+.wstep.active .wstep-dot{background:var(--teal);border-color:var(--teal);color:#fff}
+.wstep.done .wstep-dot{background:var(--success);border-color:var(--success);color:#fff}
+.wstep-label{font-size:12px;font-weight:500;color:var(--text-tertiary);white-space:nowrap}
+.wstep.active .wstep-label{color:var(--text-primary)}
+.wstep.done .wstep-label{color:var(--success)}
+.wstep-line{flex:1;height:1px;background:var(--border);margin:0 8px;min-width:24px}
+
+/* PROGRESS */
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+
+/* HERO CARD */
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.76);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+.role-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px;letter-spacing:.3px}
+
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card{background:linear-gradient(180deg,#fff,#f8fcfd);border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:500;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:#174e59}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+
+/* DOMAIN TABS */
+.domain-tabs{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:8px;box-shadow:var(--shadow-sm)}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+.tab-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-tertiary);padding:4px 8px 4px 4px;align-self:center;white-space:nowrap}
+.tab-divider{width:1px;background:var(--border);height:32px;align-self:center;margin:0 4px}
+
+/* NOTE */
+.note{background:#e9f8fa;border:1px solid #b7e0e5;padding:14px 16px;border-radius:10px;margin-bottom:1.5rem}
+.note-title{font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.note ul{margin-left:18px;font-size:12.5px;color:#4A6360;line-height:1.7}
+
+/* ASSESSMENT CARD */
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.ac-objective{background:#f0fbfc;border-left:3px solid var(--teal);padding:10px 14px;font-size:12px;color:#174e59;line-height:1.6;border-bottom:1px solid var(--border)}
+.ac-objective strong{font-weight:700}
+
+/* TOOLBAR */
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:.6rem 1.5rem;border-bottom:1px solid var(--border);background:#fafcfc}
+.tba-btn{height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font:600 11px Helvetica,Arial,sans-serif;color:var(--text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tba-btn:hover{border-color:var(--teal);color:var(--navy);background:var(--teal-light)}
+.tba-doc{border-color:rgba(49,158,169,.3);color:#174e59;background:#edfbfc}
+.tba-impl{border-color:rgba(13,140,114,.3);color:#0d5c3c;background:#e6f8f3}
+.tba-clear{border-color:rgba(232,64,64,.25);color:#8a1010;background:#fef8f8}
+.tba-save{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-load{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-divider{width:1px;height:22px;background:var(--border);margin:0 4px}
+
+/* CONTROL LIST */
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:92px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #f3f5f8;border-radius:12px;transition:background-color .18s ease,box-shadow .18s ease}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:#f2fbfc;box-shadow:inset 3px 0 0 var(--teal)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary)}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+.obj-subhead{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal);background:var(--teal-light);padding:6px 14px;border-radius:8px;margin:10px 4px 4px;display:block}
+
+/* ACTION BAR */
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:12px;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);background:var(--green-mid)}
+.btn-secondary:hover{background:var(--off-white)}
+
+/* SUMMARY PAGE */
+#page-summary{display:none}
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+.sb-role-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px}
+
+/* SUM GRID */
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm)}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+
+/* SECTION CARDS */
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-icon-success{background:var(--success-bg);color:var(--success)}
+.sc-body{padding:.75rem 1.25rem}
+
+/* GAUGE */
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:230px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+
+/* STATUS */
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f5f8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+
+/* REC */
+.rec-item{padding:12px 0;border-bottom:1px solid #f3f5f8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+
+/* TEMPLATE CTA */
+.template-cta{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:5px 10px;border:1px solid rgba(49,158,169,.3);border-radius:999px;background:#e7f8f9;color:#174e59;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s ease}
+.template-cta:hover{background:#d7f2f5;border-color:rgba(49,158,169,.62);transform:translateY(-1px)}
+.template-hint{position:relative;cursor:help}
+.template-hint:hover::after{position:absolute;right:0;bottom:calc(100% + 8px);z-index:20;width:260px;padding:10px 12px;border-radius:12px;background:#143f49;color:#fff;box-shadow:0 18px 40px rgba(16,37,43,.2);content:"Need this document? CBQA Global can provide ready-to-use ISO 27701 templates and assist your team in tailoring them.";font-size:11px;font-weight:500;line-height:1.45;white-space:normal}
+
+/* FOOTER */
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid rgba(49,158,169,.22);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+
+/* LEAD MODAL */
+.lead-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,30,36,.58);backdrop-filter:blur(10px)}
+.lead-modal.active{display:flex}
+.lead-dialog{width:min(100%,720px);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.32);border-radius:24px;background:linear-gradient(180deg,#fff,#f4fbfc);box-shadow:0 32px 90px rgba(16,37,43,.28)}
+.lead-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:26px 28px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#143f49,#319ea9);color:#fff;border-radius:24px 24px 0 0}
+.lead-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:8px}
+.lead-head h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.lead-head p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.76);max-width:560px;margin:0}
+.lead-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lead-form{padding:24px 28px 28px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-field{display:grid;gap:7px}
+.lead-field.lead-full{grid-column:1 / -1}
+.lead-field span{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{width:100%;min-height:42px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text-primary);font:13px Helvetica,Arial,sans-serif;padding:10px 12px;outline:none}
+.lead-field textarea{min-height:88px;resize:vertical}
+.lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(49,158,169,.14)}
+.lead-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.lead-note{font-size:12px;line-height:1.55;color:var(--text-tertiary);max-width:360px}
+.lead-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 14px Helvetica,Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.lead-submit:hover{background:var(--green-mid)}
+.lead-success{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(13,140,114,.28);border-radius:14px;background:var(--success-bg);color:var(--success);font-size:13px;line-height:1.55}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:10px;background:var(--success);color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}
+  .control-row{grid-template-columns:76px 1fr 130px 130px}
+  .control-evidence{grid-column:2 / -1}
+  .toolbar{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .role-cards{grid-template-columns:1fr}
+  .role-items-preview{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+  .topnav{padding:0 1rem}
+  .layout{padding:1.25rem .9rem}
+  .nav-brand-sub{display:none}
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr}
+  .control-row{grid-template-columns:68px 1fr}
+  .check-pill,.control-evidence{grid-column:1 / -1}
+  .action-bar,.footer-bar{flex-direction:column;align-items:stretch}
+  .gauge-wrap{flex-direction:column;align-items:flex-start;gap:6px}
+  .gauge-lbl{width:auto}
+  .gauge-track{width:100%}
+  .lead-grid{grid-template-columns:1fr}
+  .lead-actions{flex-direction:column;align-items:stretch}
+  .lead-submit{width:100%}
+}
+@media print{
+  .topnav,.wizard-steps,.domain-tabs,.toolbar,.toolbar-actions,.action-bar,.btn,
+  #page-role,#page-assessment,.footer-bar button{display:none!important}
+  body{background:#fff!important}
+  .layout{padding:1rem!important}
+  .summary-banner{background:linear-gradient(135deg,#143f49,#319ea9)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .summary-banner *{color:#fff!important}
+  .section-card{break-inside:avoid;border:1px solid #d4e7ea!important;box-shadow:none!important}
+  .gauge-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sum-grid,.section-card,.footer-bar{break-inside:avoid}
+  .footer-bar{border-top:1px solid #d4e7ea;padding-top:1rem}
+}
+.page-enter{animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO/IEC 27701:2025 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="nav-back-link" href="oneconnect.html" aria-label="Back to OneConnect Platform">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span>Back to OneConnect Platform</span>
+    </a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- ROLE SELECTION PAGE -->
+<div id="page-role" class="page-enter">
+  <div class="role-hero">
+    <div class="role-eyebrow">OneConnect · ISO/IEC 27701:2025</div>
+    <h1>Privacy Information Management System<br>Self-Assessment</h1>
+    <p>Before starting the assessment, determine your organisation's role in processing Personally Identifiable Information (PII). This selection determines which controls are relevant and will be counted in your PIMS readiness evaluation.</p>
+  </div>
+
+  <div class="role-note">
+    <strong>Role selection guide:</strong> Your organisation's role may differ across PII processing activities, depending on who determines the purpose and means of processing. If your organisation determines the purpose of processing → select <strong>PII Controller</strong>. If you process on the instructions of another party → select <strong>PII Processor</strong>. If both apply to your operations → select <strong>Both</strong>.
+  </div>
+
+  <div class="role-cards">
+    <div class="role-card rc-ctrl" onclick="selectRole('controller')" id="card-controller">
+      <div class="rc-check">✓</div>
+      <div class="rc-icon">🏛️</div>
+      <h3>PII Controller</h3>
+      <p>The organisation that determines the purposes and means of PII processing. It has direct obligations to PII principals (data subjects) and is responsible for the lawfulness of processing.</p>
+      <p style="margin-top:8px;font-size:11px;color:#7d9aa2"><em>Examples: banks, hospitals, e-commerce companies, government agencies</em></p>
+      <span class="rc-tag">Table A.1 + A.3</span>
+    </div>
+    <div class="role-card rc-proc" onclick="selectRole('processor')" id="card-processor">
+      <div class="rc-check">✓</div>
+      <div class="rc-icon">⚙️</div>
+      <h3>PII Processor</h3>
+      <p>The organisation that processes PII on behalf of and under the instructions of a PII Controller. It does not independently determine the purpose of processing; it works within the contractual scope defined by the controller.</p>
+      <p style="margin-top:8px;font-size:11px;color:#7d9aa2"><em>Examples: cloud providers, payroll vendors, data centres, SaaS analytics</em></p>
+      <span class="rc-tag">Table A.2 + A.3</span>
+    </div>
+    <div class="role-card rc-both" onclick="selectRole('both')" id="card-both">
+      <div class="rc-check">✓</div>
+      <div class="rc-icon">🔄</div>
+      <h3>Controller &amp; Processor</h3>
+      <p>The organisation acts as a PII Controller for some activities and as a PII Processor for others. Clear separation of controls is required for each role.</p>
+      <p style="margin-top:8px;font-size:11px;color:#7d9aa2"><em>Examples: technology companies that hold their own user data while also providing data processing services for other clients</em></p>
+      <span class="rc-tag">Table A.1 + A.2 + A.3</span>
+    </div>
+  </div>
+
+  <div class="role-items-preview">
+    <div class="rip"><div class="rip-val" id="rip-clause">25</div><div class="rip-lbl">PIMS Clause Items (4–10)</div></div>
+    <div class="rip"><div class="rip-val" id="rip-annex">—</div><div class="rip-lbl">Annex A Control Items</div></div>
+    <div class="rip"><div class="rip-val" id="rip-total" style="color:#319ea9">—</div><div class="rip-lbl">Total Assessment Items</div></div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-end">
+    <button class="btn-start" id="btn-start" onclick="startAssessment()" disabled>
+      <span>Start Assessment</span>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ASSESSMENT PAGE -->
+<div id="page-assessment" style="display:none" class="page-enter">
+
+  <div class="wizard-steps">
+    <div class="wstep active" id="ws-1"><div class="wstep-dot">1</div><span class="wstep-label">PIMS Clauses (4–10)</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep active" id="ws-2"><div class="wstep-dot">2</div><span class="wstep-label">Annex A Controls</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep" id="ws-3"><div class="wstep-dot">3</div><span class="wstep-label">Summary</span></div>
+  </div>
+
+  <div class="progress-header">
+    <span id="progress-label">ISO/IEC 27701:2025 PIMS Readiness Assessment</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+
+  <div class="hero">
+    <div>
+      <h1>ISO/IEC 27701:2025 Self-Assessment</h1>
+      <p>PIMS readiness assessment based on real evidence — practical questions with evidence mapping to help identify PII privacy protection gaps in your organisation.</p>
+      <div class="role-pill" id="hero-role-pill">— Role not selected —</div>
+    </div>
+    <div class="hero-badge" id="hero-badge">Clause 4</div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="score-card">
+      <div class="eyebrow">Overall Readiness Score</div>
+      <div class="score-main"><span class="score-num" id="score-display">0</span><span class="score-denom">/ 5</span></div>
+      <div class="score-level" id="score-level">Initial</div>
+      <div class="score-desc" id="score-desc">No evidence or very limited readiness</div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Evidence Checked</div>
+      <div class="metric-value" id="check-display">0 / 0</div>
+      <div class="metric-sub">Documented + Implemented</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Items Ready</div>
+      <div class="metric-value" id="ready-display">0 / 0</div>
+      <div class="metric-sub">Both evidence boxes checked</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Open Gaps</div>
+      <div class="metric-value" id="gap-display">0</div>
+      <div class="metric-sub">Need action or evidence</div>
+    </div>
+  </div>
+
+  <div class="domain-tabs" id="domain-tabs"></div>
+
+  <div class="note">
+    <div class="note-title">Checklist Completion Notes</div>
+    <ul>
+      <li>Tick <strong>Documented</strong> only if a policy, procedure, register, or official record exists and has been approved.</li>
+      <li>Tick <strong>Implemented</strong> only if there is operational evidence: logs, screenshots, tickets, review records, or audit trails.</li>
+      <li>Controls labelled <strong>PII Principal</strong> relate directly to data subject rights — ensure the evidence is verifiable.</li>
+      <li>Use the summary page as an initial gap list before formal audit preparation.</li>
+    </ul>
+  </div>
+
+  <div class="assessment-card">
+    <div class="ac-header">
+      <div class="ac-title-wrap">
+        <span class="ac-code" id="domain-code">4</span>
+        <div>
+          <h2 id="domain-title">Context of the Organisation</h2>
+          <p id="domain-desc"></p>
+        </div>
+      </div>
+      <div class="ac-meta">
+        <div class="big" id="domain-count">0 / 0</div>
+        <div class="small">ready items</div>
+      </div>
+    </div>
+    <div class="ac-objective" id="domain-objective" style="display:none"></div>
+    <div class="toolbar">
+      <input class="search-box" id="search-box" type="search" placeholder="Search clause, control, question, or evidence..." oninput="renderDomain()">
+      <select class="filter-select" id="filter-select" onchange="renderDomain()">
+        <option value="all">Show all items</option>
+        <option value="gap">Only open gaps</option>
+        <option value="ready">Only ready items</option>
+        <option value="docgap">Missing documents</option>
+        <option value="implgap">Missing implementation</option>
+      </select>
+    </div>
+    <div class="toolbar-actions" id="toolbar-actions">
+      <button class="tba-btn" onclick="selectAllDomain(true,true)">✓ All Ready</button>
+      <button class="tba-btn tba-doc" onclick="selectAllDomain(true,false)">+ All Documented</button>
+      <button class="tba-btn tba-impl" onclick="selectAllDomain(false,true)">+ All Implemented</button>
+      <button class="tba-btn tba-clear" onclick="selectAllDomain(false,false)">✗ Clear All</button>
+      <span class="tba-divider"></span>
+      <button class="tba-btn tba-save" onclick="saveProgress()" title="Save progress to browser storage">💾 Save</button>
+      <button class="tba-btn tba-load" onclick="loadProgress()" title="Load previously saved progress">📂 Load Saved</button>
+    </div>
+    <div class="control-list" id="control-list"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="prevDomain()">← Previous</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="btn btn-secondary" id="next-section-btn" onclick="nextDomain()">Next Section →</button>
+      <button class="btn btn-teal" onclick="goToSummary()">View Summary</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUMMARY PAGE -->
+<div id="page-summary" class="page-enter" style="display:none">
+
+  <div class="summary-banner">
+    <div class="summary-banner-content">
+      <div class="sb-eyebrow">PIMS Assessment Report</div>
+      <div class="sb-role-badge" id="sum-role-badge">— Role —</div>
+      <div class="sb-title">ISO/IEC 27701:2025 Readiness Summary</div>
+      <div class="sb-sub">Privacy Information Management System readiness based on documented and implemented evidence.</div>
+      <div class="sb-score-row">
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:4px">Overall Score</div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="sb-score-big" id="sum-score-big">0</span>
+            <span class="sb-score-denom">/ 5</span>
+          </div>
+        </div>
+        <span class="sb-level-pill" id="sum-level-pill">Initial</span>
+      </div>
+      <div class="sb-meta" id="sum-meta">Generated: —</div>
+    </div>
+  </div>
+
+  <div class="sum-grid">
+    <div class="sum-metric"><div class="sm-val" id="sm-score">0/5</div><div class="sm-lbl">Readiness Score</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-pct">0%</div><div class="sm-lbl">Evidence Completion</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-ready">0/0</div><div class="sm-lbl">Items Ready</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-gaps">0</div><div class="sm-lbl">Open Gaps</div></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">📊</div>Readiness Radar by Domain Group</div>
+    <div class="sc-body" style="display:flex;justify-content:center;align-items:center;padding:1.25rem 0">
+      <canvas id="radar-canvas" width="460" height="320" style="max-width:100%"></canvas>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-body" id="domain-breakdown"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Missing Documents Summary</div>
+    <div class="sc-body" id="missing-doc-summary"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">📄</div>Need PIMS Document Templates?</div>
+    <div class="sc-body">
+      <p class="rec-text">If your team does not yet have a privacy policy, PII processing procedures, registers, or evidence templates compliant with ISO/IEC 27701:2025, CBQA Global can provide ready-to-use document templates and paid implementation assistance.</p>
+      <div style="margin-top:12px"><button class="btn btn-teal" onclick="openTemplateModal('ISO 27701 PIMS document template package')">Request Template Package</button></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Recommendations &amp; Action Items</div>
+    <div class="sc-body" id="sum-recs"></div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-meta" id="sum-footer-date">OneConnect ISO/IEC 27701:2025 Self-Assessment<br>CBQA Global Indonesia</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="printSummary()">🖨️ Print Summary</button>
+      <button class="btn btn-secondary" onclick="backToAssessment()">Edit Assessment</button>
+      <button class="btn btn-primary" onclick="openLeadModal()">Request Full Report</button>
+    </div>
+  </div>
+
+</div>
+</div><!-- /layout -->
+
+<!-- LEAD MODAL -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO/IEC 27701 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Company Size</span>
+          <select name="size" required>
+            <option value="">Select size</option>
+            <option>1 - 50 employees</option>
+            <option>51 - 200 employees</option>
+            <option>201 - 1000 employees</option>
+            <option>1000+ employees</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>PIMS Role</span>
+          <select name="role" required>
+            <option value="">Select role</option>
+            <option>PII Controller</option>
+            <option>PII Processor</option>
+            <option>Both (Controller &amp; Processor)</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>ISO 27701 readiness assessment</option>
+            <option>Privacy gap analysis</option>
+            <option>PIMS certification preparation</option>
+            <option>GDPR / PDPA compliance</option>
+            <option>Internal improvement planning</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Industry Sector</span>
+          <select name="industry">
+            <option value="">Select sector</option>
+            <option>Banking &amp; Financial Services</option>
+            <option>Healthcare</option>
+            <option>Technology / SaaS</option>
+            <option>Telecommunications</option>
+            <option>Government / Public Sector</option>
+            <option>Retail / E-commerce</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your target timeline, scope, or current privacy challenges."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">CBQA Global can provide paid templates, review support, or assisted PIMS implementation based on your selected need.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 business hour.
+        <div class="lead-success-actions"><a href="oneconnect.html">Back to OneConnect Platform</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   DATA — ISO/IEC 27701:2025
+   ================================================================ */
+
+const CLAUSE_DOMAINS = [
+  {id:"C4",label:"Clause 4",group:"PIMS Clauses",title:"Context of the Organisation",
+   desc:"PIMS scope, identification of internal/external issues, determination of Controller/Processor role, and interested parties related to PII processing.",
+   objective:"Ensure the organisation understands the internal and external context that affects the PIMS's ability to achieve its intended outcomes, including establishing the role as PII controller and/or processor.",
+   items:[
+    ["4.1.a","Has the organisation identified external and internal issues relevant to the purpose of the PIMS?","Context register, SWOT/PESTLE, applicable privacy regulations (PDPA, GDPR, etc.)"],
+    ["4.1.b","Has the organisation determined whether it acts as a PII Controller, PII Processor, or both?","Role determination document, PIMS policy, management approval"],
+    ["4.2.a","Have relevant interested parties been identified, including PII principals?","Interested parties register, regulatory and contractual requirements matrix"],
+    ["4.2.b","Have the requirements of interested parties (including PII principals) been documented?","List of legal obligations, contracts, and business requirements related to privacy"],
+    ["4.3","Has the PIMS scope been defined considering PII processing?","PIMS scope statement, system boundaries, covered processes"],
+    ["4.4","Have the PIMS processes been established, implemented, maintained, and continually improved?","PIMS process map, privacy governance procedures"]
+  ]},
+  {id:"C5",label:"Clause 5",group:"PIMS Clauses",title:"Leadership",
+   desc:"Top management commitment, privacy policy, and PIMS roles, responsibilities, and authorities.",
+   objective:"Ensure top management demonstrates leadership and genuine commitment to the PIMS, including establishing a privacy policy and allocating clear responsibilities.",
+   items:[
+    ["5.1","Does top management demonstrate leadership and genuine commitment to the PIMS (providing resources, communicating, supporting improvement)?","Management commitment evidence, meeting minutes, PIMS budget allocation"],
+    ["5.2","Has a privacy policy been established, approved by management, communicated, and made available to interested parties?","Privacy policy, communication/distribution evidence, periodic review evidence"],
+    ["5.3.a","Have PIMS roles, responsibilities, and authorities been established and communicated?","RACI matrix, job descriptions, appointment letters (including DPO if required)"],
+    ["5.3.b","Is there an officer/person responsible for PIMS conformity and reporting performance to management?","Privacy officer/DPO appointment document, PIMS performance reports"]
+  ]},
+  {id:"C6",label:"Clause 6",group:"PIMS Clauses",title:"Planning",
+   desc:"Privacy risk assessment, privacy risk treatment, Statement of Applicability (SoA), privacy objectives, and change planning.",
+   objective:"Ensure the organisation plans actions to address privacy risks and opportunities, including a well-defined risk assessment and treatment process.",
+   items:[
+    ["6.1.1","Have the risks and opportunities that need to be addressed to ensure the PIMS achieves its intended outcomes been identified?","PIMS risk and opportunity register, action plan"],
+    ["6.1.2.a","Has a privacy risk assessment process been established and consistently applied?","Privacy risk assessment methodology, risk acceptance criteria"],
+    ["6.1.2.b","Does the privacy risk assessment identify risks to PII principals and risk owners?","Privacy risk register with identification of risk owners and impact on PII principals"],
+    ["6.1.3.a","Has privacy risk treatment been planned with appropriate treatment option selection?","Privacy risk treatment plan, PIMS Statement of Applicability (SoA)"],
+    ["6.1.3.b","Has a PIMS Statement of Applicability (SoA) been produced covering the justification for inclusion/exclusion of Annex A controls?","SoA document covering Annex A.1/A.2/A.3 controls according to role"],
+    ["6.2","Have measurable privacy objectives been established and monitored at relevant levels and functions?","Privacy objectives, KPI tracker, monitoring reports"],
+    ["6.3","Are changes to the PIMS planned and controlled in a structured manner?","Change management plan, PIMS change approval evidence"]
+  ]},
+  {id:"C7",label:"Clause 7",group:"PIMS Clauses",title:"Support",
+   desc:"Resources, competence, awareness, communication, and documented information for the PIMS.",
+   objective:"Ensure adequate resources are available, personnel have the necessary competence, and PIMS documented information is properly managed.",
+   items:[
+    ["7.1","Have the resources needed for establishing, implementing, maintaining, and improving the PIMS been determined and provided?","PIMS budget plan/allocation, resource provision evidence"],
+    ["7.2","Have the necessary competences been determined and evidenced for personnel working under the organisation's control in relation to the PIMS?","Privacy competence matrix, training records, relevant certifications"],
+    ["7.3","Are personnel aware of the privacy policy, their contribution to PIMS effectiveness, and the implications of non-conformity?","Awareness records, privacy training materials, participant confirmations"],
+    ["7.4","Have internal and external communications relevant to the PIMS been planned (what, when, to whom, how)?","Communication matrix, privacy policy communication evidence"],
+    ["7.5","Is PIMS documented information created, updated, controlled, and protected appropriately?","Document control procedure, PIMS master document list, version control records"]
+  ]},
+  {id:"C8",label:"Clause 8",group:"PIMS Clauses",title:"Operation",
+   desc:"Operational planning and control, execution of privacy risk assessment, and implementation of privacy risk treatment.",
+   objective:"Ensure PIMS processes are operated and controlled according to plan, including risk assessment at planned intervals.",
+   items:[
+    ["8.1","Are the processes needed to meet PIMS requirements planned, implemented, and controlled?","Operational control records, PII processing procedures, control evidence"],
+    ["8.2","Is the privacy risk assessment performed at planned intervals or when significant changes occur?","Periodic privacy risk assessment reports, triggered assessment records"],
+    ["8.3","Has the privacy risk treatment plan been implemented and the results documented?","Treatment implementation tracker, control implementation evidence, residual risk approval"]
+  ]},
+  {id:"C9",label:"Clause 9",group:"PIMS Clauses",title:"Performance Evaluation",
+   desc:"Monitoring, measurement, analysis, evaluation, internal audit, and management review.",
+   objective:"Ensure PIMS performance is regularly monitored and evaluated, including through a structured internal audit programme and management review.",
+   items:[
+    ["9.1","Are PIMS performance and the effectiveness of privacy controls monitored, measured, analysed, and evaluated?","Privacy metrics dashboard, monitoring reports, evaluation evidence"],
+    ["9.2","Has the PIMS internal audit programme been planned and executed at planned intervals?","PIMS audit programme, internal audit reports, auditor objectivity evidence"],
+    ["9.3","Does top management conduct PIMS management reviews at planned intervals with documented inputs and outputs?","PIMS management review minutes, action log, improvement decision evidence"]
+  ]},
+  {id:"C10",label:"Clause 10",group:"PIMS Clauses",title:"Improvement",
+   desc:"Continual improvement of the PIMS and handling of nonconformities and corrective actions.",
+   objective:"Ensure the PIMS is continually improved and that any nonconformity is addressed with appropriate corrective action to prevent recurrence.",
+   items:[
+    ["10.1","Is the PIMS continually improved in terms of its suitability, adequacy, and effectiveness?","Improvement log, trend analysis results, improvement action evidence"],
+    ["10.2","Are nonconformities handled with correction, root cause analysis, and documented corrective actions?","PIMS NC/CAPA records, corrective action effectiveness evidence"]
+  ]}
+];
+
+const ANNEX_A1 = {
+  id:"A1",label:"Annex A.1",group:"Controller Controls",title:"PII Controller Controls",
+  desc:"Controls specific to PII Controllers: conditions for collection and processing, obligations to PII principals, privacy by design and default, and PII sharing, transfer, and disclosure.",
+  objective:null,
+  subgroups:[
+    {obj:"Purpose: Demonstrate that processing is lawful, has an appropriate legal basis for the jurisdiction, and has clear and legitimate purposes.",
+     items:[
+      ["A.1.2.2","Have the specific purposes of PII processing been identified and documented?","PII processing purpose documentation, privacy notice, purpose statements communicated to PII principals"],
+      ["A.1.2.3","Has the lawful basis for PII processing been determined, documented, and is it demonstrable?","Legal basis document per processing activity, legal basis register, legal compliance analysis"],
+      ["A.1.2.4","Has the process for determining when and how consent is obtained from PII principals been determined and documented?","Consent procedure, consent collection mechanism documentation, consent form/flow"],
+      ["A.1.2.5","Has consent from PII principals been obtained and recorded in accordance with the documented process?","Consent records, consent timestamp evidence, consent log per PII principal"],
+      ["A.1.2.6","Is the need for a Privacy Impact Assessment (PIA) assessed and conducted whenever new PII processing or significant changes occur?","PIA/DPIA reports, PIA need assessment documentation, PIA register"],
+      ["A.1.2.7","Are written contracts in place with each PII Processor used, covering the implementation of appropriate controls?","Contracts with PII processors, data processing agreements, required control checklist"],
+      ["A.1.2.8","Have the roles and responsibilities of each party been determined for every joint PII controller arrangement?","Joint controller agreement, data sharing agreement, documented obligation allocation"],
+      ["A.1.2.9","Have the records required to support PII processing obligations been determined and securely maintained?","Records of Processing Activities (RoPA), PII processing inventory, PIA reports"]
+    ]},
+    {obj:"Purpose: Ensure PII principals receive appropriate information about the processing of their PII and that other obligations to PII principals are fulfilled.",
+     items:[
+      ["A.1.3.2","Have legal, regulatory, and business obligations to PII principals regarding PII processing been determined and fulfilled?","PII principal obligations document, rights fulfilment mechanism, available contact point"],
+      ["A.1.3.3","Has the information to be provided to PII principals regarding PII processing and the timing of its provision been determined?","Privacy notice/statement, mandatory disclosure information list, disclosure timing"],
+      ["A.1.3.4","Is information provided to PII principals delivered clearly, accessibly, and in language that can be understood?","Accessible privacy notice, PII principal communication evidence, audience-appropriate format"],
+      ["A.1.3.5","Have mechanisms been provided for PII principals to modify or withdraw consent?","Consent withdrawal procedure, technical opt-out mechanism, withdrawal records"],
+      ["A.1.3.6","Are mechanisms available for PII principals to object to the processing of their PII?","Objection procedure, technical mechanism, PII principal objection log"],
+      ["A.1.3.7","Have policies, procedures, or mechanisms been implemented to fulfil PII principals' rights of access, rectification, or erasure?","Data Subject Request (DSR) procedure, response SLA, request handling records"],
+      ["A.1.3.8","Are third parties that have received PII notified of modifications, withdrawals, or objections related to shared PII?","Third-party notification procedure, modification/deletion communication log, coordination evidence"],
+      ["A.1.3.9","Can the organisation provide a copy of the PII being processed when requested by a PII principal?","Data portability procedure, copy provision mechanism, machine-readable format"],
+      ["A.1.3.10","Have policies and procedures been defined for handling and responding to legitimate requests from PII principals?","DSR handling SOP, response time SLA, request and handling status log"],
+      ["A.1.3.11","Have obligations related to automated processing decisions that significantly affect PII principals been identified?","Automated decision-making documentation, human review procedure, notification to PII principals"]
+    ]},
+    {obj:"Purpose: Ensure processes and systems are designed so that PII collection and processing is limited to the minimum necessary for the specified purpose.",
+     items:[
+      ["A.1.4.2","Is PII collection limited to only the minimum that is relevant, proportionate, and necessary for the specified purpose?","Data minimisation policy, system configuration, evidence of restriction on PII fields collected"],
+      ["A.1.4.3","Is PII processing limited to only what is adequate, relevant, and necessary for the specified purpose?","Processing limitation procedure, data access configuration, privacy by default evidence"],
+      ["A.1.4.4","Is the accuracy, completeness, and currency of PII ensured and documented throughout the PII lifecycle?","Data quality procedure, data update mechanism, periodic accuracy verification evidence"],
+      ["A.1.4.5","Have data minimisation objectives and the mechanisms used (including de-identification) been defined and documented?","Data minimisation objectives documentation, de-identification procedure, techniques applied"],
+      ["A.1.4.6","Is PII deleted or de-identified as soon as it is no longer needed for the specified purpose?","End-of-processing deletion/de-identification procedure, deletion log, confirmation evidence"],
+      ["A.1.4.7","Are temporary files created during PII processing deleted in accordance with documented procedures and retention periods?","Temporary file deletion procedure, garbage collection log, periodic verification evidence"],
+      ["A.1.4.8","Is PII not retained longer than necessary, with a documented retention schedule?","Retention schedule, retention and disposal policy, schedule implementation evidence"],
+      ["A.1.4.9","Have policies, procedures, or mechanisms for PII disposal been documented and implemented?","Disposal policy, secure deletion procedure, PII disposal records"],
+      ["A.1.4.10","Is PII transmitted over networks subject to controls that ensure the data reaches its intended destination?","Transmission control procedure, in-transit encryption, PII transmission log"]
+    ]},
+    {obj:"Purpose: Determine and document when PII is shared, transferred to other jurisdictions, or disclosed in accordance with applicable obligations.",
+     items:[
+      ["A.1.5.2","Has the legal basis for cross-jurisdictional PII transfers been identified and documented?","International transfer legal basis document, SCCs/BCRs, compliance assessment evidence"],
+      ["A.1.5.3","Have the countries and international organisations to which PII is transferred been specified and documented?","Transfer destination country/organisation list, information available to customers"],
+      ["A.1.5.4","Are PII transfers to/from third parties recorded, and coordination carried out to support requests related to PII principal obligations?","Transfer records, PII transfer log, third-party coordination procedure"],
+      ["A.1.5.5","Is the disclosure of PII to third parties recorded, covering what PII was disclosed, to whom, and when?","Disclosure log, per-event disclosure records, disclosure authorisation evidence"]
+    ]}
+  ]
+};
+
+const ANNEX_A2 = {
+  id:"A2",label:"Annex A.2",group:"Processor Controls",title:"PII Processor Controls",
+  desc:"Controls specific to PII Processors: conditions for processing on behalf of customers, obligations to PII principals, privacy by design, and PII sharing, transfer, and disclosure.",
+  objective:null,
+  subgroups:[
+    {obj:"Purpose: Demonstrate that processing is lawful and in accordance with the documented instructions of the customer (PII Controller).",
+     items:[
+      ["A.2.2.2","Do PII processing contracts with customers cover the organisation's role in supporting the customer's obligations?","Customer contract/DPA, obligation assistance clauses, data processing agreement"],
+      ["A.2.2.3","Is PII processed on behalf of customers only processed for purposes consistent with the customer's documented instructions?","Customer instruction documentation, purpose limitation compliance evidence, processing audit log"],
+      ["A.2.2.4","Is PII not used for marketing or advertising purposes without appropriate consent, and is consent not made a condition of service?","PII usage policy, evidence of no marketing use without consent, audit"],
+      ["A.2.2.5","Does the organisation inform customers if processing instructions could potentially violate legal requirements?","Infringing instruction notification procedure, customer communication records"],
+      ["A.2.2.6","Does the organisation provide adequate information to customers to demonstrate the customer's compliance with their obligations?","Compliance reports for customers, audit support records, information shared with controller"],
+      ["A.2.2.7","Have the records required to demonstrate compliance with PII processing contract obligations been determined and maintained?","Records of processing per customer, processing category records, contract compliance documentation"]
+    ]},
+    {obj:"Purpose: Ensure PII principals receive appropriate information and that obligations to them can be fulfilled.",
+     items:[
+      ["A.2.3.2","Does the organisation provide the means for customers to fulfil the customer's obligations to PII principals?","Technical mechanism (API, dashboard) for DSR, correction/deletion procedure, SLA for customers"]
+    ]},
+    {obj:"Purpose: Ensure processes and systems are designed so that PII processing is limited to the purposes specified by the customer.",
+     items:[
+      ["A.2.4.2","Are temporary files created during PII processing deleted in accordance with documented procedures and retention periods?","Temporary file deletion procedure, periodic verification log, implementation evidence"],
+      ["A.2.4.3","Can the organisation return, transfer, or securely dispose of PII, with the policy made available to customers?","PII return/transfer/disposal procedure, disposal policy communicated to customers"],
+      ["A.2.4.4","Is PII being transmitted subject to controls to ensure the data reaches its intended destination?","Transmission control procedure, in-transit encryption, transmission audit log"]
+    ]},
+    {obj:"Purpose: Determine and document when PII is shared, transferred, or disclosed to third parties in accordance with customer instructions.",
+     items:[
+      ["A.2.5.2","Are customers notified in a timely manner of the basis for cross-jurisdictional PII transfers and planned changes?","International transfer notification procedure, change communication to customers, notification log"],
+      ["A.2.5.3","Have the countries and international organisations to which PII is transferred been specified and documented?","Destination country/organisation list, information available to customers"],
+      ["A.2.5.4","Is the disclosure of PII to third parties recorded, covering what PII was disclosed, to whom, and when?","Disclosure log, per-event disclosure records, customer authorisation evidence"],
+      ["A.2.5.5","Are customers notified of any legally binding requests to disclose PII?","Legal request notification procedure, customer notification log, response records"],
+      ["A.2.5.6","Does the organisation refuse non-legally binding disclosure requests and consult with the customer before making any disclosure?","Rejection/consultation procedure, disclosure decision log, legal basis documentation"],
+      ["A.2.5.7","Is the use of subcontractors for PII processing disclosed to customers before use?","Subcontractor list, customer disclosure evidence, confidentiality agreements"],
+      ["A.2.5.8","Are subcontractors only used in accordance with customer contracts, with appropriate control requirements flowing down?","Subcontractor contracts, customer authorisation evidence, flow-down requirements"],
+      ["A.2.5.9","Are customers notified of subcontractor changes and given the opportunity to object?","Subcontractor change notification procedure, communication log, general written authorisation evidence"]
+    ]}
+  ]
+};
+
+const ANNEX_A3 = {
+  id:"A3",label:"Annex A.3",group:"Shared Controls",title:"Security Controls (PII Controllers & Processors)",
+  desc:"Information security controls applicable to both PII Controllers and PII Processors to ensure the security of PII processing.",
+  objective:"Purpose: Ensure the security of PII processing through adequate policies, technical controls, and procedures to protect the confidentiality, integrity, and availability of PII.",
+  subgroups:null,
+  items:[
+    ["A.3.3","Have information security policies related to PII processing been defined, approved by management, communicated, and periodically reviewed?","Information security policy suite for PII, approval/review evidence, distribution to personnel"],
+    ["A.3.4","Have information security roles and responsibilities related to PII processing been defined and allocated?","PII security RACI matrix, job descriptions, point of contact appointment for PII principals"],
+    ["A.3.5","Is information classified according to security needs, considering PII in terms of confidentiality, integrity, and availability?","Information classification scheme covering PII, classification procedure, implementation evidence"],
+    ["A.3.6","Have information labelling procedures considering PII been developed and implemented in accordance with the classification scheme?","Labelling procedure, evidence of label application on documents/systems containing PII"],
+    ["A.3.7","Are rules, procedures, or agreements for information transfer related to PII processing in place for all types of transfer facilities?","Information transfer policy, PII transfer procedure, NDA/DPA agreements with relevant parties"],
+    ["A.3.8","Is the full identity lifecycle related to PII processing managed (including registration, de-registration, and non-reuse of user IDs)?","Identity lifecycle procedure, joiner-mover-leaver records for PII systems, de-activation evidence"],
+    ["A.3.9","Are access rights to PII and related assets managed (provisioning, review, modification, and revocation) in accordance with policy?","Access review records for PII systems, provisioning/deprovisioning evidence, access audit log"],
+    ["A.3.10","Have information security requirements related to PII processing been established and agreed in every supplier agreement?","Supplier agreements with PII security clauses, supplier risk assessment, contractual audit rights"],
+    ["A.3.11","Has information security incident management related to PII processing been planned, including PII breach notification procedures?","PII breach incident response plan, notification procedure (DPA, supervisory authority, PII principals), incident RACI"],
+    ["A.3.12","Are responses to information security incidents related to PII processing carried out in accordance with documented procedures?","PII incident tickets, post-incident reports, notification and remediation evidence"],
+    ["A.3.13","Are legal, regulatory, and contractual requirements related to information security for PII processing documented and kept up to date?","PII compliance obligations register, applicable regulations (PDPA, GDPR), periodic review evidence"],
+    ["A.3.14","Are records related to PII processing protected from loss, destruction, falsification, unauthorised access, and unauthorised disclosure?","Records protection controls, PII records backup, access control to processing records"],
+    ["A.3.15","Is the organisation's approach to managing information security related to PII independently reviewed at planned intervals?","Independent review/audit reports, auditor objectivity evidence, finding follow-up evidence"],
+    ["A.3.16","Is compliance with information security policies, rules, and standards related to PII processing reviewed periodically?","Compliance review records, technical compliance review results, compliance monitoring reports"],
+    ["A.3.17","Do personnel receive appropriate and periodic information security awareness, education, and training related to PII processing?","PII privacy and security training records, awareness materials, policy update evidence"],
+    ["A.3.18","Have confidentiality or non-disclosure agreements reflecting PII protection requirements been identified, reviewed, and signed?","NDA register, signing evidence by personnel and relevant parties, periodic review"],
+    ["A.3.19","Have clear desk rules for paper/media and clear screen rules for information processing facilities been defined and implemented?","Clear desk/screen policy, inspection evidence, physical PII document handling procedure"],
+    ["A.3.20","Is storage media containing PII managed throughout its lifecycle (acquisition, use, transportation, disposal)?","PII media handling procedure, removable media encryption, physical media transfer log"],
+    ["A.3.21","Is equipment containing PII storage media verified to ensure data has been deleted or overwritten before disposal or reuse?","Secure disposal/sanitisation procedure, disposal records, pre-disposal verification evidence"],
+    ["A.3.22","Is PII stored on, processed by, or accessible through user endpoint devices protected?","Endpoint security baseline for PII-accessing devices, MDM records, protection evidence"],
+    ["A.3.23","Have secure authentication technologies and procedures related to PII processing been implemented in accordance with information access restrictions?","MFA/strong authentication records for PII systems, password policy, implementation evidence"],
+    ["A.3.24","Are backup copies of PII, software, and systems related to PII processing maintained and periodically tested?","PII backup logs, restore test results, backup policy covering PII erasure requirements"],
+    ["A.3.25","Are activity logs, exceptions, and relevant events related to PII processing produced, stored, protected, and analysed?","SIEM/log management for PII, PII access log, log review procedure, log retention"],
+    ["A.3.26","Have rules for the effective use of cryptography related to PII processing, including cryptographic key management, been defined?","PII cryptography/key management policy, encryption implementation evidence, key lifecycle records"],
+    ["A.3.27","Have secure software and system development rules related to PII processing been established and applied (privacy by design)?","Secure SDLC policy with privacy requirements, PIA in development lifecycle, coding standards"],
+    ["A.3.28","Are information security requirements related to PII processing identified, specified, and approved when developing or acquiring applications?","PII application security requirements checklist, approval evidence, in-transit encryption for PII"],
+    ["A.3.29","Have secure system engineering principles related to PII processing been established, documented, and applied in development activities?","Secure architecture principles covering privacy by design, architecture documentation, review records"],
+    ["A.3.30","Is outsourced PII processing system development directed, monitored, and reviewed?","Outsourced PII development contract, audit rights, development output review, privacy by design implementation evidence"],
+    ["A.3.31","Is test information related to PII processing selected, protected, and managed appropriately (preferably using synthetic/anonymised data)?","Test data management procedure, synthetic/anonymised data usage evidence, justification if real PII is used"]
+  ]
+};
+
+/* ================================================================
+   STATE & ROLE MANAGEMENT
+   ================================================================ */
+let selectedRole = null;
+let DOMAINS = [];
+let state = [];
+let currentDomain = 0;
+let totalItems = 0;
+let maxChecks = 0;
+
+const LEVELS=[
+  {min:0,label:'Initial',desc:'No evidence or very limited readiness',color:'#E84040',pill:'rgba(232,64,64,.2)',pillTxt:'#F4A0A0'},
+  {min:20,label:'Basic',desc:'Some documents or evidence exist',color:'#E07B20',pill:'rgba(224,123,32,.2)',pillTxt:'#F0B070'},
+  {min:40,label:'Developing',desc:'Core PIMS elements are partially established',color:'#D4A200',pill:'rgba(212,162,0,.2)',pillTxt:'#E8C84A'},
+  {min:60,label:'Defined',desc:'Most requirements are documented and implemented',color:'#0D8C72',pill:'rgba(13,140,114,.2)',pillTxt:'#5DCAB0'},
+  {min:80,label:'Managed',desc:'Controls are mature and consistently evidenced',color:'#0D5C55',pill:'rgba(13,92,85,.2)',pillTxt:'#5ABFB3'},
+  {min:95,label:'Audit Ready',desc:'Strong evidence base for PIMS certification readiness',color:'#083D38',pill:'rgba(8,61,56,.2)',pillTxt:'var(--teal)'}
+];
+
+const ROLE_LABELS = {
+  controller: '🏛️ PII Controller',
+  processor: '⚙️ PII Processor',
+  both: '🔄 Controller & Processor'
+};
+
+function selectRole(role) {
+  selectedRole = role;
+  ['controller','processor','both'].forEach(r => {
+    document.getElementById('card-'+r).classList.toggle('selected', r === role);
+  });
+  let annexItems = 0;
+  if(role === 'controller') {
+    ANNEX_A1.subgroups.forEach(sg => annexItems += sg.items.length);
+    annexItems += ANNEX_A3.items.length;
+  } else if(role === 'processor') {
+    ANNEX_A2.subgroups.forEach(sg => annexItems += sg.items.length);
+    annexItems += ANNEX_A3.items.length;
+  } else {
+    ANNEX_A1.subgroups.forEach(sg => annexItems += sg.items.length);
+    ANNEX_A2.subgroups.forEach(sg => annexItems += sg.items.length);
+    annexItems += ANNEX_A3.items.length;
+  }
+  const clauseItems = CLAUSE_DOMAINS.reduce((s,d) => s + d.items.length, 0);
+  document.getElementById('rip-clause').textContent = clauseItems;
+  document.getElementById('rip-annex').textContent = annexItems;
+  document.getElementById('rip-total').textContent = clauseItems + annexItems;
+  const btn = document.getElementById('btn-start');
+  btn.disabled = false;
+  btn.style.display = 'flex';
+}
+
+function buildDomainsForRole(role) {
+  const domains = [...CLAUSE_DOMAINS.map(d => ({...d}))];
+  function flattenSubgroupDomain(annex) {
+    const allItems = [];
+    if(annex.subgroups) {
+      annex.subgroups.forEach(sg => sg.items.forEach(it => allItems.push(it)));
+    } else {
+      annex.items.forEach(it => allItems.push(it));
+    }
+    return {
+      id: annex.id, label: annex.label, group: annex.group,
+      title: annex.title, desc: annex.desc,
+      objective: annex.objective,
+      subgroups: annex.subgroups || null,
+      items: allItems
+    };
+  }
+  if(role === 'controller') {
+    domains.push(flattenSubgroupDomain(ANNEX_A1));
+    domains.push(flattenSubgroupDomain(ANNEX_A3));
+  } else if(role === 'processor') {
+    domains.push(flattenSubgroupDomain(ANNEX_A2));
+    domains.push(flattenSubgroupDomain(ANNEX_A3));
+  } else {
+    domains.push(flattenSubgroupDomain(ANNEX_A1));
+    domains.push(flattenSubgroupDomain(ANNEX_A2));
+    domains.push(flattenSubgroupDomain(ANNEX_A3));
+  }
+  return domains;
+}
+
+function startAssessment() {
+  if(!selectedRole) return;
+  DOMAINS = buildDomainsForRole(selectedRole);
+  state = DOMAINS.map(d => d.items.map(() => ({doc:false, impl:false})));
+  totalItems = DOMAINS.reduce((s,d) => s + d.items.length, 0);
+  maxChecks = totalItems * 2;
+  currentDomain = 0;
+
+  document.getElementById('page-role').style.display = 'none';
+  document.getElementById('page-assessment').style.display = 'block';
+  document.getElementById('hero-role-pill').textContent = ROLE_LABELS[selectedRole];
+  document.getElementById('check-display').textContent = '0 / ' + maxChecks;
+  document.getElementById('ready-display').textContent = '0 / ' + totalItems;
+  document.getElementById('gap-display').textContent = totalItems;
+  document.getElementById('progress-label').textContent = 'ISO/IEC 27701:2025 PIMS Readiness — ' + totalItems + ' assessment items';
+
+  renderDomain();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ================================================================
+   RENDERING
+   ================================================================ */
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function totals(){
+  let checked=0,ready=0;
+  state.forEach(rows=>rows.forEach(r=>{checked+=(r.doc?1:0)+(r.impl?1:0);if(r.doc&&r.impl)ready++;}));
+  const pct=Math.round(checked/maxChecks*100);
+  const score=Math.round((pct/100)*5*10)/10;
+  return{checked,ready,pct,score,gaps:totalItems-ready};
+}
+
+function domainTotals(i){
+  const rows=state[i];
+  let checked=0,ready=0;
+  rows.forEach(r=>{checked+=(r.doc?1:0)+(r.impl?1:0);if(r.doc&&r.impl)ready++;});
+  return{checked,ready,max:rows.length*2,pct:Math.round(checked/(rows.length*2)*100),items:rows.length};
+}
+
+function levelFor(pct){return LEVELS.filter(l=>pct>=l.min).pop();}
+
+function updateScore(){
+  const t=totals();
+  const lv=levelFor(t.pct);
+  document.getElementById('score-display').textContent=t.score;
+  document.getElementById('score-display').style.color=lv.color;
+  document.getElementById('score-level').textContent=lv.label;
+  document.getElementById('score-level').style.color=lv.color;
+  document.getElementById('score-desc').textContent=lv.desc;
+  document.getElementById('score-bar').style.width=t.pct+'%';
+  document.getElementById('score-bar').style.background=lv.color;
+  document.getElementById('check-display').textContent=t.checked+' / '+maxChecks;
+  document.getElementById('ready-display').textContent=t.ready+' / '+totalItems;
+  document.getElementById('gap-display').textContent=t.gaps;
+  document.getElementById('progress-bar').style.width=t.pct+'%';
+  document.getElementById('progress-pct').textContent=t.pct+'%';
+}
+
+function renderTabs(){
+  const container = document.getElementById('domain-tabs');
+  let html = '';
+  let lastGroup = '';
+  DOMAINS.forEach((d,i) => {
+    const dt = domainTotals(i);
+    if(d.group !== lastGroup) {
+      if(lastGroup !== '') html += '<div class="tab-divider"></div>';
+      html += '<span class="tab-group-label">'+esc(d.group)+'</span>';
+      lastGroup = d.group;
+    }
+    html += '<button class="domain-tab '+(i===currentDomain?'active ':'')+(dt.ready===dt.items&&dt.items>0?'done':'')+'" onclick="goToDomain('+i+')">'+esc(d.label)+'</button>';
+  });
+  container.innerHTML = html;
+}
+
+function renderSubgroupRows(domain, domIdx, q, filter) {
+  if(!domain.subgroups) return null;
+  const refToIdx = {};
+  domain.items.forEach((it,i) => { refToIdx[it[0]] = i; });
+  let html = '';
+  domain.subgroups.forEach(sg => {
+    const filteredRows = sg.items.map(it => {
+      const idx = refToIdx[it[0]];
+      if(idx === undefined) return null;
+      return {it: domain.items[idx], idx, r: state[domIdx][idx]};
+    }).filter(row => {
+      if(!row) return false;
+      const hay=(row.it[0]+' '+row.it[1]+' '+row.it[2]).toLowerCase();
+      if(q && !hay.includes(q)) return false;
+      if(filter==='gap'&&row.r.doc&&row.r.impl) return false;
+      if(filter==='ready'&&!(row.r.doc&&row.r.impl)) return false;
+      if(filter==='docgap'&&row.r.doc) return false;
+      if(filter==='implgap'&&row.r.impl) return false;
+      return true;
+    });
+    if(filteredRows.length > 0) {
+      html += '<span class="obj-subhead">'+esc(sg.obj.replace('Purpose: ',''))+'</span>';
+      html += filteredRows.map(row => buildControlRow(row.it, row.idx, row.r)).join('');
+    }
+  });
+  return html || null;
+}
+
+function buildControlRow(it, idx, r){
+  return '<div class="control-row">'+
+    '<div class="control-ref">'+esc(it[0])+'</div>'+
+    '<div class="control-text">'+esc(it[1])+'</div>'+
+    '<div class="check-pill '+(r.doc?'checked':'')+'" onclick="toggleCheck('+idx+',0)" title="Mark as Documented"><span class="box">'+(r.doc?'✓':'')+'</span>Documented</div>'+
+    '<div class="check-pill '+(r.impl?'checked':'')+'" onclick="toggleCheck('+idx+',1)" title="Mark as Implemented"><span class="box">'+(r.impl?'✓':'')+'</span>Implemented</div>'+
+    '<div class="control-evidence">'+esc(it[2])+'</div>'+
+    '</div>';
+}
+
+function renderDomain() {
+  const domain = DOMAINS[currentDomain];
+  const dt = domainTotals(currentDomain);
+  const q = (document.getElementById('search-box')?.value || '').toLowerCase();
+  const filter = document.getElementById('filter-select')?.value || 'all';
+
+  document.getElementById('domain-title').textContent = domain.title;
+  document.getElementById('domain-desc').textContent = domain.desc;
+  document.getElementById('domain-code').textContent = domain.label;
+  document.getElementById('hero-badge').textContent = domain.label;
+  document.getElementById('domain-count').textContent = dt.ready + ' / ' + dt.items;
+
+  const objEl = document.getElementById('domain-objective');
+  if(domain.objective) {
+    objEl.textContent = domain.objective;
+    objEl.style.display = 'block';
+  } else {
+    objEl.style.display = 'none';
+  }
+
+  const nextBtn = document.getElementById('next-section-btn');
+  if(nextBtn) nextBtn.textContent = currentDomain === DOMAINS.length - 1 ? 'End Section' : 'Next Section →';
+
+  let listHtml = '';
+  if(domain.subgroups) {
+    listHtml = renderSubgroupRows(domain, currentDomain, q, filter) || '<div class="empty">No items match the current filter.</div>';
+  } else {
+    const rows = domain.items.map((it,idx) => ({it, idx, r: state[currentDomain][idx]})).filter(row => {
+      const hay=(row.it[0]+' '+row.it[1]+' '+row.it[2]).toLowerCase();
+      if(q && !hay.includes(q)) return false;
+      if(filter==='gap'&&row.r.doc&&row.r.impl) return false;
+      if(filter==='ready'&&!(row.r.doc&&row.r.impl)) return false;
+      if(filter==='docgap'&&row.r.doc) return false;
+      if(filter==='implgap'&&row.r.impl) return false;
+      return true;
+    });
+    listHtml = rows.map(row => buildControlRow(row.it, row.idx, row.r)).join('') ||
+      '<div class="empty">No items match the current filter.</div>';
+  }
+
+  document.getElementById('control-list').innerHTML = listHtml || '<div class="empty">No items match the current filter.</div>';
+  renderTabs();
+  updateScore();
+}
+
+function toggleCheck(idx,type){
+  const key=type===0?'doc':'impl';
+  state[currentDomain][idx][key]=!state[currentDomain][idx][key];
+  renderDomain();
+  saveToStorage();
+}
+
+function goToDomain(i){currentDomain=i;renderDomain();window.scrollTo({top:0,behavior:'smooth'});}
+function prevDomain(){if(currentDomain>0)goToDomain(currentDomain-1);}
+function nextDomain(){if(currentDomain<DOMAINS.length-1)goToDomain(currentDomain+1);else goToSummary();}
+
+/* ================================================================
+   SUMMARY
+   ================================================================ */
+function goToSummary(){
+  const t=totals();
+  const lv=levelFor(t.pct);
+
+  document.getElementById('page-assessment').style.display='none';
+  document.getElementById('page-summary').style.display='block';
+  document.getElementById('ws-1').classList.add('done');
+  document.getElementById('ws-2').classList.add('done');
+  document.getElementById('ws-3').classList.add('active');
+
+  document.getElementById('sum-score-big').textContent=t.score;
+  document.getElementById('sum-level-pill').textContent=lv.label;
+  document.getElementById('sum-level-pill').style.background=lv.pill;
+  document.getElementById('sum-level-pill').style.color=lv.pillTxt;
+  document.getElementById('sum-role-badge').textContent=ROLE_LABELS[selectedRole]||'—';
+  document.getElementById('sm-score').textContent=t.score+'/5';
+  document.getElementById('sm-pct').textContent=t.pct+'%';
+  document.getElementById('sm-ready').textContent=t.ready+'/'+totalItems;
+  document.getElementById('sm-gaps').textContent=t.gaps;
+
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sum-meta').textContent='Generated: '+dateStr+', '+timeStr;
+  document.getElementById('sum-footer-date').innerHTML=dateStr+' '+timeStr+' | OneConnect ISO/IEC 27701:2025 PIMS Self-Assessment<br>CBQA Global Indonesia';
+
+  document.getElementById('domain-breakdown').innerHTML=DOMAINS.map((d,i)=>{
+    const dt=domainTotals(i);
+    const lv=levelFor(dt.pct);
+    const cls=dt.pct>=80?'tag-ok':dt.pct>=50?'tag-mid':'tag-ng';
+    return '<div class="gauge-wrap">'+
+      '<span class="gauge-lbl">'+esc(d.label+' — '+d.title)+'</span>'+
+      '<div class="gauge-track"><div class="gauge-bar" style="width:'+dt.pct+'%;background:'+lv.color+'"></div></div>'+
+      '<span class="gauge-pct" style="color:'+lv.color+'">'+dt.pct+'%</span>'+
+      '<span class="status-tag '+cls+'">'+dt.ready+'/'+dt.items+'</span>'+
+      '</div>';
+  }).join('');
+
+  const gaps=[];
+  DOMAINS.forEach((d,i)=>d.items.forEach((it,idx)=>{
+    const r=state[i][idx];
+    if(!r.doc||!r.impl)gaps.push({domain:d.label,ref:it[0],text:it[1],evidence:it[2],doc:!r.doc,impl:!r.impl});
+  }));
+  const missingDocs=gaps.filter(g=>g.doc);
+  document.getElementById('missing-doc-summary').innerHTML=
+    missingDocs.slice(0,80).map((g,n)=>
+      '<div class="status-row">'+
+      '<span style="font-weight:600;color:var(--danger);width:32px">'+(n+1)+'.</span>'+
+      '<span class="status-name">'+esc(g.ref+' — '+g.evidence)+'</span>'+
+      '<span class="status-tag tag-ng template-hint" tabindex="0">Missing document</span>'+
+      '<button class="template-cta" type="button" onclick="openTemplateModal(\''+esc(g.ref+' - '+g.evidence)+'\')">Request Template</button>'+
+      '</div>'
+    ).join('')+
+    (missingDocs.length>80?'<div class="empty">Showing first 80 missing documents of '+missingDocs.length+'.</div>':'') ||
+    '<p style="font-size:13px;color:var(--success);padding:10px 0">All required documents are marked available.</p>';
+
+  document.getElementById('sum-recs').innerHTML=
+    gaps.slice().sort((a,b)=>((b.doc&&b.impl)?2:(b.doc||b.impl)?1:0)-((a.doc&&a.impl)?2:(a.doc||a.impl)?1:0))
+    .slice(0,45).map(g=>
+      '<div class="rec-item">'+
+      '<span class="rec-priority '+(g.doc&&g.impl?'pri-high':'pri-med')+'">'+(g.doc&&g.impl?'High':'Medium')+'</span>'+
+      '<p class="rec-text">Close '+esc(g.ref)+' gap: '+(g.doc?'prepare or approve documented evidence; ':'')+(g.impl?'collect operating evidence and verify implementation; ':'')+'</p>'+
+      '<p class="rec-ref">'+esc(g.domain+' — '+g.text)+'</p>'+
+      '</div>'
+    ).join('')+
+    (gaps.length>45?'<div class="empty">Showing first 45 action items of '+gaps.length+'.</div>':'') ||
+    '<p style="font-size:13px;color:var(--text-secondary);padding:10px 0">All PIMS checklist items are fully documented and implemented.</p>';
+
+  setTimeout(()=>drawRadar(),100);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function drawRadar(){
+  const canvas = document.getElementById('radar-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const groups = [];
+  const groupMap = {};
+  DOMAINS.forEach((d,i) => {
+    const g = d.group;
+    if(!groupMap[g]) { groupMap[g] = {label:g, pcts:[]}; groups.push(groupMap[g]); }
+    groupMap[g].pcts.push(domainTotals(i).pct);
+  });
+  const pts = groups.map(g => ({
+    label: g.label,
+    val: Math.round(g.pcts.reduce((s,v)=>s+v,0)/g.pcts.length)
+  }));
+
+  if(pts.length < 3) {
+    ctx.fillStyle='#174e59';ctx.font='13px Helvetica,Arial,sans-serif';
+    ctx.textAlign='center';ctx.fillText('At least 3 domain groups needed for radar',W/2,H/2);
+    return;
+  }
+
+  const cx=W/2, cy=H/2, r=Math.min(W,H)*0.34;
+  const n=pts.length;
+  const angle=(i)=>(-Math.PI/2)+(i/n)*Math.PI*2;
+
+  [20,40,60,80,100].forEach(pct=>{
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a=angle(i), rv=r*(pct/100);
+      i===0?ctx.moveTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a)):ctx.lineTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(49,158,169,.15)'; ctx.lineWidth=1; ctx.stroke();
+    if(pct%40===0){
+      ctx.fillStyle='#7d9aa2'; ctx.font='10px Helvetica,Arial,sans-serif'; ctx.textAlign='left';
+      ctx.fillText(pct+'%', cx+4, cy-r*(pct/100)+4);
+    }
+  });
+
+  for(let i=0;i<n;i++){
+    const a=angle(i);
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.strokeStyle='rgba(49,158,169,.2)'; ctx.lineWidth=1; ctx.stroke();
+  }
+
+  ctx.beginPath();
+  pts.forEach((p,i)=>{
+    const a=angle(i), rv=r*(p.val/100);
+    i===0?ctx.moveTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a)):ctx.lineTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a));
+  });
+  ctx.closePath();
+  ctx.fillStyle='rgba(49,158,169,.18)'; ctx.fill();
+  ctx.strokeStyle='#319ea9'; ctx.lineWidth=2; ctx.stroke();
+
+  pts.forEach((p,i)=>{
+    const a=angle(i), rv=r*(p.val/100);
+    const px=cx+rv*Math.cos(a), py=cy+rv*Math.sin(a);
+    ctx.beginPath(); ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle='#319ea9'; ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.stroke();
+    const lx=cx+(r+32)*Math.cos(a), ly=cy+(r+22)*Math.sin(a);
+    ctx.fillStyle='#174e59'; ctx.font='bold 11px Helvetica,Arial,sans-serif';
+    ctx.textAlign=lx>cx+5?'left':lx<cx-5?'right':'center';
+    ctx.textBaseline=ly>cy+5?'top':ly<cy-5?'bottom':'middle';
+    const lines=p.label.split(' ');
+    lines.forEach((ln,li)=>ctx.fillText(ln,lx,ly+(li*13)-(lines.length-1)*6));
+    ctx.fillStyle='#319ea9'; ctx.font='bold 12px Helvetica,Arial,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(p.val+'%',px,py);
+  });
+}
+
+function backToAssessment(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-assessment').style.display='block';
+  document.getElementById('ws-3').classList.remove('active');
+  renderDomain();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectAllDomain(doc, impl){
+  state[currentDomain].forEach(r => { r.doc = doc; r.impl = impl; });
+  renderDomain();
+  saveToStorage();
+}
+
+/* ================================================================
+   PERSIST — localStorage
+   ================================================================ */
+const STORAGE_KEY = 'cbqa_27701_progress';
+
+function saveProgress(){
+  if(!selectedRole || !DOMAINS.length) return;
+  try {
+    const payload = { role: selectedRole, state: state, savedAt: new Date().toISOString() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    showToast('Progress saved in browser ✓','#0d8c72');
+  } catch(e) { showToast('Failed to save — try another browser','#e84040'); }
+}
+
+function saveToStorage(){
+  if(!selectedRole || !DOMAINS.length) return;
+  try {
+    const payload = { role: selectedRole, state: state, savedAt: new Date().toISOString() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  } catch(e) {}
+}
+
+function loadProgress(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){ showToast('No saved data found','#e07b20'); return; }
+    const payload = JSON.parse(raw);
+    if(payload.role !== selectedRole){
+      showToast('Saved data is for a different role ('+payload.role+'). Start a fresh assessment.','#e07b20');
+      return;
+    }
+    if(payload.state && payload.state.length === state.length){
+      state = payload.state;
+      renderDomain();
+      const d = new Date(payload.savedAt).toLocaleString('en-GB');
+      showToast('Progress loaded — saved: '+d,'#0d8c72');
+    } else {
+      showToast('Data format not compatible','#e84040');
+    }
+  } catch(e){ showToast('Failed to load data','#e84040'); }
+}
+
+function showToast(msg, color){
+  const old = document.getElementById('toast-msg');
+  if(old) old.remove();
+  const el = document.createElement('div');
+  el.id = 'toast-msg';
+  el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:'+color+';color:#fff;padding:11px 22px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 14px 36px rgba(0,0,0,.2);white-space:nowrap;pointer-events:none';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3200);
+}
+
+function printSummary(){ window.print(); }
+
+/* ================================================================
+   LEAD MODAL
+   ================================================================ */
+function resetLeadForm(){
+  const f=document.getElementById("leadForm");
+  if(!f)return;
+  const btn=f.querySelector(".lead-submit");
+  const success=document.getElementById("leadSuccess");
+  if(btn){btn.textContent="Submit Profile";btn.disabled=false;}
+  if(success)success.classList.remove("active");
+}
+function showLeadModal(){
+  const m=document.getElementById("leadModal");
+  if(!m)return;
+  m.classList.add("active");
+  m.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  setTimeout(()=>{const first=m.querySelector("input,select,textarea,button");if(first)first.focus();},50);
+}
+function setLeadContext(title,description,message){
+  const titleEl=document.getElementById("leadTitle");
+  const descEl=document.querySelector(".lead-head p:not(.lead-eyebrow)");
+  const noteEl=document.querySelector(".lead-note");
+  const msgEl=document.querySelector("textarea[name=message]");
+  resetLeadForm();
+  if(titleEl)titleEl.textContent=title;
+  if(descEl)descEl.textContent=description;
+  if(noteEl)noteEl.textContent="CBQA Global can provide paid PIMS templates, review support, or assisted implementation based on your selected need.";
+  if(msgEl)msgEl.value=message||"";
+}
+function openLeadModal(){
+  setLeadContext("Request the full ISO/IEC 27701 PIMS readiness report","Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.","");
+  showLeadModal();
+}
+function openTemplateModal(templateName){
+  setLeadContext("Request an ISO/IEC 27701 document template","Tell us which PIMS document template you need. CBQA Global can provide ready-to-use templates tailored to your organisation's role.","I need the ISO 27701 PIMS document template for: "+(templateName||"Selected missing document"));
+  showLeadModal();
+}
+function closeLeadModal(){
+  const m=document.getElementById("leadModal");
+  if(!m)return;
+  m.classList.remove("active");
+  m.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLeadModal();});
+document.addEventListener("click",e=>{const m=document.getElementById("leadModal");if(m&&e.target===m)closeLeadModal();});
+document.addEventListener("DOMContentLoaded",()=>{
+  const f=document.getElementById("leadForm");
+  if(f)f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const s=document.getElementById("leadSuccess");
+    if(s)s.classList.add("active");
+    f.querySelector(".lead-submit").textContent="Profile Submitted";
+    f.querySelector(".lead-submit").disabled=true;
+  });
+});
+</script>
+</body>
+</html>

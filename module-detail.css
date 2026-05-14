@@ -181,9 +181,13 @@ svg {
 
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 18px;
   margin-top: 22px;
+}
+
+.content-grid.no-services {
+  grid-template-columns: 2fr 1fr;
 }
 
 .glass-card {

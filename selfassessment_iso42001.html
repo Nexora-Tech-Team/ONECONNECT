@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO/IEC 42001:2023 Self-Assessment | CBQA Global</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{
+  --navy:#174e59;--navy-dark:#143f49;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;
+  --green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;
+  --text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;
+  --success:#0d8c72;--success-bg:#e6f8f3;--danger:#e84040;--danger-bg:#fef1f1;
+  --warning:#e07b20;--warning-bg:#fef3e8;--info:#174e59;--info-bg:#e7f8f9;
+  --shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px
+}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+
+/* NAV */
+.topnav{height:76px;background:linear-gradient(135deg,#143f49 0%,#1e6470 55%,#2b8a96 100%);box-shadow:0 14px 36px rgba(16,37,43,.22);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand{display:flex;flex-direction:column;gap:1px}
+.nav-brand-main{font-size:17px;font-weight:700;color:#fff;letter-spacing:.2px;line-height:1.2}
+.nav-brand-sub{font-size:11.5px;font-weight:400;color:rgba(255,255,255,.65);letter-spacing:.1px;line-height:1.3}
+.nav-back-link{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 26px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:.1px;box-shadow:0 4px 20px rgba(16,37,43,.15);transition:background .2s ease,border-color .2s ease,transform .18s ease;white-space:nowrap}
+.nav-back-link:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.85);transform:translateY(-1px)}
+.nav-back-link svg{width:18px;height:18px;flex-shrink:0}
+
+/* LAYOUT */
+.layout{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+
+/* INTRO PAGE */
+.intro-hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2.5rem 2rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.intro-hero:after{content:'';position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.intro-eyebrow{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px}
+.intro-hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;position:relative;z-index:1}
+.intro-hero p{font-size:13.5px;color:rgba(255,255,255,.76);line-height:1.68;max-width:720px;position:relative;z-index:1}
+.intro-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.istat{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;text-align:center;box-shadow:var(--shadow-sm)}
+.istat-val{font-size:28px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.istat-lbl{font-size:11px;color:var(--text-tertiary)}
+.scope-note{background:#e9f8fa;border:1px solid #b7e0e5;border-radius:var(--radius-md);padding:16px 20px;margin-bottom:1.5rem;font-size:13px;color:#174e59;line-height:1.72}
+.scope-note strong{font-weight:700}
+.scope-note ul{margin-left:18px;margin-top:6px}
+.btn-start-solo{background:var(--teal);color:#fff;font-size:16px;font-weight:700;padding:15px 40px;border-radius:var(--radius-lg);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:12px;transition:all .2s;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.btn-start-solo:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 18px 36px rgba(49,158,169,.28)}
+
+/* WIZARD */
+.wizard-steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(49,158,169,.18);padding:1rem 1.5rem;overflow-x:auto;box-shadow:var(--shadow-sm)}
+.wstep{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-tertiary);transition:all .3s}
+.wstep.active .wstep-dot{background:var(--teal);border-color:var(--teal);color:#fff}
+.wstep.done .wstep-dot{background:var(--success);border-color:var(--success);color:#fff}
+.wstep-label{font-size:12px;font-weight:500;color:var(--text-tertiary);white-space:nowrap}
+.wstep.active .wstep-label{color:var(--text-primary)}
+.wstep.done .wstep-label{color:var(--success)}
+.wstep-line{flex:1;height:1px;background:var(--border);margin:0 8px;min-width:24px}
+
+/* PROGRESS */
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.76);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card{background:linear-gradient(180deg,#fff,#f8fcfd);border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:500;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:#174e59}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+
+/* DOMAIN TABS */
+.domain-tabs{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:8px;box-shadow:var(--shadow-sm)}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+.tab-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-tertiary);padding:4px 8px 4px 4px;align-self:center;white-space:nowrap}
+.tab-divider{width:1px;background:var(--border);height:32px;align-self:center;margin:0 4px}
+
+/* NOTE */
+.note{background:#e9f8fa;border:1px solid #b7e0e5;padding:14px 16px;border-radius:10px;margin-bottom:1.5rem}
+.note-title{font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.note ul{margin-left:18px;font-size:12.5px;color:#4A6360;line-height:1.7}
+
+/* ASSESSMENT CARD */
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.ac-objective{background:#f0fbfc;border-left:3px solid var(--teal);padding:10px 14px;font-size:12px;color:#174e59;line-height:1.6;border-bottom:1px solid var(--border)}
+.ac-objective strong{font-weight:700}
+
+/* TOOLBAR */
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:.6rem 1.5rem;border-bottom:1px solid var(--border);background:#fafcfc}
+.tba-btn{height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font:600 11px Helvetica,Arial,sans-serif;color:var(--text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tba-btn:hover{border-color:var(--teal);color:var(--navy);background:var(--teal-light)}
+.tba-doc{border-color:rgba(49,158,169,.3);color:#174e59;background:#edfbfc}
+.tba-impl{border-color:rgba(13,140,114,.3);color:#0d5c3c;background:#e6f8f3}
+.tba-clear{border-color:rgba(232,64,64,.25);color:#8a1010;background:#fef8f8}
+.tba-save{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-load{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-divider{width:1px;height:22px;background:var(--border);margin:0 4px}
+
+/* CONTROL LIST */
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:92px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #f3f5f8;border-radius:12px;transition:background-color .18s ease,box-shadow .18s ease}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:#f2fbfc;box-shadow:inset 3px 0 0 var(--teal)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary)}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+
+/* ACTION BAR */
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:12px;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);background:var(--green-mid)}
+.btn-secondary:hover{background:var(--off-white)}
+
+/* SUMMARY PAGE */
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+
+/* SUM GRID */
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm)}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+
+/* SECTION CARDS */
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-icon-success{background:var(--success-bg);color:var(--success)}
+.sc-body{padding:.75rem 1.25rem}
+
+/* GAUGE */
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:230px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f5f8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+
+/* REC */
+.rec-item{padding:12px 0;border-bottom:1px solid #f3f5f8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+
+/* TEMPLATE CTA */
+.template-cta{display:inline-flex;align-items:center;justify-content:center;min-height:26px;padding:5px 10px;border:1px solid rgba(49,158,169,.3);border-radius:999px;background:#e7f8f9;color:#174e59;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s ease}
+.template-cta:hover{background:#d7f2f5;border-color:rgba(49,158,169,.62);transform:translateY(-1px)}
+
+/* FOOTER */
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid rgba(49,158,169,.22);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+
+/* LEAD MODAL */
+.lead-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,30,36,.58);backdrop-filter:blur(10px)}
+.lead-modal.active{display:flex}
+.lead-dialog{width:min(100%,720px);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.32);border-radius:24px;background:linear-gradient(180deg,#fff,#f4fbfc);box-shadow:0 32px 90px rgba(16,37,43,.28)}
+.lead-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:26px 28px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#143f49,#319ea9);color:#fff;border-radius:24px 24px 0 0}
+.lead-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:8px}
+.lead-head h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.lead-head p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.76);max-width:560px;margin:0}
+.lead-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lead-form{padding:24px 28px 28px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-field{display:grid;gap:7px}
+.lead-field.lead-full{grid-column:1 / -1}
+.lead-field span{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{width:100%;min-height:42px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text-primary);font:13px Helvetica,Arial,sans-serif;padding:10px 12px;outline:none}
+.lead-field textarea{min-height:88px;resize:vertical}
+.lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(49,158,169,.14)}
+.lead-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.lead-note{font-size:12px;line-height:1.55;color:var(--text-tertiary);max-width:360px}
+.lead-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 14px Helvetica,Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.lead-submit:hover{background:var(--green-mid)}
+.lead-success{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(13,140,114,.28);border-radius:14px;background:var(--success-bg);color:var(--success);font-size:13px;line-height:1.55}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:10px;background:var(--success);color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}
+  .control-row{grid-template-columns:76px 1fr 130px 130px}
+  .control-evidence{grid-column:2 / -1}
+  .toolbar{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .intro-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .topnav{padding:0 1rem}
+  .layout{padding:1.25rem .9rem}
+  .nav-brand-sub{display:none}
+  .intro-stats{grid-template-columns:repeat(2,1fr)}
+  .sum-grid{grid-template-columns:repeat(2,1fr)}
+  .control-row{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto auto}
+  .control-ref{grid-column:1 / -1}
+  .control-text{grid-column:1 / -1}
+  .control-evidence{grid-column:1 / -1}
+}
+@media print{
+  .topnav,.domain-tabs,.toolbar,.toolbar-actions,.action-bar,.footer-bar button,.btn,.lead-modal,.template-cta,.btn-start-solo{display:none!important}
+  body{background:#fff}
+  .layout{max-width:100%;padding:0}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="OneConnect navigation">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO/IEC 42001:2023 Self-Assessment</span>
+    </div>
+  </div>
+  <a class="nav-back-link" href="module-detail.html?module=iso-42001">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M10.8 5.2 4 12l6.8 6.8 1.4-1.4L7.8 13H20v-2H7.8l4.4-4.4-1.4-1.4Z"/></svg>
+    Back to OneConnect
+  </a>
+</nav>
+
+<div class="layout">
+
+<!-- INTRO PAGE -->
+<div id="page-intro">
+  <div class="intro-hero">
+    <p class="intro-eyebrow">CBQA Global — GRC Platform</p>
+    <h1>ISO/IEC 42001:2023 AIMS Self-Assessment</h1>
+    <p>Assess your organisation's readiness against the AI Management System standard. This checklist covers all mandatory clauses (4–10) and Annex A reference controls, helping you identify governance gaps before formal certification or external audit.</p>
+  </div>
+
+  <div class="intro-stats">
+    <div class="istat"><div class="istat-val">29</div><div class="istat-lbl">AIMS Clause Items</div></div>
+    <div class="istat"><div class="istat-val">38</div><div class="istat-lbl">Annex A Controls</div></div>
+    <div class="istat"><div class="istat-val">67</div><div class="istat-lbl">Total Assessment Items</div></div>
+    <div class="istat"><div class="istat-val">16</div><div class="istat-lbl">Domain Sections</div></div>
+  </div>
+
+  <div class="scope-note">
+    <strong>Scope of this assessment:</strong> ISO/IEC 42001:2023 applies to any organisation — regardless of size, type, or nature — that provides or uses products or services that utilise AI systems. Each item requires two evidence checks:
+    <ul>
+      <li><strong>Documented</strong> — a policy, procedure, register, plan, or approved record exists.</li>
+      <li><strong>Implemented</strong> — operational evidence exists: logs, screenshots, audit trails, completed assessments, or review records.</li>
+    </ul>
+    Use the summary at the end as a gap list before formal AIMS audit preparation.
+  </div>
+
+  <button class="btn-start-solo" onclick="startAssessment()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7-11-7Z"/></svg>
+    Start Assessment
+  </button>
+</div>
+
+<!-- ASSESSMENT PAGE -->
+<div id="page-assessment" style="display:none">
+
+  <div class="wizard-steps">
+    <div class="wstep active" id="ws-1"><div class="wstep-dot">1</div><span class="wstep-label">AIMS Clauses (4–10)</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep active" id="ws-2"><div class="wstep-dot">2</div><span class="wstep-label">Annex A Controls</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep" id="ws-3"><div class="wstep-dot">3</div><span class="wstep-label">Summary</span></div>
+  </div>
+
+  <div class="progress-header">
+    <span id="progress-label">ISO/IEC 42001:2023 AIMS Readiness Assessment</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+
+  <div class="hero">
+    <div>
+      <h1>ISO/IEC 42001:2023 Self-Assessment</h1>
+      <p>AI Management System readiness assessment — practical questions with evidence mapping to help identify governance gaps in your organisation's AI activities.</p>
+    </div>
+    <div class="hero-badge" id="hero-badge">Clause 4</div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="score-card">
+      <div class="eyebrow">Overall Readiness Score</div>
+      <div class="score-main"><span class="score-num" id="score-display">0</span><span class="score-denom">/ 5</span></div>
+      <div class="score-level" id="score-level">Initial</div>
+      <div class="score-desc" id="score-desc">No evidence or very limited readiness</div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Evidence Checked</div>
+      <div class="metric-value" id="check-display">0 / 134</div>
+      <div class="metric-sub">Documented + Implemented</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Items Ready</div>
+      <div class="metric-value" id="ready-display">0 / 67</div>
+      <div class="metric-sub">Both evidence boxes checked</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Open Gaps</div>
+      <div class="metric-value" id="gap-display">67</div>
+      <div class="metric-sub">Need action or evidence</div>
+    </div>
+  </div>
+
+  <div class="domain-tabs" id="domain-tabs"></div>
+
+  <div class="note">
+    <div class="note-title">Checklist Completion Notes</div>
+    <ul>
+      <li>Tick <strong>Documented</strong> only if a policy, procedure, register, plan, or official record exists and has been reviewed or approved.</li>
+      <li>Tick <strong>Implemented</strong> only if there is operational evidence: logs, completed assessments, screenshots, review records, or audit trails.</li>
+      <li>Controls in <strong>Annex A</strong> are reference controls — the organisation determines applicability via risk treatment and the Statement of Applicability (SoA).</li>
+      <li>Use the summary page as an initial gap list before formal AIMS audit preparation or certification.</li>
+    </ul>
+  </div>
+
+  <div class="assessment-card">
+    <div class="ac-header">
+      <div class="ac-title-wrap">
+        <span class="ac-code" id="domain-code">4</span>
+        <div>
+          <h2 id="domain-title">Context of the Organisation</h2>
+          <p id="domain-desc"></p>
+        </div>
+      </div>
+      <div class="ac-meta">
+        <div class="big" id="domain-count">0 / 0</div>
+        <div class="small">ready items</div>
+      </div>
+    </div>
+    <div class="ac-objective" id="domain-objective" style="display:none"></div>
+    <div class="toolbar">
+      <input class="search-box" id="search-box" type="search" placeholder="Search clause, control, question, or evidence..." oninput="renderDomain()">
+      <select class="filter-select" id="filter-select" onchange="renderDomain()">
+        <option value="all">Show all items</option>
+        <option value="gap">Only open gaps</option>
+        <option value="ready">Only ready items</option>
+        <option value="docgap">Missing documents</option>
+        <option value="implgap">Missing implementation</option>
+      </select>
+    </div>
+    <div class="toolbar-actions" id="toolbar-actions">
+      <button class="tba-btn" onclick="selectAllDomain(true,true)">✓ All Ready</button>
+      <button class="tba-btn tba-doc" onclick="selectAllDomain(true,false)">+ All Documented</button>
+      <button class="tba-btn tba-impl" onclick="selectAllDomain(false,true)">+ All Implemented</button>
+      <button class="tba-btn tba-clear" onclick="selectAllDomain(false,false)">✗ Clear All</button>
+      <span class="tba-divider"></span>
+      <button class="tba-btn tba-save" onclick="saveProgress()" title="Save progress to browser storage">💾 Save</button>
+      <button class="tba-btn tba-load" onclick="loadProgress()" title="Load previously saved progress">📂 Load Saved</button>
+    </div>
+    <div class="control-list" id="control-list"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="prevDomain()">← Previous</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="btn btn-secondary" id="next-section-btn" onclick="nextDomain()">Next Section →</button>
+      <button class="btn btn-teal" onclick="goToSummary()">View Summary</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUMMARY PAGE -->
+<div id="page-summary" style="display:none">
+
+  <div class="summary-banner">
+    <div class="summary-banner-content">
+      <div class="sb-eyebrow">AIMS Assessment Report</div>
+      <div class="sb-title">ISO/IEC 42001:2023 Readiness Summary</div>
+      <div class="sb-sub">AI Management System readiness based on documented and implemented evidence across all clauses and Annex A controls.</div>
+      <div class="sb-score-row">
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:4px">Overall Score</div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="sb-score-big" id="sum-score-big">0</span>
+            <span class="sb-score-denom">/ 5</span>
+          </div>
+        </div>
+        <span class="sb-level-pill" id="sum-level-pill">Initial</span>
+      </div>
+      <div class="sb-meta" id="sum-meta">Generated: —</div>
+    </div>
+  </div>
+
+  <div class="sum-grid">
+    <div class="sum-metric"><div class="sm-val" id="sm-score">0/5</div><div class="sm-lbl">Readiness Score</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-pct">0%</div><div class="sm-lbl">Evidence Completion</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-ready">0/67</div><div class="sm-lbl">Items Ready</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-gaps">67</div><div class="sm-lbl">Open Gaps</div></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">📊</div>Readiness Radar by Domain Group</div>
+    <div class="sc-body" style="display:flex;justify-content:center;align-items:center;padding:1.25rem 0">
+      <canvas id="radar-canvas" width="500" height="340" style="max-width:100%"></canvas>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">📋</div>Domain Readiness Breakdown</div>
+    <div class="sc-body" id="domain-breakdown"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Missing Documents Summary</div>
+    <div class="sc-body" id="missing-doc-summary"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">📄</div>Need AIMS Document Templates?</div>
+    <div class="sc-body">
+      <p class="rec-text">If your team does not yet have an AI policy, AI risk assessment methodology, Statement of Applicability, AI system impact assessment process, or other AIMS documentation compliant with ISO/IEC 42001:2023, CBQA Global can provide ready-to-use document templates and paid implementation assistance.</p>
+      <div style="margin-top:12px"><button class="btn btn-teal" onclick="openTemplateModal('ISO 42001 AIMS document template package')">Request Template Package</button></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Recommendations &amp; Action Items</div>
+    <div class="sc-body" id="sum-recs"></div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-meta" id="sum-footer-date">OneConnect ISO/IEC 42001:2023 Self-Assessment<br>CBQA Global Indonesia</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn btn-secondary" onclick="backToAssessment()">Edit Assessment</button>
+      <button class="btn btn-primary" onclick="openLeadModal()">Request Full Report</button>
+    </div>
+  </div>
+
+</div>
+</div><!-- /layout -->
+
+<!-- LEAD MODAL -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO/IEC 42001 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Company Size</span>
+          <select name="size" required>
+            <option value="">Select size</option>
+            <option>1 - 50 employees</option>
+            <option>51 - 200 employees</option>
+            <option>201 - 1000 employees</option>
+            <option>1000+ employees</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Organisation Role in AI</span>
+          <select name="role" required>
+            <option value="">Select role</option>
+            <option>AI Developer / Provider</option>
+            <option>AI User / Deployer</option>
+            <option>Both Developer and User</option>
+            <option>AI Platform / Infrastructure Provider</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>ISO 42001 certification readiness</option>
+            <option>AI governance gap analysis</option>
+            <option>Responsible AI programme setup</option>
+            <option>Regulatory compliance (EU AI Act, etc.)</option>
+            <option>Internal improvement planning</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Industry Sector</span>
+          <select name="industry">
+            <option value="">Select sector</option>
+            <option>Banking &amp; Financial Services</option>
+            <option>Healthcare</option>
+            <option>Technology / SaaS</option>
+            <option>Telecommunications</option>
+            <option>Government / Public Sector</option>
+            <option>Retail / E-commerce</option>
+            <option>Manufacturing</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your AI use cases, target timeline, scope, or current AI governance challenges."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">CBQA Global can provide paid AIMS templates, review support, or assisted ISO 42001 implementation based on your selected need.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 business hour.
+        <div class="lead-success-actions"><a href="oneconnect.html">Back to OneConnect Platform</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   DATA — ISO/IEC 42001:2023
+   ================================================================ */
+
+const DOMAINS = [
+  /* ---- CLAUSE DOMAINS ---- */
+  {
+    id:"C4", label:"Clause 4", group:"AIMS Clauses",
+    title:"Context of the Organisation",
+    desc:"Understanding external/internal issues, determining the organisation's AI roles, identifying interested parties, and establishing the AIMS scope.",
+    objective:"Ensure the organisation understands the context that affects its ability to achieve the intended outcomes of the AI Management System, including its roles with respect to AI systems.",
+    items:[
+      ["4.1.a","Has the organisation identified external and internal issues relevant to its purpose that affect the AIMS?","Context register, PESTLE/SWOT analysis, AI regulatory landscape assessment"],
+      ["4.1.b","Has the organisation determined whether climate change is a relevant issue to the AIMS?","Climate change relevance determination, sustainability assessment documentation"],
+      ["4.1.c","Has the organisation considered the intended purpose of its AI systems and determined its roles (provider, developer, user, partner, etc.)?","AI role determination document, AI system inventory with purpose statements, stakeholder role map"],
+      ["4.2","Have the interested parties relevant to the AIMS been identified, along with their relevant requirements?","Interested parties register, stakeholder requirements matrix, regulatory and contractual obligation list"],
+      ["4.3","Has the AIMS scope been determined, documented, and made available as documented information?","AIMS scope statement, system boundaries, list of AI systems in scope, scope approval evidence"],
+      ["4.4","Has the AIMS been established, implemented, maintained, continually improved, and documented with all required processes?","AIMS process map, governance procedures, AI management framework documentation, process interaction records"]
+    ]
+  },
+  {
+    id:"C5", label:"Clause 5", group:"AIMS Clauses",
+    title:"Leadership",
+    desc:"Top management leadership and commitment, establishment of the AI policy, and assignment of roles, responsibilities, and authorities.",
+    objective:"Ensure top management demonstrates genuine leadership and commitment to the AIMS, establishes a suitable AI policy, and allocates clear responsibilities.",
+    items:[
+      ["5.1","Does top management demonstrate leadership and commitment to the AIMS (providing resources, integrating with business processes, communicating importance, supporting improvement)?","Management commitment evidence, meeting minutes, AI policy sign-off, AIMS budget allocation, integration evidence"],
+      ["5.2","Has an AI policy been established appropriate to the organisation's purpose, approved by management, communicated internally, and made available to interested parties?","AI policy document, policy review and approval records, communication and distribution evidence, public availability where appropriate"],
+      ["5.3","Have responsibilities and authorities for relevant AIMS roles been assigned and communicated within the organisation?","RACI matrix, job descriptions with AI responsibilities, AI governance committee charter, role assignment records"]
+    ]
+  },
+  {
+    id:"C6", label:"Clause 6", group:"AIMS Clauses",
+    title:"Planning",
+    desc:"Establishing AI risk criteria, performing risk and opportunity assessment, defining risk treatment (including SoA), AI system impact assessment process, and AI objectives.",
+    objective:"Ensure the organisation establishes AI risk criteria, plans actions to address risks and opportunities, and defines the AI system impact assessment process.",
+    items:[
+      ["6.1.1","Have AI risk criteria been established and risks and opportunities that need to be addressed been determined?","AI risk criteria document, risk and opportunity register, risk acceptance thresholds, documented AI risk basis"],
+      ["6.1.2","Has an AI risk assessment process been defined and applied that produces consistent, valid, and comparable results?","AI risk assessment methodology, completed risk assessments, risk register with identified owners and levels"],
+      ["6.1.3","Has an AI risk treatment process been defined, with treatment options selected, controls determined, and a Statement of Applicability (SoA) produced and management-approved?","AI risk treatment plan, SoA covering Annex A controls with inclusion/exclusion justification, residual risk acceptance"],
+      ["6.1.4","Has a process been defined for assessing potential consequences of AI systems on individuals, groups, and societies (AI System Impact Assessment)?","ASIA process documentation, assessment criteria and triggers, completed ASIA reports, ASIA integration with risk process"],
+      ["6.2","Have AI objectives been established at relevant functions and levels, are they measurable, monitored, communicated, and available as documented information?","AI objectives register, KPI tracker, objectives monitoring reports, alignment with AI policy"],
+      ["6.3","Are changes to the AIMS carried out in a planned and controlled manner?","Change management plan, AIMS change approval records, change impact assessments"]
+    ]
+  },
+  {
+    id:"C7", label:"Clause 7", group:"AIMS Clauses",
+    title:"Support",
+    desc:"Resources, competence, awareness, communication planning, and control of documented information for the AIMS.",
+    objective:"Ensure the organisation provides adequate resources, maintains competent personnel, and manages documented information effectively to support the AIMS.",
+    items:[
+      ["7.1","Have the resources needed for establishing, implementing, maintaining, and improving the AIMS been determined and provided?","AIMS resource plan, budget allocation, infrastructure and tooling provisioning evidence"],
+      ["7.2","Has the necessary competence been determined and evidenced for persons doing work that affects AI performance?","AI competence matrix, training records, certifications, competence evaluation results"],
+      ["7.3","Are persons doing work under the organisation's control aware of the AI policy, their contribution to AIMS effectiveness, and the implications of non-conformity?","AI awareness training records, policy acknowledgement evidence, awareness programme materials"],
+      ["7.4","Have internal and external communications relevant to the AIMS been planned (what, when, with whom, and how)?","Communication plan, AI communications matrix, stakeholder communication evidence"],
+      ["7.5","Is AIMS documented information created with appropriate identification, format, review, and approval, and is it controlled and protected?","Document control procedure, AIMS master document list, version control records, access control configuration"]
+    ]
+  },
+  {
+    id:"C8", label:"Clause 8", group:"AIMS Clauses",
+    title:"Operation",
+    desc:"Operational planning and control, performing AI risk assessments and risk treatment, and conducting AI system impact assessments.",
+    objective:"Ensure the AIMS processes are operated and controlled according to plan, with risk assessments and impact assessments performed at planned intervals or upon significant changes.",
+    items:[
+      ["8.1","Are the AIMS processes planned, implemented, and controlled, including management of externally provided processes, products, or services relevant to the AIMS?","Operational control records, AI system operational procedures, third-party AI service control evidence, change control records"],
+      ["8.2","Are AI risk assessments performed at planned intervals or when significant changes are proposed or occur?","AI risk assessment schedule, periodic assessment reports, change-triggered assessment records"],
+      ["8.3","Has the AI risk treatment plan been implemented and its effectiveness verified?","Treatment implementation tracker, control effectiveness evidence, updated SoA, residual risk validation"],
+      ["8.4","Are AI system impact assessments performed at planned intervals or when significant changes occur?","ASIA schedule, completed periodic impact assessment reports, change-triggered ASIA records"]
+    ]
+  },
+  {
+    id:"C9", label:"Clause 9", group:"AIMS Clauses",
+    title:"Performance Evaluation",
+    desc:"Monitoring, measurement, analysis and evaluation of the AIMS, internal audit programme, and management review.",
+    objective:"Ensure AIMS performance is regularly monitored and evaluated through defined methods, a structured internal audit programme, and management review.",
+    items:[
+      ["9.1","Are AIMS performance and the effectiveness of AI controls monitored, measured, analysed, and evaluated using defined methods?","AI performance metrics dashboard, monitoring reports, evaluation evidence, documented measurement methods"],
+      ["9.2","Has an AIMS internal audit programme been planned and executed at planned intervals to determine conformance and effectiveness?","AIMS audit programme, internal audit reports, auditor objectivity evidence, audit finding follow-up records"],
+      ["9.3","Does top management review the AIMS at planned intervals with documented inputs (nonconformities, audit results, trends, improvements) and decisions?","Management review agenda and minutes, action log, management decisions on AIMS improvement"]
+    ]
+  },
+  {
+    id:"C10", label:"Clause 10", group:"AIMS Clauses",
+    title:"Improvement",
+    desc:"Continual improvement of the AIMS and handling of nonconformities with corrective action.",
+    objective:"Ensure the AIMS is continually improved and that nonconformities are addressed with correction, root cause analysis, and documented corrective actions to prevent recurrence.",
+    items:[
+      ["10.1","Is the AIMS continually improved in its suitability, adequacy, and effectiveness?","Continual improvement log, trend analysis, improvement initiatives and results, management review outcomes"],
+      ["10.2","Are nonconformities identified and handled with correction, root cause analysis, and documented corrective actions?","NC/CAPA records, root cause analysis documentation, corrective action effectiveness evidence"]
+    ]
+  },
+
+  /* ---- ANNEX A DOMAINS ---- */
+  {
+    id:"A2", label:"Annex A.2", group:"Policy & Governance",
+    title:"Policies Related to AI",
+    desc:"Controls for providing management direction and support for AI systems in accordance with business requirements.",
+    objective:"Objective: To provide management direction and support for AI systems according to business requirements.",
+    items:[
+      ["A.2.2","Has the organisation documented a policy for the development or use of AI systems?","AI policy document, management approval, date of issue and last review"],
+      ["A.2.3","Has the organisation determined where other organisational policies are affected by or apply to its AI objectives, and aligned them accordingly?","Policy alignment matrix, cross-reference to information security, privacy, safety, quality policies, gap analysis"],
+      ["A.2.4","Is the AI policy reviewed at planned intervals or additionally as needed to ensure continuing suitability, adequacy, and effectiveness?","AI policy review schedule, review records, update log, management approval of revisions"]
+    ]
+  },
+  {
+    id:"A3", label:"Annex A.3", group:"Policy & Governance",
+    title:"Internal Organisation",
+    desc:"Controls for establishing accountability within the organisation to uphold its responsible approach for the implementation, operation, and management of AI systems.",
+    objective:"Objective: To establish accountability within the organisation to uphold its responsible approach for the implementation, operation, and management of AI systems.",
+    items:[
+      ["A.3.2","Have roles and responsibilities for AI been defined and allocated according to the needs of the organisation?","AI RACI matrix, job descriptions with AI responsibilities, governance committee charter, role appointment records"],
+      ["A.3.3","Has the organisation defined and implemented a process to report concerns about its role with respect to AI systems throughout the life cycle?","Concern reporting process, reporting channels (including confidential/anonymous options), escalation procedure, investigation process"]
+    ]
+  },
+  {
+    id:"A4", label:"Annex A.4", group:"AI Resources & Impact",
+    title:"Resources for AI Systems",
+    desc:"Controls to ensure the organisation accounts for the resources of the AI system in order to fully understand and address risks and impacts.",
+    objective:"Objective: To ensure that the organisation accounts for the resources (including AI system components and assets) of the AI system in order to fully understand and address risks and impacts.",
+    items:[
+      ["A.4.2","Have relevant resources required at given AI system life cycle stages been identified and documented (e.g. via data flow or architecture diagrams)?","AI resource inventory, resource documentation (data flow diagrams, system architecture diagrams), asset register"],
+      ["A.4.3","Has information about data resources (provenance, update date, categories, quality, intended use, bias issues) been documented?","Data resource documentation, data inventory, data provenance records, metadata, bias issue register"],
+      ["A.4.4","Has information about tooling resources (algorithms, models, tools, evaluation methods, software) been documented?","AI tooling inventory, algorithm/model documentation, tool selection rationale, tooling resource register"],
+      ["A.4.5","Has information about system and computing resources (hardware, cloud, processing, storage, environmental impact) been documented?","Infrastructure documentation, computing resource inventory, deployment architecture, environmental impact records"],
+      ["A.4.6","Has information about human resources and their competences for all AI life cycle stages (development, deployment, operation, maintenance, decommissioning) been documented?","Human resource documentation, AI team competence matrix, staffing plan, expertise records by life cycle stage"]
+    ]
+  },
+  {
+    id:"A5", label:"Annex A.5", group:"AI Resources & Impact",
+    title:"Assessing Impacts of AI Systems",
+    desc:"Controls for assessing AI system impacts on individuals, groups, and societies throughout the AI system life cycle.",
+    objective:"Objective: To assess AI system impacts to individuals or groups of individuals, or both, and societies affected by the AI system throughout its life cycle.",
+    items:[
+      ["A.5.2","Has an AI system impact assessment (ASIA) process been established to assess potential consequences on individuals and societies throughout the life cycle?","ASIA process documentation, assessment criteria, triggers for assessment (criticality, complexity, data sensitivity), process approval"],
+      ["A.5.3","Are the results of AI system impact assessments documented and retained for a defined period?","Completed ASIA reports, retention schedule, documentation of both positive and negative impacts, update records"],
+      ["A.5.4","Have potential impacts of AI systems on individuals or groups (fairness, accountability, transparency, safety, privacy, financial, accessibility, human rights) been assessed?","ASIA covering individual impacts, human rights assessment, specific demographic group analysis, expert consultation evidence"],
+      ["A.5.5","Have potential societal impacts (environmental sustainability, economic, governance, health and safety, norms and culture) been assessed?","Societal impact assessment, environmental sustainability analysis, misuse risk assessment, historical bias review"]
+    ]
+  },
+  {
+    id:"A6", label:"Annex A.6", group:"AI Life Cycle",
+    title:"AI System Life Cycle",
+    desc:"Controls for responsible AI system development and for defining criteria and requirements at each stage of the AI system life cycle.",
+    objective:"Objective: To ensure responsible design, development, and operation of AI systems across their full life cycle.",
+    items:[
+      ["A.6.1.2","Have objectives for the responsible development of AI systems (e.g. fairness, transparency, safety, security) been identified, documented, and integrated into the development life cycle?","Responsible AI objectives register, integration evidence in SDLC stages (requirements, design, training, V&V)"],
+      ["A.6.1.3","Have processes for the responsible design and development of AI systems been defined and documented (including testing, human oversight, training data rules, release criteria)?","AI development process documentation, responsible AI guidelines, testing requirements, human oversight procedures"],
+      ["A.6.2.2","Have requirements for new AI systems or material enhancements been specified and documented?","AI system requirements specification, rationale for development, stakeholder requirements, feasibility assessment"],
+      ["A.6.2.3","Has the AI system design and development been documented based on organisational objectives, requirements, and specification criteria?","AI system design documentation, architecture records, design decision rationale, final system architecture"],
+      ["A.6.2.4","Have verification and validation measures been defined with criteria for use (including evaluation against responsible AI objectives)?","V&V methodology, test plans, release criteria, evaluation criteria covering responsible AI metrics, performance benchmarks"],
+      ["A.6.2.5","Has a deployment plan been documented and have appropriate requirements been met prior to deployment?","AI system deployment plan, release criteria checklist, pre-deployment approval, environment transition plan"],
+      ["A.6.2.6","Have the necessary elements for ongoing operation and monitoring of the AI system been defined and documented (monitoring, updates, repairs, support)?","AI system operation runbook, performance monitoring plan, update and repair procedures, concept drift monitoring"],
+      ["A.6.2.7","Has the technical documentation to be provided to relevant interested parties (users, partners, regulators) been determined and provided?","Technical documentation per stakeholder type, AI system technical specifications, user documentation, regulatory disclosures"],
+      ["A.6.2.8","Has it been determined at which phases of the AI system life cycle event log recording should be enabled?","Event logging policy, logging implementation records, log retention configuration, minimum logging at operational phase"]
+    ]
+  },
+  {
+    id:"A7", label:"Annex A.7", group:"AI Life Cycle",
+    title:"Data for AI Systems",
+    desc:"Controls to ensure the organisation understands the role and impacts of data in AI systems throughout their life cycles.",
+    objective:"Objective: To ensure that the organisation understands the role and impacts of data in AI systems in the application and development, provision or use of AI systems throughout their life cycles.",
+    items:[
+      ["A.7.2","Have data management processes related to AI system development been defined, documented, and implemented?","Data management process documentation, data governance policy for AI, training data procedures, data lifecycle management"],
+      ["A.7.3","Have details about the acquisition and selection of data used in AI systems been documented?","Data acquisition documentation, data selection rationale, data supplier records, approved data sources"],
+      ["A.7.4","Have data quality requirements been defined and is data verified to meet those requirements before use in AI systems?","Data quality requirements specification, data quality assessment results, quality monitoring evidence, quality gates"],
+      ["A.7.5","Has a process been defined for recording the provenance of data over the life cycles of both the data and the AI system?","Data provenance process, provenance records, data lineage tracking implementation, provenance retention policy"],
+      ["A.7.6","Have criteria for data preparation selection and the data preparation methods to be used been defined and documented?","Data preparation criteria, data conditioning procedures, preprocessing documentation, labelling rules"]
+    ]
+  },
+  {
+    id:"A8", label:"Annex A.8", group:"Transparency & Use",
+    title:"Information for Interested Parties",
+    desc:"Controls to ensure relevant interested parties have the necessary information to understand and assess AI system risks and impacts.",
+    objective:"Objective: To ensure that relevant interested parties have the necessary information to understand and assess the risks and their impacts (both positive and negative).",
+    items:[
+      ["A.8.2","Has the necessary information for users of the AI system been determined and provided?","User documentation, AI system information provided to users, user guide, capability and limitation disclosures"],
+      ["A.8.3","Have capabilities been provided for interested parties to report adverse impacts of the AI system?","Adverse impact reporting channel, feedback mechanism, incident reporting portal, reporting procedure documentation"],
+      ["A.8.4","Has a plan been determined and documented for communicating incidents to users of the AI system?","Incident communication plan, notification procedures, communication timeline, responsible party identification"],
+      ["A.8.5","Have the organisation's obligations to report information about the AI system to interested parties been determined and documented?","Reporting obligations register, disclosure requirements register, information sharing procedures, regulatory notification obligations"]
+    ]
+  },
+  {
+    id:"A9", label:"Annex A.9", group:"Transparency & Use",
+    title:"Use of AI Systems",
+    desc:"Controls to ensure the organisation uses AI systems responsibly and in accordance with organisational policies.",
+    objective:"Objective: To ensure that the organisation uses AI systems responsibly and per organisational policies.",
+    items:[
+      ["A.9.2","Have processes for the responsible use of AI systems been defined and documented?","Responsible AI use procedures, operational guidelines, acceptable use policy for AI systems, human oversight procedures"],
+      ["A.9.3","Have objectives to guide the responsible use of AI systems (e.g. fairness, accuracy, human oversight, non-discrimination) been identified and documented?","Responsible use objectives register, objectives monitoring records, alignment with AI policy"],
+      ["A.9.4","Is the AI system used according to its intended use and accompanying documentation, with monitoring in place for deviations?","Intended use compliance records, user training records, monitoring for misuse, deviation or out-of-scope use log"]
+    ]
+  },
+  {
+    id:"A10", label:"Annex A.10", group:"Transparency & Use",
+    title:"Third-party and Customer Relationships",
+    desc:"Controls to ensure the organisation understands its responsibilities and remains accountable when third parties are involved at any stage of the AI system life cycle.",
+    objective:"Objective: To ensure that the organisation understands its responsibilities and remains accountable, and risks are appropriately apportioned when third parties are involved at any stage of the AI system life cycle.",
+    items:[
+      ["A.10.2","Have responsibilities within the AI system life cycle been clearly allocated between the organisation, its partners, suppliers, customers, and third parties?","Responsibility allocation matrix, contracts specifying AI responsibilities, third-party agreements, life cycle role documentation"],
+      ["A.10.3","Has a process been established to ensure that usage of services, products, or materials from suppliers aligns with the organisation's responsible AI approach?","Supplier AI assessment process, supplier evaluation criteria, supplier agreements with responsible AI requirements, supplier audit records"],
+      ["A.10.4","Does the organisation's responsible approach to the development and use of AI systems consider customer expectations and needs?","Customer requirements documentation, customer communication on AI use, customer feedback mechanism, customer-specific AI commitments"]
+    ]
+  }
+];
+
+/* ================================================================
+   STATE
+   ================================================================ */
+let state = DOMAINS.map(d => d.items.map(() => ({doc:false, impl:false})));
+const totalItems = DOMAINS.reduce((s,d) => s+d.items.length, 0);
+const maxChecks = totalItems * 2;
+let currentDomain = 0;
+
+const LEVELS = [
+  {min:0,  label:'Initial',     desc:'No evidence or very limited readiness',                    color:'#E84040',pill:'rgba(232,64,64,.2)',  pillTxt:'#F4A0A0'},
+  {min:20, label:'Basic',       desc:'Some documents or evidence exist',                         color:'#E07B20',pill:'rgba(224,123,32,.2)', pillTxt:'#F0B070'},
+  {min:40, label:'Developing',  desc:'Core AIMS elements are partially established',             color:'#D4A200',pill:'rgba(212,162,0,.2)',  pillTxt:'#E8C84A'},
+  {min:60, label:'Defined',     desc:'Most requirements are documented and implemented',         color:'#0D8C72',pill:'rgba(13,140,114,.2)', pillTxt:'#5DCAB0'},
+  {min:80, label:'Managed',     desc:'Controls are mature and consistently evidenced',           color:'#0D5C55',pill:'rgba(13,92,85,.2)',   pillTxt:'#5ABFB3'},
+  {min:95, label:'Audit Ready', desc:'Strong evidence base for AIMS certification readiness',    color:'#083D38',pill:'rgba(8,61,56,.2)',    pillTxt:'#319ea9'}
+];
+
+/* ================================================================
+   INIT
+   ================================================================ */
+function startAssessment() {
+  document.getElementById('page-intro').style.display = 'none';
+  document.getElementById('page-assessment').style.display = 'block';
+  document.getElementById('check-display').textContent = '0 / ' + maxChecks;
+  document.getElementById('ready-display').textContent = '0 / ' + totalItems;
+  document.getElementById('gap-display').textContent = totalItems;
+  document.getElementById('progress-label').textContent = 'ISO/IEC 42001:2023 AIMS Readiness — ' + totalItems + ' assessment items';
+  renderDomain();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ================================================================
+   RENDERING
+   ================================================================ */
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+function totals(){
+  let checked=0, ready=0;
+  state.forEach(rows=>rows.forEach(r=>{checked+=(r.doc?1:0)+(r.impl?1:0);if(r.doc&&r.impl)ready++;}));
+  const pct=Math.round(checked/maxChecks*100);
+  const score=Math.round((pct/100)*5*10)/10;
+  return{checked,ready,pct,score,gaps:totalItems-ready};
+}
+
+function domainTotals(i){
+  const rows=state[i];
+  let checked=0, ready=0;
+  rows.forEach(r=>{checked+=(r.doc?1:0)+(r.impl?1:0);if(r.doc&&r.impl)ready++;});
+  return{checked,ready,max:rows.length*2,pct:Math.round(checked/(rows.length*2)*100),items:rows.length};
+}
+
+function levelFor(pct){return LEVELS.filter(l=>pct>=l.min).pop();}
+
+function updateScore(){
+  const t=totals();
+  const lv=levelFor(t.pct);
+  document.getElementById('score-display').textContent=t.score;
+  document.getElementById('score-display').style.color=lv.color;
+  document.getElementById('score-level').textContent=lv.label;
+  document.getElementById('score-level').style.color=lv.color;
+  document.getElementById('score-desc').textContent=lv.desc;
+  document.getElementById('score-bar').style.width=t.pct+'%';
+  document.getElementById('score-bar').style.background=lv.color;
+  document.getElementById('check-display').textContent=t.checked+' / '+maxChecks;
+  document.getElementById('ready-display').textContent=t.ready+' / '+totalItems;
+  document.getElementById('gap-display').textContent=t.gaps;
+  document.getElementById('progress-bar').style.width=t.pct+'%';
+  document.getElementById('progress-pct').textContent=t.pct+'%';
+}
+
+function renderTabs(){
+  const container=document.getElementById('domain-tabs');
+  let html='', lastGroup='';
+  DOMAINS.forEach((d,i)=>{
+    const dt=domainTotals(i);
+    if(d.group!==lastGroup){
+      if(lastGroup!=='')html+='<div class="tab-divider"></div>';
+      html+='<span class="tab-group-label">'+esc(d.group)+'</span>';
+      lastGroup=d.group;
+    }
+    html+='<button class="domain-tab '+(i===currentDomain?'active ':'')+(dt.ready===dt.items&&dt.items>0?'done':'')+'" onclick="goToDomain('+i+')">'+esc(d.label)+'</button>';
+  });
+  container.innerHTML=html;
+}
+
+function buildControlRow(it, domIdx, idx, r){
+  return '<div class="control-row">'+
+    '<div class="control-ref">'+esc(it[0])+'</div>'+
+    '<div class="control-text">'+esc(it[1])+'</div>'+
+    '<div class="check-pill '+(r.doc?'checked':'')+'" onclick="toggleCheck('+domIdx+','+idx+',0)" title="Mark as Documented"><span class="box">'+(r.doc?'✓':'')+'</span>Documented</div>'+
+    '<div class="check-pill '+(r.impl?'checked':'')+'" onclick="toggleCheck('+domIdx+','+idx+',1)" title="Mark as Implemented"><span class="box">'+(r.impl?'✓':'')+'</span>Implemented</div>'+
+    '<div class="control-evidence">'+esc(it[2])+'</div>'+
+    '</div>';
+}
+
+function renderDomain(){
+  const domain=DOMAINS[currentDomain];
+  const dt=domainTotals(currentDomain);
+  const q=(document.getElementById('search-box')?.value||'').toLowerCase();
+  const filter=document.getElementById('filter-select')?.value||'all';
+
+  document.getElementById('domain-title').textContent=domain.title;
+  document.getElementById('domain-desc').textContent=domain.desc;
+  document.getElementById('domain-code').textContent=domain.label;
+  document.getElementById('hero-badge').textContent=domain.label;
+  document.getElementById('domain-count').textContent=dt.ready+' / '+dt.items;
+
+  const objEl=document.getElementById('domain-objective');
+  if(domain.objective){objEl.textContent=domain.objective;objEl.style.display='block';}
+  else{objEl.style.display='none';}
+
+  const nextBtn=document.getElementById('next-section-btn');
+  if(nextBtn)nextBtn.textContent=currentDomain===DOMAINS.length-1?'End Section':'Next Section →';
+
+  const rows=domain.items.map((it,idx)=>({it,idx,r:state[currentDomain][idx]})).filter(row=>{
+    const hay=(row.it[0]+' '+row.it[1]+' '+row.it[2]).toLowerCase();
+    if(q&&!hay.includes(q))return false;
+    if(filter==='gap'&&row.r.doc&&row.r.impl)return false;
+    if(filter==='ready'&&!(row.r.doc&&row.r.impl))return false;
+    if(filter==='docgap'&&row.r.doc)return false;
+    if(filter==='implgap'&&row.r.impl)return false;
+    return true;
+  });
+
+  document.getElementById('control-list').innerHTML=
+    rows.map(row=>buildControlRow(row.it,currentDomain,row.idx,row.r)).join('')||
+    '<div class="empty">No items match the current filter.</div>';
+
+  renderTabs();
+  updateScore();
+}
+
+function toggleCheck(domIdx, idx, type){
+  const key=type===0?'doc':'impl';
+  state[domIdx][idx][key]=!state[domIdx][idx][key];
+  renderDomain();
+  saveToStorage();
+}
+
+function goToDomain(i){currentDomain=i;renderDomain();window.scrollTo({top:0,behavior:'smooth'});}
+function prevDomain(){if(currentDomain>0)goToDomain(currentDomain-1);}
+function nextDomain(){if(currentDomain<DOMAINS.length-1)goToDomain(currentDomain+1);else goToSummary();}
+
+/* ================================================================
+   SUMMARY
+   ================================================================ */
+function goToSummary(){
+  const t=totals();
+  const lv=levelFor(t.pct);
+
+  document.getElementById('page-assessment').style.display='none';
+  document.getElementById('page-summary').style.display='block';
+  document.getElementById('ws-1').classList.add('done');
+  document.getElementById('ws-2').classList.add('done');
+  document.getElementById('ws-3').classList.add('active');
+
+  document.getElementById('sum-score-big').textContent=t.score;
+  document.getElementById('sum-level-pill').textContent=lv.label;
+  document.getElementById('sum-level-pill').style.background=lv.pill;
+  document.getElementById('sum-level-pill').style.color=lv.pillTxt;
+  document.getElementById('sm-score').textContent=t.score+'/5';
+  document.getElementById('sm-pct').textContent=t.pct+'%';
+  document.getElementById('sm-ready').textContent=t.ready+'/'+totalItems;
+  document.getElementById('sm-gaps').textContent=t.gaps;
+
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sum-meta').textContent='Generated: '+dateStr+', '+timeStr;
+  document.getElementById('sum-footer-date').innerHTML=dateStr+' '+timeStr+' | OneConnect ISO/IEC 42001:2023 AIMS Self-Assessment<br>CBQA Global Indonesia';
+
+  document.getElementById('domain-breakdown').innerHTML=DOMAINS.map((d,i)=>{
+    const dt=domainTotals(i);
+    const lv2=levelFor(dt.pct);
+    const cls=dt.pct>=80?'tag-ok':dt.pct>=50?'tag-mid':'tag-ng';
+    return '<div class="gauge-wrap">'+
+      '<span class="gauge-lbl">'+esc(d.label+' — '+d.title)+'</span>'+
+      '<div class="gauge-track"><div class="gauge-bar" style="width:'+dt.pct+'%;background:'+lv2.color+'"></div></div>'+
+      '<span class="gauge-pct" style="color:'+lv2.color+'">'+dt.pct+'%</span>'+
+      '<span class="status-tag '+cls+'">'+dt.ready+'/'+dt.items+'</span>'+
+      '</div>';
+  }).join('');
+
+  const gaps=[];
+  DOMAINS.forEach((d,i)=>d.items.forEach((it,idx)=>{
+    const r=state[i][idx];
+    if(!r.doc||!r.impl)gaps.push({domain:d.label,ref:it[0],text:it[1],evidence:it[2],doc:!r.doc,impl:!r.impl});
+  }));
+
+  const missingDocs=gaps.filter(g=>g.doc);
+  document.getElementById('missing-doc-summary').innerHTML=
+    (missingDocs.length===0
+      ? '<p style="font-size:13px;color:var(--success);padding:10px 0">All required documents are marked as available.</p>'
+      : missingDocs.slice(0,80).map((g,n)=>
+          '<div class="status-row">'+
+          '<span style="font-weight:600;color:var(--danger);width:32px">'+(n+1)+'.</span>'+
+          '<span class="status-name">'+esc(g.ref+' — '+g.evidence)+'</span>'+
+          '<span class="status-tag tag-ng">Missing document</span>'+
+          '<button class="template-cta" type="button" onclick="openTemplateModal(\''+esc(g.ref+' - '+g.evidence)+'\')">Request Template</button>'+
+          '</div>'
+        ).join('')+
+        (missingDocs.length>80?'<div class="empty">Showing first 80 missing documents of '+missingDocs.length+'.</div>':'')
+    );
+
+  document.getElementById('sum-recs').innerHTML=
+    (gaps.length===0
+      ? '<p style="font-size:13px;color:var(--text-secondary);padding:10px 0">All AIMS checklist items are fully documented and implemented.</p>'
+      : gaps.slice().sort((a,b)=>((b.doc&&b.impl)?2:(b.doc||b.impl)?1:0)-((a.doc&&a.impl)?2:(a.doc||a.impl)?1:0))
+        .slice(0,45).map(g=>
+          '<div class="rec-item">'+
+          '<span class="rec-priority '+(g.doc&&g.impl?'pri-high':'pri-med')+'">'+(g.doc&&g.impl?'High':'Medium')+'</span>'+
+          '<p class="rec-text">Close '+esc(g.ref)+' gap: '+(g.doc?'prepare or approve documented evidence; ':'')+(g.impl?'collect operating evidence and verify implementation; ':'')+'</p>'+
+          '<p class="rec-ref">'+esc(g.domain+' — '+g.text)+'</p>'+
+          '</div>'
+        ).join('')+
+        (gaps.length>45?'<div class="empty">Showing first 45 action items of '+gaps.length+'.</div>':'')
+    );
+
+  setTimeout(()=>drawRadar(),100);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function drawRadar(){
+  const canvas=document.getElementById('radar-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const groupMap={};
+  DOMAINS.forEach((d,i)=>{
+    const g=d.group;
+    if(!groupMap[g])groupMap[g]={label:g,pcts:[]};
+    groupMap[g].pcts.push(domainTotals(i).pct);
+  });
+  const pts=Object.values(groupMap).map(g=>({
+    label:g.label,
+    val:Math.round(g.pcts.reduce((s,v)=>s+v,0)/g.pcts.length)
+  }));
+
+  if(pts.length<3){
+    ctx.fillStyle='#174e59';ctx.font='13px Helvetica,Arial,sans-serif';
+    ctx.textAlign='center';ctx.fillText('Insufficient groups for radar',W/2,H/2);
+    return;
+  }
+
+  const cx=W/2, cy=H/2, r=Math.min(W,H)*0.32;
+  const n=pts.length;
+  const angle=i=>(-Math.PI/2)+(i/n)*Math.PI*2;
+
+  [20,40,60,80,100].forEach(pct=>{
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a=angle(i),rv=r*(pct/100);
+      i===0?ctx.moveTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a)):ctx.lineTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a));
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(49,158,169,.15)';ctx.lineWidth=1;ctx.stroke();
+    if(pct%40===0){
+      ctx.fillStyle='#7d9aa2';ctx.font='10px Helvetica,Arial,sans-serif';ctx.textAlign='left';
+      ctx.fillText(pct+'%',cx+4,cy-r*(pct/100)+4);
+    }
+  });
+
+  for(let i=0;i<n;i++){
+    const a=angle(i);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.strokeStyle='rgba(49,158,169,.2)';ctx.lineWidth=1;ctx.stroke();
+  }
+
+  ctx.beginPath();
+  pts.forEach((p,i)=>{
+    const a=angle(i),rv=r*(p.val/100);
+    i===0?ctx.moveTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a)):ctx.lineTo(cx+rv*Math.cos(a),cy+rv*Math.sin(a));
+  });
+  ctx.closePath();
+  ctx.fillStyle='rgba(49,158,169,.18)';ctx.fill();
+  ctx.strokeStyle='#319ea9';ctx.lineWidth=2;ctx.stroke();
+
+  pts.forEach((p,i)=>{
+    const a=angle(i),rv=r*(p.val/100);
+    const px=cx+rv*Math.cos(a),py=cy+rv*Math.sin(a);
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle='#319ea9';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+
+    const lx=cx+(r+36)*Math.cos(a),ly=cy+(r+24)*Math.sin(a);
+    ctx.fillStyle='#174e59';ctx.font='bold 11px Helvetica,Arial,sans-serif';
+    ctx.textAlign=lx>cx+5?'left':lx<cx-5?'right':'center';
+    ctx.textBaseline=ly>cy+5?'top':ly<cy-5?'bottom':'middle';
+    const lines=p.label.split(' ');
+    lines.forEach((ln,li)=>ctx.fillText(ln,lx,ly+(li*13)-(lines.length-1)*6));
+
+    ctx.fillStyle='#319ea9';ctx.font='bold 12px Helvetica,Arial,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(p.val+'%',px,py);
+  });
+}
+
+function backToAssessment(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-assessment').style.display='block';
+  document.getElementById('ws-3').classList.remove('active');
+  renderDomain();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function selectAllDomain(doc,impl){
+  state[currentDomain].forEach(r=>{r.doc=doc;r.impl=impl;});
+  renderDomain();
+  saveToStorage();
+}
+
+/* ================================================================
+   PERSIST — localStorage
+   ================================================================ */
+const STORAGE_KEY='cbqa_42001_progress';
+
+function saveProgress(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({state,savedAt:new Date().toISOString()}));
+    showToast('Progress saved in browser ✓','#0d8c72');
+  }catch(e){showToast('Failed to save — try another browser','#e84040');}
+}
+
+function saveToStorage(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify({state,savedAt:new Date().toISOString()}));}catch(e){}
+}
+
+function loadProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw){showToast('No saved data found','#e07b20');return;}
+    const payload=JSON.parse(raw);
+    if(payload.state&&payload.state.length===state.length){
+      state=payload.state;
+      renderDomain();
+      showToast('Progress loaded — saved: '+new Date(payload.savedAt).toLocaleString('en-GB'),'#0d8c72');
+    }else{showToast('Saved data format is not compatible','#e84040');}
+  }catch(e){showToast('Failed to load data','#e84040');}
+}
+
+function showToast(msg,color){
+  const old=document.getElementById('toast-msg');
+  if(old)old.remove();
+  const el=document.createElement('div');
+  el.id='toast-msg';
+  el.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:'+color+';color:#fff;padding:11px 22px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 14px 36px rgba(0,0,0,.2);white-space:nowrap;pointer-events:none';
+  el.textContent=msg;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),3200);
+}
+
+function printSummary(){window.print();}
+
+/* ================================================================
+   LEAD MODAL
+   ================================================================ */
+function resetLeadForm(){
+  const f=document.getElementById('leadForm');if(!f)return;
+  const btn=f.querySelector('.lead-submit');
+  const s=document.getElementById('leadSuccess');
+  if(btn){btn.textContent='Submit Profile';btn.disabled=false;}
+  if(s)s.classList.remove('active');
+}
+function showLeadModal(){
+  const m=document.getElementById('leadModal');if(!m)return;
+  m.classList.add('active');m.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{const f=m.querySelector('input,select,textarea,button');if(f)f.focus();},50);
+}
+function setLeadContext(title,description,message){
+  resetLeadForm();
+  const t=document.getElementById('leadTitle');
+  const d=document.querySelector('.lead-head p:not(.lead-eyebrow)');
+  const msg=document.querySelector('textarea[name=message]');
+  if(t)t.textContent=title;
+  if(d)d.textContent=description;
+  if(msg)msg.value=message||'';
+}
+function openLeadModal(){
+  setLeadContext('Request the full ISO/IEC 42001 AIMS readiness report','Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.','');
+  showLeadModal();
+}
+function openTemplateModal(templateName){
+  setLeadContext('Request an ISO/IEC 42001 document template','Tell us which AIMS document template you need. CBQA Global can provide ready-to-use templates tailored to your organisation.','I need the ISO 42001 AIMS document template for: '+(templateName||'Selected missing document'));
+  showLeadModal();
+}
+function closeLeadModal(){
+  const m=document.getElementById('leadModal');if(!m)return;
+  m.classList.remove('active');m.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLeadModal();});
+document.addEventListener('click',e=>{const m=document.getElementById('leadModal');if(m&&e.target===m)closeLeadModal();});
+document.addEventListener('DOMContentLoaded',()=>{
+  const f=document.getElementById('leadForm');
+  if(f)f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const s=document.getElementById('leadSuccess');
+    if(s)s.classList.add('active');
+    const btn=f.querySelector('.lead-submit');
+    if(btn){btn.textContent='Profile Submitted';btn.disabled=true;}
+  });
+
+  /* update module-detail.js service link for iso-42001 */
+  document.title='OneConnect - ISO/IEC 42001:2023 Self-Assessment | CBQA Global';
+});
+</script>
+</body>
+</html>

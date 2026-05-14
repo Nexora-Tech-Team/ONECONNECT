@@ -20,7 +20,7 @@ const modules = {
     description: "A unified audit workspace for planning engagements, managing evidence requests, tracking findings, and producing structured audit outputs.",
     body: "Integration Audit Tools helps internal teams and assessors coordinate audit activities from preparation to reporting. The module is designed to reduce scattered documentation, improve traceability, and provide a clearer view of open actions, evidence readiness, and audit progress.",
     service: "",
-    serviceNarrative: "CBQA Global menjadi satu-satunya badan sertifikasi di Indonesia yang mengintegrasikan client dengan sistem core dalam penerbitan sertifikat ISO, sehingga client dapat berinteraksi secara online melalui sistem terintegrasi di OneConnect."
+    serviceNarrative: ""
   },
   tvra: {
     platform: "GRC Platform",
@@ -38,7 +38,38 @@ const modules = {
     icon: "document",
     description: "Information Security Management System standard for protecting data assets and managing security risks systematically.",
     body: "This module supports readiness activities for ISO 27001:2022, including ISMS scope, risk management, controls, documented information, and continuous improvement alignment.",
-    service: "Use the self assessment to review ISMS readiness, identify control gaps, and prepare evidence for internal or external assessment."
+    service: "Use the self assessment to review ISMS readiness, identify control gaps, and prepare evidence for internal or external assessment.",
+    serviceNarrative: ""
+  },
+  "iso-27701": {
+    platform: "GRC Platform",
+    title: "ISO 27701:2025",
+    subtitle: "Privacy Information Management System",
+    icon: "shield",
+    description: "Privacy Information Management System extending ISO 27001 with requirements for managing PII as both a controller and a processor.",
+    body: "This module supports readiness activities for ISO 27701:2025, covering PIMS scope, PII processing roles, privacy risk assessment, Annex A controller controls, and Annex B processor controls for continuous improvement of privacy governance.",
+    service: "Use the self assessment to review PIMS readiness, identify privacy control gaps, and prepare evidence for internal or external assessment.",
+    serviceNarrative: ""
+  },
+  "iso-42001": {
+    platform: "GRC Platform",
+    title: "ISO 42001:2023",
+    subtitle: "Artificial Intelligence Management System",
+    icon: "pulse",
+    description: "Artificial Intelligence Management System for governing accountability, transparency, and risk-based controls over AI development and deployment.",
+    body: "This module supports readiness activities for ISO 42001:2023, including AI management system scope, AI risk and impact assessment, control implementation, documented information, and continuous improvement of responsible AI governance.",
+    service: "Use the self assessment to review AIMS readiness, identify AI governance control gaps, and prepare evidence for internal or external assessment.",
+    serviceNarrative: ""
+  },
+  "iso-42005": {
+    platform: "GRC Platform",
+    title: "ISO 42005:2025",
+    subtitle: "AI System Impact Assessment",
+    icon: "chart",
+    description: "AI System Impact Assessment framework for identifying and evaluating potential effects of AI systems on individuals, organizations, and society.",
+    body: "This module supports readiness activities for ISO 42005:2025, covering AI impact assessment scope, stakeholder analysis, impact identification and evaluation, risk treatment, and documentation of assessment outcomes across AI system lifecycle phases.",
+    service: "Use the self assessment to review ASIA process and documentation readiness, identify impact analysis gaps, and prepare evidence for stakeholder reporting.",
+    serviceNarrative: ""
   },
   kks: {
     platform: "GRC Platform",
@@ -168,8 +199,21 @@ if (selected.serviceNarrative) {
 if (selected.service) {
   serviceBody.textContent = selected.service;
   serviceLink.hidden = false;
-  serviceLink.href = moduleKey === "iso-27001" ? "selfasesment_iso27001.html" : "#";
+  const serviceLinks = {
+    "iso-27001": "selfasesment_iso27001.html",
+    "iso-27701": "selfassessment_iso27701.html",
+    "iso-42001": "selfassessment_iso42001.html",
+    "iso-42005": "selfassessment_iso42005.html"
+  };
+  serviceLink.href = serviceLinks[moduleKey] || "#";
 } else {
   serviceLink.hidden = true;
   serviceLink.removeAttribute("href");
+}
+
+const servicesCard = document.getElementById("servicesCard");
+const contentGrid = document.querySelector(".content-grid");
+if (!selected.service && !selected.serviceNarrative) {
+  servicesCard.style.display = "none";
+  contentGrid.classList.add("no-services");
 }
