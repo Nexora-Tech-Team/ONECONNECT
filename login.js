@@ -48,8 +48,11 @@ loginForm.addEventListener("submit", (event) => {
     return;
   }
 
-  formMessage.textContent = "Validation successful. The form is ready to connect to the login system.";
+  formMessage.textContent = "Login successful. Redirecting to your dashboard...";
   formMessage.className = "form-message is-success";
+  setTimeout(() => {
+    window.location.href = "dashboard.html";
+  }, 800);
 });
 
 createCaptcha();
