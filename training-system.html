@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Academy Training System — CBQA Global</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ── TOKENS ──────────────────────────────────────────── */
+:root {
+  --navy:       #0e2d35;
+  --teal-700:   #145f6a;
+  --teal-600:   #1f7a86;
+  --teal-500:   #319ea9;
+  --teal-400:   #48b8c4;
+  --teal-300:   #7fd0d8;
+  --green-500:  #48b795;
+  --amber-500:  #e07b20;
+  --red-500:    #d94f4f;
+  --purple-500: #3b7dd8;
+  --bg:         #12333b;
+  --surface:    rgba(255,255,255,0.07);
+  --surface-2:  rgba(255,255,255,0.11);
+  --surface-3:  rgba(255,255,255,0.17);
+  --border:     rgba(255,255,255,0.12);
+  --border-2:   rgba(255,255,255,0.22);
+  --text-1:     #e8f4f6;
+  --text-2:     rgba(232,244,246,0.68);
+  --text-3:     rgba(232,244,246,0.40);
+  --radius:     14px;
+  --radius-lg:  22px;
+  --shadow:     0 8px 32px rgba(0,0,0,0.35);
+  --shadow-lg:  0 20px 60px rgba(0,0,0,0.50);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-1); min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ── TOP NAV ─────────────────────────────────────────── */
+.topnav {
+  position: sticky; top: 0; z-index: 300;
+  background: rgba(14,45,53,0.90); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.topnav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; height: 64px; gap: 6px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 18px; font-weight: 900; color: var(--teal-400);
+  letter-spacing: -.3px; margin-right: 28px; flex-shrink: 0;
+}
+.logo-box {
+  width: 68px; height: 68px; border-radius: 12px;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+  background: transparent; padding: 2px;
+}
+.logo-box img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.nav-links { display: flex; align-items: center; gap: 2px; flex: 1; }
+.nav-link {
+  padding: 8px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
+  color: var(--text-2); transition: all .2s; cursor: pointer; white-space: nowrap;
+}
+.nav-link:hover, .nav-link.active { background: var(--surface-2); color: var(--text-1); }
+.nav-link.active { color: var(--teal-400); }
+.nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.btn-back {
+  display: flex; align-items: center; gap: 7px; padding: 7px 14px;
+  border-radius: 8px; border: 1px solid var(--border); background: var(--surface);
+  color: var(--text-2); font-size: 13px; font-weight: 500; transition: all .2s;
+}
+.btn-back:hover { background: var(--surface-2); color: var(--text-1); border-color: var(--teal-500); }
+.btn-back svg { width: 14px; height: 14px; fill: currentColor; }
+.btn-member {
+  padding: 9px 20px; border-radius: 8px; background: var(--teal-500);
+  color: #fff; font-size: 13px; font-weight: 700; border: none; transition: background .2s;
+}
+.btn-member:hover { background: var(--teal-600); }
+
+/* ── HERO ────────────────────────────────────────────── */
+.hero {
+  position: relative; overflow: hidden; min-height: 480px;
+  display: flex; align-items: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, rgba(14,45,53,0.97) 35%, rgba(14,45,53,0.60) 70%, rgba(14,45,53,0.30) 100%),
+    url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&fit=crop') center/cover no-repeat;
+}
+.hero-content { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 80px 32px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(49,158,169,.20); border: 1px solid rgba(49,158,169,.35);
+  border-radius: 20px; padding: 5px 16px; font-size: 12px; font-weight: 700;
+  color: var(--teal-400); letter-spacing: .5px; margin-bottom: 24px; text-transform: uppercase;
+}
+.hero-badge svg { width: 13px; height: 13px; fill: currentColor; }
+.hero h1 { font-size: clamp(30px,5vw,52px); font-weight: 900; line-height: 1.1; letter-spacing: -.5px; margin-bottom: 18px; max-width: 620px; }
+.hero h1 span { color: var(--teal-400); }
+.hero p { font-size: 16px; color: var(--text-2); max-width: 500px; line-height: 1.7; margin-bottom: 32px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-hero-primary {
+  padding: 14px 28px; border-radius: 10px; background: var(--teal-500);
+  color: #fff; font-size: 14px; font-weight: 700; border: none;
+  transition: background .2s, transform .1s; display: flex; align-items: center; gap: 8px;
+}
+.btn-hero-primary:hover { background: var(--teal-600); }
+.btn-hero-primary:active { transform: scale(.97); }
+.btn-hero-primary svg { width: 16px; height: 16px; fill: #fff; }
+.btn-hero-ghost {
+  padding: 14px 28px; border-radius: 10px; border: 1px solid var(--border-2);
+  background: rgba(255,255,255,.08); color: var(--text-1); font-size: 14px; font-weight: 600;
+  transition: background .2s;
+}
+.btn-hero-ghost:hover { background: rgba(255,255,255,.14); }
+.hero-stats { display: flex; gap: 32px; flex-wrap: wrap; padding-top: 40px; border-top: 1px solid var(--border); margin-top: 40px; max-width: 480px; }
+.hero-stat-num { font-size: 26px; font-weight: 900; color: var(--teal-400); line-height: 1; }
+.hero-stat-label { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+
+/* ── CATEGORIES ──────────────────────────────────────── */
+.categories { max-width: 1280px; margin: 0 auto; padding: 60px 32px; }
+.section-header { text-align: center; margin-bottom: 40px; }
+.section-header h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+.section-header p { font-size: 14px; color: var(--text-2); }
+.section-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-400); margin-bottom: 12px; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+.cat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 20px 24px;
+  text-align: center; cursor: pointer; transition: all .25s; position: relative; overflow: hidden;
+}
+.cat-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(49,158,169,.10), transparent); opacity: 0; transition: opacity .25s; }
+.cat-card:hover { border-color: var(--teal-500); transform: translateY(-4px); box-shadow: var(--shadow); }
+.cat-card:hover::before { opacity: 1; }
+.cat-icon {
+  width: 64px; height: 64px; border-radius: 18px; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 28px;
+  transition: transform .25s;
+}
+.cat-card:hover .cat-icon { transform: scale(1.1); }
+.cat-card h3 { font-size: 13px; font-weight: 700; color: var(--text-1); line-height: 1.4; margin-bottom: 8px; }
+.cat-count { font-size: 11.5px; color: var(--teal-400); font-weight: 600; }
+
+/* ── WHY US ──────────────────────────────────────────── */
+.why-us {
+  background: rgba(0,0,0,.15); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 72px 32px;
+}
+.why-us-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+@media (max-width: 860px) { .why-us-inner { grid-template-columns: 1fr; } }
+.why-img-wrap { border-radius: var(--radius-lg); overflow: hidden; position: relative; }
+.why-img-wrap img { width: 100%; height: 360px; object-fit: cover; display: block; filter: brightness(.85); }
+.why-img-overlay {
+  position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,45,53,.7) 0%, transparent 50%);
+}
+.why-img-badge {
+  position: absolute; bottom: 20px; left: 20px; right: 20px;
+  background: rgba(14,45,53,.85); backdrop-filter: blur(14px);
+  border: 1px solid var(--border-2); border-radius: 12px; padding: 16px 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+.why-img-badge-icon { font-size: 28px; }
+.why-img-badge strong { display: block; font-size: 14px; font-weight: 700; }
+.why-img-badge span { font-size: 12px; color: var(--text-2); }
+.why-text { }
+.why-text h2 { font-size: 30px; font-weight: 900; margin-bottom: 18px; line-height: 1.2; }
+.why-text h2 span { color: var(--teal-400); }
+.why-text p { font-size: 14.5px; color: var(--text-2); line-height: 1.8; margin-bottom: 14px; }
+.why-features { display: flex; flex-direction: column; gap: 14px; margin: 28px 0 32px; }
+.why-feat { display: flex; align-items: flex-start; gap: 14px; }
+.why-feat-icon { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.why-feat h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 2px; }
+.why-feat p { font-size: 12.5px; color: var(--text-2); }
+
+/* ── TRAINING CALENDAR ───────────────────────────────── */
+.calendar-section { max-width: 1280px; margin: 0 auto; padding: 64px 32px; }
+.cal-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.cal-tab {
+  padding: 9px 20px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-2); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.cal-tab.active, .cal-tab:hover { background: rgba(49,158,169,.15); border-color: rgba(49,158,169,.40); color: var(--teal-400); }
+.cal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.cal-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: all .25s;
+  display: flex;
+}
+.cal-card:hover { border-color: var(--teal-500); transform: translateY(-2px); box-shadow: var(--shadow); }
+.cal-date-box {
+  flex-shrink: 0; width: 88px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 16px 10px;
+  font-weight: 900; line-height: 1;
+}
+.cal-date-box .month { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.cal-date-box .day { font-size: 30px; }
+.cal-date-box .range { font-size: 11px; margin-top: 3px; font-weight: 600; }
+.cal-info { flex: 1; padding: 14px 16px; }
+.cal-tag { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--text-3); margin-bottom: 5px; }
+.cal-title { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.35; margin-bottom: 8px; }
+.cal-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+.cal-meta span { font-size: 11px; color: var(--text-2); display: flex; align-items: center; gap: 4px; }
+.cal-meta svg { width: 12px; height: 12px; fill: var(--text-3); }
+.cal-book-btn {
+  align-self: center; flex-shrink: 0; margin-right: 14px;
+  padding: 7px 14px; border-radius: 7px; background: rgba(49,158,169,.15);
+  border: 1px solid rgba(49,158,169,.30); color: var(--teal-400);
+  font-size: 12px; font-weight: 700; transition: all .2s; white-space: nowrap;
+}
+.cal-book-btn:hover { background: rgba(49,158,169,.25); }
+.cal-load-more {
+  display: block; margin: 20px auto 0; padding: 11px 32px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text-2);
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s;
+}
+.cal-load-more:hover { background: var(--surface-2); border-color: var(--teal-500); color: var(--text-1); }
+
+/* date box colors */
+.db-teal { background: linear-gradient(135deg, var(--teal-500), var(--teal-700)); color: #fff; }
+.db-navy { background: linear-gradient(135deg, #1e3a4a, #0e2030); color: #fff; }
+.db-purple { background: linear-gradient(135deg, #3b7dd8, #1a4fa0); color: #fff; }
+.db-green { background: linear-gradient(135deg, #2e9870, #174e38); color: #fff; }
+.db-amber { background: linear-gradient(135deg, #c06010, #6b2e00); color: #fff; }
+
+/* ── STATS ───────────────────────────────────────────── */
+.stats-band {
+  background: linear-gradient(135deg, rgba(49,158,169,.18) 0%, rgba(14,45,53,0) 60%);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 56px 32px;
+}
+.stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; }
+.stat-item { text-align: center; }
+.stat-icon { font-size: 36px; margin-bottom: 12px; }
+.stat-num { font-size: 38px; font-weight: 900; color: var(--teal-400); line-height: 1; }
+.stat-label { font-size: 13px; color: var(--text-2); margin-top: 6px; }
+
+/* ── MEMBERSHIP ──────────────────────────────────────── */
+.membership { max-width: 1280px; margin: 0 auto; padding: 64px 32px; }
+.plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.plan-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 32px 28px; position: relative; overflow: hidden;
+  transition: all .25s;
+}
+.plan-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.plan-card.featured { border-color: var(--teal-500); background: rgba(49,158,169,.10); }
+.plan-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal-500), var(--teal-300)); }
+.plan-badge { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; background: var(--teal-500); color: #fff; letter-spacing: .5px; text-transform: uppercase; }
+.plan-icon { font-size: 32px; margin-bottom: 16px; }
+.plan-name { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.plan-tagline { font-size: 13px; color: var(--text-2); margin-bottom: 20px; }
+.plan-price { margin-bottom: 24px; }
+.plan-price .amount { font-size: 34px; font-weight: 900; color: var(--teal-400); }
+.plan-price .period { font-size: 13px; color: var(--text-2); }
+.plan-price .free { font-size: 28px; font-weight: 900; color: var(--green-500); }
+.plan-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.plan-feat { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-2); }
+.plan-feat svg { width: 15px; height: 15px; flex-shrink: 0; }
+.plan-feat.yes { color: var(--text-1); }
+.plan-feat.yes svg { fill: var(--green-500); }
+.plan-feat.no { opacity: .45; }
+.plan-feat.no svg { fill: var(--text-3); }
+.btn-plan {
+  width: 100%; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .2s; border: 1px solid var(--border);
+  background: var(--surface-2); color: var(--text-1);
+}
+.btn-plan:hover { background: var(--surface-3); border-color: var(--teal-500); }
+.btn-plan.primary { background: var(--teal-500); border-color: var(--teal-500); color: #fff; }
+.btn-plan.primary:hover { background: var(--teal-600); }
+
+/* ── BOOKING MODAL ───────────────────────────────────── */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.70); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; animation: fadeIn .2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: rgba(15,42,50,.97); border: 1px solid var(--border-2);
+  border-radius: var(--radius-lg); max-width: 560px; width: 100%;
+  box-shadow: var(--shadow-lg); animation: scaleIn .25s cubic-bezier(.34,1.56,.64,1);
+  overflow: hidden;
+}
+@keyframes scaleIn { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-top { background: linear-gradient(135deg, var(--teal-600), var(--navy)); padding: 28px 32px 24px; }
+.modal-top-row { display: flex; align-items: flex-start; justify-content: space-between; }
+.modal-course-tag { font-size: 11px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: rgba(255,255,255,.60); margin-bottom: 6px; }
+.modal-course-title { font-size: 18px; font-weight: 800; color: #fff; line-height: 1.3; }
+.modal-course-meta { display: flex; gap: 16px; margin-top: 12px; flex-wrap: wrap; }
+.modal-course-meta span { font-size: 12px; color: rgba(255,255,255,.70); display: flex; align-items: center; gap: 5px; }
+.modal-course-meta svg { width: 13px; height: 13px; fill: rgba(255,255,255,.50); }
+.modal-close { width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,.20); background: rgba(255,255,255,.10); color: #fff; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
+.modal-close:hover { background: rgba(255,255,255,.20); }
+.modal-body { padding: 28px 32px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; letter-spacing: .3px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 10px 14px; border-radius: 8px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border);
+  color: var(--text-1); font-size: 13.5px; font-family: inherit; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--text-3); }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--teal-500); box-shadow: 0 0 0 3px rgba(49,158,169,.18); }
+.form-select option { background: var(--navy); }
+.form-textarea { resize: vertical; min-height: 72px; }
+.training-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.ttype-btn {
+  padding: 10px 8px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text-2); font-size: 12px; font-weight: 600;
+  cursor: pointer; text-align: center; transition: all .2s;
+}
+.ttype-btn.active { background: rgba(49,158,169,.18); border-color: rgba(49,158,169,.45); color: var(--teal-400); }
+.ttype-icon { display: block; font-size: 18px; margin-bottom: 4px; }
+.modal-footer { display: flex; gap: 10px; padding: 20px 32px; border-top: 1px solid var(--border); background: rgba(0,0,0,.12); }
+.btn-modal-cancel { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2); font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .2s; }
+.btn-modal-cancel:hover { background: var(--surface-2); color: var(--text-1); }
+.btn-modal-book { flex: 2; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--teal-500), var(--teal-600)); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-modal-book:hover { opacity: .90; }
+.btn-modal-book:active { transform: scale(.98); }
+.btn-modal-book svg { width: 16px; height: 16px; fill: #fff; }
+
+/* ── TOAST ───────────────────────────────────────────── */
+.toast-wrap { position: fixed; bottom: 28px; right: 28px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+.toast { display: flex; align-items: center; gap: 12px; background: rgba(20,55,65,.97); backdrop-filter: blur(16px); border: 1px solid var(--border-2); border-radius: 10px; padding: 14px 18px; box-shadow: var(--shadow); min-width: 260px; animation: toastIn .3s ease; }
+@keyframes toastIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.toast svg { width: 18px; height: 18px; flex-shrink: 0; }
+.toast p { font-size: 13px; color: var(--text-1); line-height: 1.4; }
+
+/* ── FOOTER ──────────────────────────────────────────── */
+.footer {
+  background: rgba(0,0,0,.20); border-top: 1px solid var(--border);
+  padding: 32px; text-align: center;
+}
+.footer p { font-size: 13px; color: var(--text-3); }
+.footer a { color: var(--teal-400); }
+.footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .topnav-inner { padding: 0 18px; gap: 4px; }
+  .nav-links { display: none; }
+  .hero-content { padding: 48px 18px; }
+  .categories, .calendar-section, .membership { padding-left: 18px; padding-right: 18px; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-us { padding: 48px 18px; }
+  .stats-band { padding: 40px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="nav-logo">
+      <div class="logo-box">
+        <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global" />
+      </div>
+      <div style="display:flex;flex-direction:column;line-height:1.15;">
+        <span style="font-size:17px;font-weight:900;color:var(--teal-400);letter-spacing:-.3px;">CBQA</span>
+        <span style="font-size:17px;font-weight:900;color:var(--teal-400);letter-spacing:-.3px;">Academy</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <span class="nav-link active">Home</span>
+      <span class="nav-link" onclick="document.getElementById('calendar-section').scrollIntoView({behavior:'smooth'})">Training Program</span>
+      <span class="nav-link" onclick="document.getElementById('calendar-section').scrollIntoView({behavior:'smooth'})">Calendar</span>
+      <span class="nav-link" onclick="showToast('Goes to Campus programme — coming soon!','info')">Goes to Campus</span>
+      <span class="nav-link" onclick="verifyCert()">Verify Certificate</span>
+      <span class="nav-link" onclick="document.getElementById('membership').scrollIntoView({behavior:'smooth'})">Membership</span>
+      <span class="nav-link" onclick="showToast('About CBQA Global Academy','info')">About Us</span>
+    </div>
+    <div class="nav-right">
+      <a class="btn-back" href="dashboard.html">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59Z"/></svg>
+        Back to Dashboard
+      </a>
+      <button class="btn-member" onclick="document.getElementById('membership').scrollIntoView({behavior:'smooth'})">Become Member →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z"/></svg>
+      CBQA Global Academy
+    </div>
+    <h1>Build <span>Verified Expertise</span> in GRC &amp; Compliance</h1>
+    <p>Comprehensive training programmes across information security, AI governance, privacy, sustainability, and risk management — led by certified practitioners.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero-primary" onclick="document.getElementById('calendar-section').scrollIntoView({behavior:'smooth'})">
+        <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2Zm4 0h-2v2h2v-2Zm4 0h-2v2h2v-2Zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 16H5V9h14v11Z"/></svg>
+        View Training Calendar
+      </button>
+      <button class="btn-hero-ghost" onclick="document.getElementById('membership').scrollIntoView({behavior:'smooth'})">
+        Explore Membership
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num" id="hs1">0</div><div class="hero-stat-label">Countries</div></div>
+      <div><div class="hero-stat-num" id="hs2">0</div><div class="hero-stat-label">Professionals Trained</div></div>
+      <div><div class="hero-stat-num" id="hs3">0</div><div class="hero-stat-label">Certified</div></div>
+      <div><div class="hero-stat-num" id="hs4">0</div><div class="hero-stat-label">Programmes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="section-header">
+    <div class="section-tag">Training Domains</div>
+    <h2>What Do You Want to Master?</h2>
+    <p>Choose from 6 professional domains covering the full GRC landscape</p>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card" onclick="filterByCategory('Information Security')">
+      <div class="cat-icon" style="background:rgba(49,158,169,.15);">🛡️</div>
+      <h3>Information Security &amp; Resilience</h3>
+      <div class="cat-count">12 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Privacy')">
+      <div class="cat-icon" style="background:rgba(72,183,149,.15);">🔒</div>
+      <h3>Privacy &amp; Data Protection</h3>
+      <div class="cat-count">8 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Sustainability')">
+      <div class="cat-icon" style="background:rgba(72,183,149,.12);">🌿</div>
+      <h3>Sustainability &amp; ESG</h3>
+      <div class="cat-count">6 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('GRC')">
+      <div class="cat-icon" style="background:rgba(59,125,216,.15);">⚖️</div>
+      <h3>Governance Risk &amp; Compliance</h3>
+      <div class="cat-count">10 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Quality')">
+      <div class="cat-icon" style="background:rgba(224,123,32,.15);">✅</div>
+      <h3>Quality &amp; Service Management</h3>
+      <div class="cat-count">7 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('Health')">
+      <div class="cat-icon" style="background:rgba(217,79,79,.15);">⛑️</div>
+      <h3>Health &amp; Safety</h3>
+      <div class="cat-count">5 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="filterByCategory('AI')">
+      <div class="cat-icon" style="background:rgba(59,125,216,.15);">🤖</div>
+      <h3>AI Governance &amp; Ethics</h3>
+      <div class="cat-count">4 programmes →</div>
+    </div>
+    <div class="cat-card" onclick="showToast('Goes to Campus — in-house training at your location!','info')">
+      <div class="cat-icon" style="background:rgba(176,120,0,.15);">🎓</div>
+      <h3>CBQA Global Goes to Campus</h3>
+      <div class="cat-count">In-house training →</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us">
+  <div class="why-us-inner">
+    <div class="why-img-wrap">
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&fit=crop" alt="CBQA Academy Training" />
+      <div class="why-img-overlay"></div>
+      <div class="why-img-badge">
+        <div class="why-img-badge-icon">🏆</div>
+        <div>
+          <strong>Internationally Recognised</strong>
+          <span>Certifications accepted in 11+ countries</span>
+        </div>
+      </div>
+    </div>
+    <div class="why-text">
+      <div class="section-tag">Why Choose Us</div>
+      <h2>Why <span>CBQA Global Academy?</span></h2>
+      <p>At CBQA Global Academy, we provide a comprehensive learning experience tailored to your needs. Whether you prefer public training, in-house training, or self-paced learning, our LMS platform ensures flexibility and accessibility.</p>
+      <p>Our expert-led training focuses on cybersecurity, AI governance, sustainability, and other essential compliance topics — equipping professionals with the knowledge and skills to excel.</p>
+      <div class="why-features">
+        <div class="why-feat">
+          <div class="why-feat-icon" style="background:rgba(49,158,169,.15);">🎯</div>
+          <div>
+            <h4>Practitioner-Led Instruction</h4>
+            <p>All trainers are certified practitioners with real-world implementation experience.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon" style="background:rgba(72,183,149,.15);">🌐</div>
+          <div>
+            <h4>Flexible Delivery Modes</h4>
+            <p>Public, in-house, virtual classroom, and self-paced e-learning options available.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon" style="background:rgba(224,123,32,.15);">📜</div>
+          <div>
+            <h4>Globally Recognised Certificates</h4>
+            <p>CBQA certificates are recognised by employers across 11 countries worldwide.</p>
+          </div>
+        </div>
+        <div class="why-feat">
+          <div class="why-feat-icon" style="background:rgba(59,125,216,.15);">🔄</div>
+          <div>
+            <h4>Continuous Learning &amp; CPD</h4>
+            <p>All programmes carry CPD hours. Track your professional development on OneConnect.</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn-hero-primary" onclick="document.getElementById('membership').scrollIntoView({behavior:'smooth'})">
+        Become a Member →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING CALENDAR -->
+<section class="calendar-section" id="calendar-section">
+  <div class="section-header" style="text-align:left;margin-bottom:28px;">
+    <div class="section-tag">Upcoming Programmes</div>
+    <h2>Training Calendar 2026</h2>
+  </div>
+
+  <div class="cal-tabs" id="calTabs">
+    <div class="cal-tab active" onclick="filterCal('all',this)">All Programmes</div>
+    <div class="cal-tab" onclick="filterCal('confirmed',this)">✅ Confirmed</div>
+    <div class="cal-tab" onclick="filterCal('upcoming',this)">📅 Upcoming</div>
+    <div class="cal-tab" onclick="filterCal('virtual',this)">💻 Virtual</div>
+    <div class="cal-tab" onclick="filterCal('inhouse',this)">🏢 In-House</div>
+  </div>
+
+  <div class="cal-grid" id="calGrid">
+
+    <!-- Confirmed -->
+    <div class="cal-card" data-type="confirmed">
+      <div class="cal-date-box db-teal"><div class="month">MAY</div><div class="day">25</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">PPDP (DPO)</div>
+        <div class="cal-title">Certified Indonesian Data Protection Officer (Assessment Only)</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7ZM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9Z"/><circle cx="12" cy="9" r="2.5"/></svg>Jakarta</span>
+          <span><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3Zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3Zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5Zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5Z"/></svg>8 seats left</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('Certified Indonesian Data Protection Officer','PPDP (DPO)','25 May 2026','Jakarta','1 day')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="confirmed virtual">
+      <div class="cal-date-box db-teal"><div class="month">MAY</div><div class="day">20</div><div class="range">– 22</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">DPO Training</div>
+        <div class="cal-title">Data Protection Officer Training</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2Zm0 5h-2V5h2v3ZM4 19h16v2H4z"/></svg>Virtual</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>3 days · 16 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('Data Protection Officer Training','DPO Training','20–22 May 2026','Virtual','3 days')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="confirmed">
+      <div class="cal-date-box db-teal"><div class="month">MAY</div><div class="day">18</div><div class="range">– 22</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO/IEC 27001:2022</div>
+        <div class="cal-title">Lead Auditor</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>Jakarta</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>5 days · 30 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO/IEC 27001:2022 Lead Auditor','ISO/IEC 27001:2022','18–22 May 2026','Jakarta','5 days')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="confirmed">
+      <div class="cal-date-box db-navy"><div class="month">May</div><div class="day">01</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO 21001:2025</div>
+        <div class="cal-title">Understanding</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2Zm0 5h-2V5h2v3Z"/></svg>Virtual</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>1 day · 8 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO 21001:2025 Understanding','ISO 21001:2025','1 May 2026','Virtual','1 day')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="confirmed virtual">
+      <div class="cal-date-box db-navy"><div class="month">May</div><div class="day">20</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO 14064-1 &amp; ISO 14064-2</div>
+        <div class="cal-title">Implementation</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2Zm0 5h-2V5h2v3Z"/></svg>Virtual</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>1 day · 8 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO 14064-1 & ISO 14064-2 Implementation','Sustainability','20 May 2026','Virtual','1 day')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="confirmed">
+      <div class="cal-date-box db-navy"><div class="month">May</div><div class="day">21</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO/IEC 27701:2025</div>
+        <div class="cal-title">Awareness</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/></svg>Bandung</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>1 day · 8 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO/IEC 27701:2025 Awareness','ISO/IEC 27701:2025','21 May 2026','Bandung','1 day')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="upcoming">
+      <div class="cal-date-box db-purple"><div class="month">JUN</div><div class="day">02</div><div class="range">– 06</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO/IEC 42001:2023</div>
+        <div class="cal-title">AI Management Systems Lead Implementer</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/></svg>Jakarta</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>5 days · 30 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO/IEC 42001:2023 Lead Implementer','AI Governance','2–6 Jun 2026','Jakarta','5 days')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="upcoming virtual">
+      <div class="cal-date-box db-purple"><div class="month">JUN</div><div class="day">09</div><div class="range">– 10</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO/IEC 42005:2025</div>
+        <div class="cal-title">AI System Impact Assessment Practitioner</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2Zm0 5h-2V5h2v3Z"/></svg>Virtual</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>2 days · 14 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('AI System Impact Assessment Practitioner','ISO/IEC 42005:2025','9–10 Jun 2026','Virtual','2 days')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="upcoming inhouse">
+      <div class="cal-date-box db-green"><div class="month">JUN</div><div class="day">16</div><div class="range">– 18</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO 45001:2018</div>
+        <div class="cal-title">Occupational Health &amp; Safety Management Lead Implementer</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12ZM6 19H4v-2h2v2Zm0-4H4v-2h2v2Zm0-4H4V9h2v2Zm0-4H4V5h2v2Zm4 12H8v-2h2v2Zm0-4H8v-2h2v2Zm0-4H8V9h2v2Zm0-4H8V5h2v2Zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10Zm-2-8h-2v2h2v-2Zm0 4h-2v2h2v-2Z"/></svg>In-House</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>3 days · 18 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO 45001:2018 Lead Implementer','Health & Safety','16–18 Jun 2026','In-House','3 days')">Book</button>
+    </div>
+
+    <div class="cal-card" data-type="upcoming">
+      <div class="cal-date-box db-amber"><div class="month">JUL</div><div class="day">07</div><div class="range">– 11</div></div>
+      <div class="cal-info">
+        <div class="cal-tag">ISO 22301:2019</div>
+        <div class="cal-title">Business Continuity Management Lead Implementer</div>
+        <div class="cal-meta">
+          <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/></svg>Surabaya</span>
+          <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg>5 days · 30 CPD hrs</span>
+        </div>
+      </div>
+      <button class="cal-book-btn" onclick="openBooking('ISO 22301:2019 Lead Implementer','Business Continuity','7–11 Jul 2026','Surabaya','5 days')">Book</button>
+    </div>
+
+  </div>
+
+  <button class="cal-load-more" onclick="showToast('Loading more programmes…','info')">View Full Training Calendar →</button>
+</section>
+
+<!-- STATS -->
+<section class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-icon">🌍</div>
+      <div class="stat-num"><span id="st1">0</span></div>
+      <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">👥</div>
+      <div class="stat-num"><span id="st2">0</span>+</div>
+      <div class="stat-label">Professionals Trained</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">🏅</div>
+      <div class="stat-num"><span id="st3">0</span>+</div>
+      <div class="stat-label">Certified</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">📅</div>
+      <div class="stat-num"><span id="st4">0</span>+</div>
+      <div class="stat-label">Programmes per Year</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-num"><span id="st5">0</span>%</div>
+      <div class="stat-label">Satisfaction Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="membership" id="membership">
+  <div class="section-header">
+    <div class="section-tag">Membership Plans</div>
+    <h2>Choose Your Membership</h2>
+    <p>Unlock exclusive discounts, priority booking, and premium learning resources</p>
+  </div>
+  <div class="plans-grid">
+
+    <!-- Free -->
+    <div class="plan-card">
+      <div class="plan-icon">🆓</div>
+      <div class="plan-name">Standard</div>
+      <div class="plan-tagline">For individuals exploring GRC learning</div>
+      <div class="plan-price"><div class="free">Free</div><div class="period">No credit card required</div></div>
+      <div class="plan-features">
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Access to training calendar</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Online booking</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Certificate verification</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>Member discounts</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>Priority seat allocation</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>Exclusive webinars</div>
+      </div>
+      <button class="btn-plan" onclick="showToast('You are already registered as a Standard member!','info')">Current Plan</button>
+    </div>
+
+    <!-- Professional -->
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-icon">⭐</div>
+      <div class="plan-name">Professional</div>
+      <div class="plan-tagline">For serious GRC practitioners</div>
+      <div class="plan-price">
+        <span class="amount">IDR 2.5jt</span><span class="period"> / year</span>
+        <div style="font-size:12px;color:var(--green-500);margin-top:4px;">Save 20% vs public pricing</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Everything in Standard</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg><strong>15% discount</strong> on all programmes</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Priority seat allocation</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Monthly member webinars</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>CPD tracking on OneConnect</div>
+        <div class="plan-feat no"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>Team/group access</div>
+      </div>
+      <button class="btn-plan primary" onclick="openMembership('Professional')">Become Member →</button>
+    </div>
+
+    <!-- Corporate -->
+    <div class="plan-card">
+      <div class="plan-icon">🏢</div>
+      <div class="plan-name">Corporate</div>
+      <div class="plan-tagline">For teams and organisations</div>
+      <div class="plan-price">
+        <span class="amount">IDR 8jt</span><span class="period"> / year · up to 10 users</span>
+        <div style="font-size:12px;color:var(--green-500);margin-top:4px;">Custom pricing for larger teams</div>
+      </div>
+      <div class="plan-features">
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Everything in Professional</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg><strong>25% discount</strong> on all programmes</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Team admin dashboard</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>In-house training options</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Dedicated account manager</div>
+        <div class="plan-feat yes"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>Custom learning paths</div>
+      </div>
+      <button class="btn-plan" onclick="openMembership('Corporate')">Contact Us →</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 CBQA Global Academy · <a href="#">academy.cbqaglobal.com</a> · <a href="dashboard.html">Back to OneConnect</a></p>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div class="modal-top-row">
+        <div>
+          <div class="modal-course-tag" id="bTag">ISO/IEC 27001:2022</div>
+          <div class="modal-course-title" id="bTitle">Lead Auditor</div>
+          <div class="modal-course-meta">
+            <span><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2Zm4 0h-2v2h2v-2Zm4 0h-2v2h2v-2Zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 16H5V9h14v11Z"/></svg><span id="bDate">—</span></span>
+            <span><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/></svg><span id="bLocation">—</span></span>
+            <span><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2Zm4.24 16L11 13V7h1.5v5.25l4.5 2.67L16.23 18Z"/></svg><span id="bDuration">—</span></span>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeBooking()">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="form-label">Training Mode</div>
+        <div class="training-type-grid">
+          <div class="ttype-btn active" onclick="selectType(this)"><span class="ttype-icon">🏛️</span>Public</div>
+          <div class="ttype-btn" onclick="selectType(this)"><span class="ttype-icon">💻</span>Virtual</div>
+          <div class="ttype-btn" onclick="selectType(this)"><span class="ttype-icon">🏢</span>In-House</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input class="form-input" type="text" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Job Title</label>
+          <input class="form-input" type="text" placeholder="e.g. CISO, DPO, Manager" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="work@company.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input class="form-input" type="tel" placeholder="+62 xxx xxxx xxxx" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Organisation</label>
+          <input class="form-input" type="text" placeholder="Company name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">No. of Participants</label>
+          <select class="form-select">
+            <option>1</option><option>2</option><option>3–5</option><option>6–10</option><option>10+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Special Requirements / Notes</label>
+        <textarea class="form-textarea" placeholder="Dietary requirements, accessibility needs, invoice address, etc."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeBooking()">Cancel</button>
+      <button class="btn-modal-book" onclick="submitBooking()">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+        Confirm Booking
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ── HERO COUNTERS ──────────────────────────────────────
+const hTargets = { hs1:11, hs2:3600, hs3:1100, hs4:80 };
+Object.entries(hTargets).forEach(([id, target]) => {
+  const el = document.getElementById(id);
+  let cur = 0; const step = Math.max(1, target / 60);
+  const t = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = target >= 100 ? Math.round(cur).toLocaleString() : Math.round(cur);
+    if (cur >= target) clearInterval(t);
+  }, 22);
+});
+
+// Stats counter (triggered on scroll)
+const statTargets = { st1:11, st2:3600, st3:1100, st4:80, st5:97 };
+let statsAnimated = false;
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !statsAnimated) {
+    statsAnimated = true;
+    Object.entries(statTargets).forEach(([id, target]) => {
+      const el = document.getElementById(id);
+      let cur = 0; const step = Math.max(1, target / 60);
+      const t = setInterval(() => {
+        cur = Math.min(cur + step, target);
+        el.textContent = target >= 100 ? Math.round(cur).toLocaleString() : Math.round(cur);
+        if (cur >= target) clearInterval(t);
+      }, 22);
+    });
+  }
+}, { threshold: 0.3 });
+observer.observe(document.querySelector('.stats-band'));
+
+// ── CALENDAR FILTER ────────────────────────────────────
+function filterCal(type, tab) {
+  document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.querySelectorAll('.cal-card').forEach(card => {
+    if (type === 'all' || card.dataset.type?.includes(type)) card.style.display = '';
+    else card.style.display = 'none';
+  });
+}
+
+function filterByCategory(cat) {
+  document.getElementById('calendar-section').scrollIntoView({ behavior: 'smooth' });
+  showToast(`Filtering programmes: ${cat}`, 'info');
+}
+
+// ── BOOKING MODAL ──────────────────────────────────────
+function openBooking(title, tag, date, location, duration) {
+  document.getElementById('bTitle').textContent = title;
+  document.getElementById('bTag').textContent = tag;
+  document.getElementById('bDate').textContent = date;
+  document.getElementById('bLocation').textContent = location;
+  document.getElementById('bDuration').textContent = duration;
+  document.getElementById('bookingModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking() {
+  document.getElementById('bookingModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('bookingModal')) return;
+  closeBooking();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBooking(); });
+
+function selectType(btn) {
+  document.querySelectorAll('.ttype-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function submitBooking() {
+  const btn = document.querySelector('.btn-modal-book');
+  btn.textContent = 'Processing…'; btn.disabled = true;
+  setTimeout(() => {
+    closeBooking();
+    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg> Confirm Booking';
+    btn.disabled = false;
+    showToast('🎉 Booking confirmed! Check your email for details.', 'success');
+  }, 1400);
+}
+
+// ── MEMBERSHIP ─────────────────────────────────────────
+function openMembership(plan) {
+  if (plan === 'Corporate') {
+    showToast('Our team will contact you within 1 business day for Corporate pricing.', 'info');
+  } else {
+    showToast(`Upgrading to ${plan} membership — redirecting to payment…`, 'success');
+  }
+}
+
+// ── VERIFY CERT ────────────────────────────────────────
+function verifyCert() {
+  const num = prompt('Enter Certificate Number to verify:');
+  if (num) showToast(`Verifying certificate ${num}…`, 'info');
+}
+
+// ── TOAST ──────────────────────────────────────────────
+function showToast(msg, type='success') {
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  const colors = { success:'var(--green-500)', info:'var(--teal-400)' };
+  const paths  = { success:'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z', info:'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z' };
+  t.innerHTML = `<svg viewBox="0 0 24 24" style="fill:${colors[type]||colors.success}"><path d="${paths[type]||paths.success}"/></svg><p>${msg}</p>`;
+  wrap.appendChild(t);
+  setTimeout(() => { t.style.cssText += 'opacity:0;transform:translateY(12px);transition:all .3s;'; setTimeout(()=>t.remove(),300); }, 4500);
+}
+</script>
+</body>
+</html>

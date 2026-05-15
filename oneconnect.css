@@ -317,18 +317,24 @@ svg {
 }
 
 .submenu-panel {
-  position: absolute;
-  top: 50%;
-  right: calc(100% - 1px);
+  position: fixed;
+  top: var(--submenu-top, 50vh);
+  right: var(--submenu-right, 163px);
   width: min(430px, calc(100vw - 230px));
-  max-height: min(78vh, 760px);
+  max-height: min(calc(100vh - 32px), calc(100svh - 32px), 760px);
   overflow: auto;
   padding: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.46);
+  border: 1px solid rgba(49, 158, 169, 0.22);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(27, 72, 82, 0.9), rgba(18, 51, 59, 0.86));
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(16px);
+  color: #10252b;
+  background:
+    linear-gradient(135deg, rgba(49, 158, 169, 0.12) 0 1px, transparent 1px 118px),
+    linear-gradient(25deg, transparent 0 64%, rgba(72, 184, 196, 0.10) 64% 64.8%, transparent 64.8%),
+    linear-gradient(155deg, transparent 0 71%, rgba(34, 139, 87, 0.10) 71% 71.7%, transparent 71.7%),
+    radial-gradient(circle at 8% 12%, rgba(49, 158, 169, 0.12), transparent 24%),
+    #fbfefd;
+  box-shadow: 0 26px 70px rgba(10, 45, 52, 0.18);
+  backdrop-filter: blur(14px);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) translateX(12px);
@@ -341,14 +347,14 @@ svg {
 
 .submenu-panel::after {
   position: absolute;
-  top: 50%;
+  top: var(--submenu-arrow-top, 50%);
   right: -8px;
   width: 16px;
   height: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.46);
-  border-right: 1px solid rgba(255, 255, 255, 0.46);
+  border-top: 1px solid rgba(49, 158, 169, 0.22);
+  border-right: 1px solid rgba(49, 158, 169, 0.22);
   content: "";
-  background: rgba(24, 63, 72, 0.92);
+  background: #fbfefd;
   transform: translateY(-50%) rotate(45deg);
 }
 
@@ -364,10 +370,10 @@ svg {
   width: fit-content;
   margin: 0 0 10px;
   padding: 6px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(49, 158, 169, 0.26);
   border-radius: 999px;
-  color: rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.08);
+  color: #1f7a86;
+  background: rgba(49, 158, 169, 0.08);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -388,10 +394,11 @@ svg {
   gap: 14px;
   align-items: start;
   padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(31, 122, 134, 0.18);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.1);
-  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 26px rgba(20, 95, 106, 0.08);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .submenu-card + .submenu-card {
@@ -410,9 +417,10 @@ svg {
 
 .submenu-card:hover,
 .submenu-card:focus-visible {
-  border-color: rgba(255, 255, 255, 0.62);
-  background: rgba(255, 255, 255, 0.17);
-  transform: translateY(-1px);
+  border-color: rgba(49, 158, 169, 0.42);
+  background: #ffffff;
+  box-shadow: 0 16px 34px rgba(20, 95, 106, 0.14);
+  transform: translateY(-2px);
 }
 
 .submenu-card__icon {
@@ -436,12 +444,13 @@ svg {
   font-size: 16px;
   font-weight: 700;
   line-height: 1.35;
+  color: #10252b;
 }
 
 .submenu-card small {
   display: block;
   margin-top: 6px;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(16, 37, 43, 0.62);
   font-size: 12.5px;
   font-weight: 400;
   line-height: 1.5;
@@ -463,7 +472,6 @@ svg {
   }
 
   .submenu-panel {
-    right: calc(100% - 1px);
     width: min(380px, calc(100vw - 170px));
   }
 
@@ -589,6 +597,7 @@ svg {
     left: 14px;
     width: auto;
     max-height: 58vh;
+    max-height: min(58vh, calc(100svh - 116px));
     overflow: auto;
     padding: 18px;
     transform: translateY(12px);
@@ -599,7 +608,8 @@ svg {
   }
 
   .side-menu__group:hover .submenu-panel,
-  .side-menu__group:focus-within .submenu-panel {
+  .side-menu__group:focus-within .submenu-panel,
+  .side-menu__group.is-open .submenu-panel {
     transform: translateY(0);
   }
 
@@ -620,6 +630,36 @@ svg {
     width: 38px;
     height: 38px;
   }
+}
+
+/* ── Section label inside submenu ── */
+.submenu-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(16,37,43,0.48);
+  padding: 4px 2px 8px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(31,122,134,0.14);
+}
+.submenu-section-label:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+/* ── Grid variants ── */
+.submenu-grid--2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.submenu-grid--3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+/* ── Icon color variants ── */
+.submenu-card__icon--blue  { background: rgba(59,125,216,0.85); }
+.submenu-card__icon--green { background: rgba(34,139,87,0.85); }
+.submenu-card__icon--amber { background: rgba(180,100,20,0.85); }
+
+@media (max-width: 1180px) {
+  .submenu-grid--3 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 760px) {
+  .submenu-grid--2,
+  .submenu-grid--3 { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 420px) {

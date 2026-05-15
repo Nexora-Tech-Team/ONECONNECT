@@ -54,14 +54,15 @@ button{font-family:inherit;cursor:pointer}
 ═══════════════════════════════════════════════ */
 .navbar {
   position:sticky;top:0;z-index:200;
-  height:68px;
+  height:64px;
   display:flex;align-items:center;
-  padding:0 clamp(16px,3vw,48px);
-  gap:32px;
-  background:rgba(14,45,53,0.72);
+  padding:0 clamp(12px,2vw,36px);
+  gap:clamp(8px,1.2vw,20px);
+  background:rgba(14,45,53,0.92);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--line);
+  overflow:visible;
 }
 
 /* Brand */
@@ -75,24 +76,24 @@ button{font-family:inherit;cursor:pointer}
 .nav-sep {width:1px;height:28px;background:var(--line);flex-shrink:0}
 
 /* Nav links */
-.nav-links {display:flex;align-items:center;gap:4px;flex:1}
+.nav-links {display:flex;align-items:center;gap:2px;flex:1;min-width:0;overflow:visible}
 .nav-item {
   position:relative;
-  display:inline-flex;align-items:center;gap:7px;
-  height:42px;padding:0 14px;
-  border-radius:10px;border:0;background:transparent;
-  color:var(--muted-b);font-size:13.5px;font-weight:600;
-  white-space:nowrap;
+  display:inline-flex;align-items:center;gap:5px;
+  height:38px;padding:0 11px;
+  border-radius:9px;border:0;background:transparent;
+  color:var(--muted-b);font-size:12.5px;font-weight:600;
+  white-space:nowrap;flex-shrink:0;
   transition:background .18s,color .18s;
 }
 .nav-item:hover,.nav-item.active {background:rgba(255,255,255,0.09);color:#fff}
-.nav-item svg {width:16px;height:16px;opacity:.75}
+.nav-item svg {width:14px;height:14px;opacity:.75}
 .nav-item .chevron {transition:transform .22s}
 .nav-item[aria-expanded="true"] .chevron {transform:rotate(180deg)}
 .nav-item.active-page {background:rgba(49,158,169,0.18);color:#fff;border:1px solid rgba(49,158,169,0.32)}
 
 /* Right side */
-.nav-right {display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
+.nav-right {display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
 .nav-notif {
   position:relative;
   width:40px;height:40px;border-radius:10px;border:1px solid var(--line);
@@ -150,7 +151,9 @@ button{font-family:inherit;cursor:pointer}
   animation:fadeDown .2s ease;
 }
 @keyframes fadeDown{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes fadeDownRight{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .mega-wrap.open{display:block}
+.mega-wrap-right{left:auto;right:0;transform:none;animation:fadeDownRight .2s ease}
 
 .mega-header {
   display:flex;align-items:center;justify-content:space-between;
@@ -211,6 +214,106 @@ button{font-family:inherit;cursor:pointer}
 .dd-item:hover{background:rgba(255,255,255,0.08);color:#fff}
 .dd-item svg{width:15px;height:15px;opacity:.7}
 .dd-divider{height:1px;background:var(--line);margin:6px 0}
+
+/* ═══════════════════════════════════════════════
+   HAMBURGER BUTTON
+═══════════════════════════════════════════════ */
+.nav-hamburger {
+  display:none;width:40px;height:40px;border-radius:10px;
+  border:1px solid var(--line);background:rgba(255,255,255,0.07);
+  align-items:center;justify-content:center;
+  color:var(--muted-b);cursor:pointer;flex-shrink:0;
+  transition:background .18s,border-color .18s;
+}
+.nav-hamburger:hover{background:rgba(255,255,255,0.14);border-color:var(--line-b)}
+.nav-hamburger svg{width:20px;height:20px;transition:transform .22s}
+.nav-hamburger.open svg.icon-menu{display:none}
+.nav-hamburger.open svg.icon-close{display:block}
+.nav-hamburger svg.icon-close{display:none}
+
+/* ═══════════════════════════════════════════════
+   MOBILE DRAWER
+═══════════════════════════════════════════════ */
+.nav-drawer {
+  position:fixed;top:64px;left:0;right:0;bottom:0;
+  background:rgba(8,28,36,0.98);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--line);
+  padding:8px 12px 24px;
+  overflow-y:auto;z-index:198;
+  transform:translateY(-12px);opacity:0;
+  pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease;
+}
+.nav-drawer.open{transform:translateY(0);opacity:1;pointer-events:all}
+
+.drawer-section{margin-bottom:4px}
+.drawer-btn {
+  display:flex;align-items:center;gap:12px;width:100%;
+  padding:12px 14px;border-radius:10px;border:0;background:transparent;
+  color:var(--muted-b);font-size:14px;font-weight:600;text-align:left;
+  cursor:pointer;transition:background .15s,color .15s;
+}
+.drawer-btn:hover{background:rgba(255,255,255,0.07);color:#fff}
+.drawer-btn svg{width:18px;height:18px;opacity:.75;flex-shrink:0}
+.drawer-btn .d-chev{margin-left:auto;width:16px;height:16px;opacity:.55;transition:transform .22s;flex-shrink:0}
+.drawer-btn.open .d-chev{transform:rotate(180deg);opacity:.85}
+.drawer-btn-link{text-decoration:none}
+
+.drawer-sub{
+  display:none;padding:4px 0 4px 18px;border-left:2px solid rgba(49,158,169,0.25);margin-left:26px;
+}
+.drawer-sub.open{display:block}
+.drawer-sub-label{
+  font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;
+  color:var(--teal-400);padding:8px 12px 4px;
+}
+.drawer-sub-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-radius:8px;font-size:13px;color:var(--muted-b);
+  transition:background .15s,color .15s;
+}
+.drawer-sub-item:hover{background:rgba(255,255,255,0.06);color:#fff}
+.drawer-sub-std{font-size:10.5px;color:var(--muted);white-space:nowrap;margin-left:8px}
+.drawer-divider{height:1px;background:var(--line);margin:6px 8px}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — MEDIUM (1024px–1279px)
+   Compact brand & nav items slightly
+═══════════════════════════════════════════════ */
+@media(max-width:1279px){
+  .nav-brand-text{display:none}
+  .nav-sep{display:none}
+  .nav-item{padding:0 9px;font-size:12px;gap:4px}
+  .nav-item svg{width:13px;height:13px}
+  .avatar-info strong{font-size:12px}
+  .avatar-info span{display:none}
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — SMALL (900px–1023px)
+   Hide nav icons, tighter spacing
+═══════════════════════════════════════════════ */
+@media(max-width:1023px){
+  .nav-item svg:not(.chevron){display:none}
+  .nav-item{padding:0 7px;font-size:11.5px}
+  .nav-links{gap:0}
+  .avatar-info{display:none}
+  .nav-avatar{padding:5px}
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — MOBILE (<768px)
+   Full hamburger menu
+═══════════════════════════════════════════════ */
+@media(max-width:767px){
+  .nav-links{display:none}
+  .nav-right{display:none}
+  .nav-hamburger{display:flex}
+  .nav-brand img{height:36px;width:auto}
+  .navbar{height:60px}
+  .nav-drawer{top:60px}
+}
 
 /* ═══════════════════════════════════════════════
    LAYOUT
@@ -314,7 +417,7 @@ button{font-family:inherit;cursor:pointer}
 .si-teal{background:rgba(49,158,169,0.18);color:var(--teal-400)}
 .si-green{background:rgba(72,183,149,0.18);color:#6ee7b7}
 .si-amber{background:rgba(251,191,36,0.15);color:#fcd34d}
-.si-purple{background:rgba(167,139,250,0.15);color:#c4b5fd}
+.si-purple{background:rgba(59,125,216,0.15);color:#7fb8f5}
 .stat-icon svg{width:20px;height:20px}
 .stat-num{font-size:36px;font-weight:300;line-height:1;margin-bottom:4px}
 .stat-label{font-size:12px;color:var(--muted);font-weight:500}
@@ -434,14 +537,14 @@ button{font-family:inherit;cursor:pointer}
 .cl-teal{background:rgba(49,158,169,0.2);color:var(--teal-400)}
 .cl-green{background:rgba(72,183,149,0.16);color:#6ee7b7}
 .cl-amber{background:rgba(251,191,36,0.14);color:#fcd34d}
-.cl-purple{background:rgba(167,139,250,0.14);color:#c4b5fd}
+.cl-purple{background:rgba(59,125,216,0.14);color:#7fb8f5}
 .cert-info {flex:1;min-width:0}
 .cert-info strong {font-size:12.5px;font-weight:600;display:block;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cert-bar {height:4px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden}
 .cert-bar-fill {height:100%;border-radius:4px}
 .cb-teal{background:linear-gradient(90deg,#319ea9,#48b795)}
 .cb-amber{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
-.cb-purple{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+.cb-purple{background:linear-gradient(90deg,#3b7dd8,#7fb8f5)}
 .cert-pct {font-size:11.5px;font-weight:700;color:var(--muted-b);white-space:nowrap}
 .cert-phase {
   font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;
@@ -511,7 +614,7 @@ button{font-family:inherit;cursor:pointer}
 .sci-teal{background:rgba(49,158,169,0.22);color:var(--teal-400)}
 .sci-green{background:rgba(72,183,149,0.18);color:#6ee7b7}
 .sci-amber{background:rgba(251,191,36,0.15);color:#fcd34d}
-.sci-purple{background:rgba(167,139,250,0.15);color:#c4b5fd}
+.sci-purple{background:rgba(59,125,216,0.15);color:#7fb8f5}
 .sci-blue{background:rgba(99,102,241,0.16);color:#a5b4fc}
 .sci-rose{background:rgba(244,63,94,0.14);color:#fda4af}
 .std-chip-icon svg{width:16px;height:16px}
@@ -603,57 +706,26 @@ button{font-family:inherit;cursor:pointer}
       Home
     </a>
 
-    <!-- Profile -->
+    <!-- ① GRC Platform -->
     <div class="nav-item-wrap" style="position:relative">
-      <button class="nav-item nav-item--always" onclick="toggleDropdown('dd-profile',this)" aria-expanded="false">
-        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
-        My Profile
-        <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div class="dropdown-menu" id="dd-profile">
-        <a class="dd-item" href="account-settings.html">
-          <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
-          Account Settings
-        </a>
-        <a class="dd-item" href="my-certifications.html">
-          <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
-          My Certifications
-        </a>
-        <a class="dd-item" href="help-support.html">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>
-          Help & Support
-        </a>
-        <div class="dd-divider"></div>
-        <a class="dd-item" href="training-records.html">
-          <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3Zm0 2.3L18.8 9 12 12.7 5.2 9 12 5.3ZM5 13.2V17c0 1.8 3.1 4 7 4s7-2.2 7-4v-3.8l-7 3.8-7-3.8Zm2 3.1 5 2.7 5-2.7v.7c0 .6-2 2-5 2s-5-1.4-5-2v-.7Z"/></svg>
-          Training Records
-        </a>
-      </div>
-    </div>
-
-    <!-- GRC Platform (Mega Menu) -->
-    <div class="nav-item-wrap" style="position:relative">
-      <button class="nav-item" onclick="toggleMega(this)" aria-expanded="false">
+      <button class="nav-item" onclick="toggleMega('megaGRC',this)" aria-expanded="false">
         <svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM4 6h3v2H4V6Zm0 5h3v2H4v-2Zm0 5h3v2H4v-2Zm5 0h11v2H9v-2Zm7-5h4v2h-4v-2Zm0-5h4v2h-4V6Z"/></svg>
         GRC Platform
         <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
       </button>
-      <!-- MEGA MENU -->
-      <div class="mega-wrap" id="megaGRC">
+      <div class="mega-wrap" id="megaGRC" style="width:min(92vw,660px)">
         <div class="mega-header">
           <div>
             <div class="mega-header-title">GRC Platform</div>
-            <div style="font-size:13px;font-weight:600;color:#fff;margin-top:2px">Governance, Risk & Compliance Modules</div>
+            <div style="font-size:13px;font-weight:600;color:#fff;margin-top:2px">Governance, Risk &amp; Compliance</div>
           </div>
-          <div class="mega-header-sub">28 Standards · 6 Categories</div>
+          <div class="mega-header-sub">11 Standards · 2 Categories</div>
         </div>
-        <div class="mega-grid">
-
-          <!-- Governance Risk & Compliance -->
+        <div class="mega-grid" style="grid-template-columns:repeat(2,1fr)">
           <a class="mega-category" href="#">
             <div class="mc-head">
               <div class="mc-icon sci-teal"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
-              <div><div class="mc-title">Governance Risk &amp; Compliance</div><div class="mc-sub">Business continuity & risk</div></div>
+              <div><div class="mc-title">Governance &amp; Risk</div><div class="mc-sub">Risk, continuity &amp; ethics</div></div>
             </div>
             <div class="mc-items">
               <div class="mc-item">Business Continuity Management<span class="mc-item-std">ISO 22301</span></div>
@@ -663,24 +735,44 @@ button{font-family:inherit;cursor:pointer}
               <div class="mc-item">IT Governance<span class="mc-item-std">ISO/IEC 38500</span></div>
             </div>
           </a>
-
-          <!-- Health & Safety -->
           <a class="mega-category" href="#">
             <div class="mc-head">
-              <div class="mc-icon sci-green"><svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
-              <div><div class="mc-title">Health &amp; Safety</div><div class="mc-sub">OHS & road traffic</div></div>
+              <div class="mc-icon sci-teal"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4V4Zm2 2v3h3V6H6Zm7-2h7v7h-7V4Zm2 2v3h3V6h-3ZM4 13h7v7H4v-7Zm2 2v3h3v-3H6Zm9.5-2H20v2h-4.5v-2ZM13 16h7v2h-7v-2Zm2.5 3H20v2h-4.5v-2Z"/></svg></div>
+              <div><div class="mc-title">Regulatory Frameworks</div><div class="mc-sub">Global compliance standards</div></div>
             </div>
             <div class="mc-items">
-              <div class="mc-item">Road Traffic Safety Management<span class="mc-item-std">ISO 39001</span></div>
-              <div class="mc-item">Occupational H&amp;S Management<span class="mc-item-std">ISO 45001</span></div>
+              <div class="mc-item">Service Organization Controls 1<span class="mc-item-std">SOC 1</span></div>
+              <div class="mc-item">Service Organization Controls 2<span class="mc-item-std">SOC 2</span></div>
+              <div class="mc-item">Payment Card Industry Security<span class="mc-item-std">PCI-DSS</span></div>
+              <div class="mc-item">Health Insurance Portability<span class="mc-item-std">HIPAA</span></div>
+              <div class="mc-item">Digital Operational Resilience<span class="mc-item-std">DORA</span></div>
+              <div class="mc-item">Customer Security Programme<span class="mc-item-std">SWIFT</span></div>
             </div>
           </a>
+        </div>
+      </div>
+    </div>
 
-          <!-- Information & Cybersecurity -->
+    <!-- ② Cyber & Privacy -->
+    <div class="nav-item-wrap" style="position:relative">
+      <button class="nav-item" onclick="toggleMega('megaCyber',this)" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Z"/></svg>
+        Cyber &amp; Privacy
+        <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mega-wrap" id="megaCyber" style="width:min(92vw,700px)">
+        <div class="mega-header">
+          <div>
+            <div class="mega-header-title">Cyber &amp; Privacy Platform</div>
+            <div style="font-size:13px;font-weight:600;color:#fff;margin-top:2px">Cybersecurity, AI &amp; Privacy</div>
+          </div>
+          <div class="mega-header-sub">12 Standards · 2 Categories</div>
+        </div>
+        <div class="mega-grid" style="grid-template-columns:repeat(2,1fr)">
           <a class="mega-category" href="#">
             <div class="mc-head">
               <div class="mc-icon sci-blue"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4V4Zm2 2v3h3V6H6Zm7-2h7v7h-7V4Zm2 2v3h3V6h-3ZM4 13h7v7H4v-7Zm2 2v3h3v-3H6Zm9.5-2H20v2h-4.5v-2ZM13 16h7v2h-7v-2Zm2.5 3H20v2h-4.5v-2Z"/></svg></div>
-              <div><div class="mc-title">Information &amp; Cybersecurity</div><div class="mc-sub">Security & resilience</div></div>
+              <div><div class="mc-title">Cybersecurity &amp; AI</div><div class="mc-sub">Security, resilience &amp; intelligence</div></div>
             </div>
             <div class="mc-items">
               <div class="mc-item">Information Security Management<span class="mc-item-std">ISO/IEC 27001</span></div>
@@ -689,14 +781,15 @@ button{font-family:inherit;cursor:pointer}
               <div class="mc-item">Cyber Security<span class="mc-item-std">ISO/IEC 27032</span></div>
               <div class="mc-item">IT Service Management<span class="mc-item-std">ISO/IEC 20000-1</span></div>
               <div class="mc-item">AI Management System<span class="mc-item-std">ISO/IEC 42001</span></div>
+              <div class="mc-item">AI Risk Assessment<span class="mc-item-std">ISO/IEC 42005</span></div>
+              <div class="mc-item">Threat &amp; Vulnerability Risk<span class="mc-item-std">TVRA</span></div>
+              <div class="mc-item">Cyber Security Competencies<span class="mc-item-std">KKS</span></div>
             </div>
           </a>
-
-          <!-- Privacy & Data Protection -->
           <a class="mega-category" href="#">
             <div class="mc-head">
-              <div class="mc-icon sci-purple"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Z"/></svg></div>
-              <div><div class="mc-title">Privacy &amp; Data Protection</div><div class="mc-sub">PIMS & privacy framework</div></div>
+              <div class="mc-icon sci-blue"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Z"/></svg></div>
+              <div><div class="mc-title">Privacy &amp; Data Protection</div><div class="mc-sub">PIMS, frameworks &amp; impact</div></div>
             </div>
             <div class="mc-items">
               <div class="mc-item">Privacy Information Management<span class="mc-item-std">ISO/IEC 27701</span></div>
@@ -704,12 +797,84 @@ button{font-family:inherit;cursor:pointer}
               <div class="mc-item">Privacy Impact Assessment<span class="mc-item-std">ISO/IEC 29134</span></div>
             </div>
           </a>
+        </div>
+      </div>
+    </div>
 
-          <!-- Quality & Service Management -->
+    <!-- ③ Sustainability -->
+    <div class="nav-item-wrap" style="position:relative">
+      <button class="nav-item" onclick="toggleMega('megaSustain',this)" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.2a15.5 15.5 0 0 0-1.1-5 8 8 0 0 1 4.3 5ZM12 4c.7 1 1.4 3.4 1.7 7h-3.4C10.6 7.4 11.3 5 12 4Zm-2.6 2a15.5 15.5 0 0 0-1.1 5H5.1a8 8 0 0 1 4.3-5ZM5.1 13h3.2c.2 1.9.6 3.6 1.1 5a8 8 0 0 1-4.3-5Zm6.9 7c-.7-1-1.4-3.4-1.7-7h3.4c-.3 3.6-1 6-1.7 7Zm2.6-2c.5-1.4.9-3.1 1.1-5h3.2a8 8 0 0 1-4.3 5Z"/></svg>
+        Sustainability
+        <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mega-wrap mega-wrap-right" id="megaSustain" style="width:min(92vw,660px)">
+        <div class="mega-header">
+          <div>
+            <div class="mega-header-title">Sustainability Platform</div>
+            <div style="font-size:13px;font-weight:600;color:#fff;margin-top:2px">ESG, Carbon, Energy &amp; Social</div>
+          </div>
+          <div class="mega-header-sub">7 Standards · 2 Categories</div>
+        </div>
+        <div class="mega-grid" style="grid-template-columns:repeat(2,1fr)">
+          <a class="mega-category" href="#">
+            <div class="mc-head">
+              <div class="mc-icon sci-green"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.2a15.5 15.5 0 0 0-1.1-5 8 8 0 0 1 4.3 5ZM12 4c.7 1 1.4 3.4 1.7 7h-3.4C10.6 7.4 11.3 5 12 4Zm-2.6 2a15.5 15.5 0 0 0-1.1 5H5.1a8 8 0 0 1 4.3-5ZM5.1 13h3.2c.2 1.9.6 3.6 1.1 5a8 8 0 0 1-4.3-5Zm6.9 7c-.7-1-1.4-3.4-1.7-7h3.4c-.3 3.6-1 6-1.7 7Zm2.6-2c.5-1.4.9-3.1 1.1-5h3.2a8 8 0 0 1-4.3 5Z"/></svg></div>
+              <div><div class="mc-title">Environmental Management</div><div class="mc-sub">ISO standards for environment</div></div>
+            </div>
+            <div class="mc-items">
+              <div class="mc-item">Environmental Management<span class="mc-item-std">ISO 14001</span></div>
+              <div class="mc-item">Greenhouse Gases – Part 1<span class="mc-item-std">ISO 14064-1</span></div>
+              <div class="mc-item">Greenhouse Gases – Part 2<span class="mc-item-std">ISO 14064-2</span></div>
+              <div class="mc-item">Social Responsibility<span class="mc-item-std">ISO 26000</span></div>
+              <div class="mc-item">Energy Management<span class="mc-item-std">ISO 50001</span></div>
+            </div>
+          </a>
+          <a class="mega-category" href="#">
+            <div class="mc-head">
+              <div class="mc-icon sci-green"><svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19H5c.5 0 1 .17 1.41.59L8 21l1.5-1.5C11 21 12 22 14 21c3-1 4-4 4-6 0-1-.5-3-1-4V8z"/></svg></div>
+              <div><div class="mc-title">Sustainability Standards</div><div class="mc-sub">Certification &amp; national standards</div></div>
+            </div>
+            <div class="mc-items">
+              <div class="mc-item">Int'l Sustainability Certification<span class="mc-item-std">ISCC</span></div>
+              <div class="mc-item">National Sustainability Standard<span class="mc-item-std">INS</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ HSQ Platform -->
+    <div class="nav-item-wrap" style="position:relative">
+      <button class="nav-item" onclick="toggleMega('megaHSQ',this)" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>
+        HSQ Platform
+        <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="mega-wrap mega-wrap-right" id="megaHSQ" style="width:min(92vw,660px)">
+        <div class="mega-header">
+          <div>
+            <div class="mega-header-title">HSQ Platform</div>
+            <div style="font-size:13px;font-weight:600;color:#fff;margin-top:2px">Health, Safety &amp; Quality</div>
+          </div>
+          <div class="mega-header-sub">8 Standards · 2 Categories</div>
+        </div>
+        <div class="mega-grid" style="grid-template-columns:repeat(2,1fr)">
+          <a class="mega-category" href="#">
+            <div class="mc-head">
+              <div class="mc-icon sci-amber"><svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
+              <div><div class="mc-title">Health &amp; Safety</div><div class="mc-sub">OHS &amp; road traffic safety</div></div>
+            </div>
+            <div class="mc-items">
+              <div class="mc-item">Occupational H&amp;S Management<span class="mc-item-std">ISO 45001</span></div>
+              <div class="mc-item">Road Traffic Safety Management<span class="mc-item-std">ISO 39001</span></div>
+              <div class="mc-item">OHS Management System<span class="mc-item-std">SMK3</span></div>
+            </div>
+          </a>
           <a class="mega-category" href="#">
             <div class="mc-head">
               <div class="mc-icon sci-amber"><svg viewBox="0 0 24 24"><path d="M9 17H7v-7h2v7Zm4 0h-2V7h2v10Zm4 0h-2v-4h2v4Zm2 2H5V5h14v14Zm0-16H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg></div>
-              <div><div class="mc-title">Quality &amp; Service Management</div><div class="mc-sub">QMS & asset management</div></div>
+              <div><div class="mc-title">Quality &amp; Service Management</div><div class="mc-sub">QMS, assets &amp; projects</div></div>
             </div>
             <div class="mc-items">
               <div class="mc-item">Quality Management Systems<span class="mc-item-std">ISO 9001</span></div>
@@ -719,23 +884,6 @@ button{font-family:inherit;cursor:pointer}
               <div class="mc-item">Project Management<span class="mc-item-std">ISO 21500</span></div>
             </div>
           </a>
-
-          <!-- Sustainable Management -->
-          <a class="mega-category" href="#">
-            <div class="mc-head">
-              <div class="mc-icon sci-rose"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.2a15.5 15.5 0 0 0-1.1-5 8 8 0 0 1 4.3 5ZM12 4c.7 1 1.4 3.4 1.7 7h-3.4C10.6 7.4 11.3 5 12 4Zm-2.6 2a15.5 15.5 0 0 0-1.1 5H5.1a8 8 0 0 1 4.3-5ZM5.1 13h3.2c.2 1.9.6 3.6 1.1 5a8 8 0 0 1-4.3-5Zm6.9 7c-.7-1-1.4-3.4-1.7-7h3.4c-.3 3.6-1 6-1.7 7Zm2.6-2c.5-1.4.9-3.1 1.1-5h3.2a8 8 0 0 1-4.3 5Z"/></svg></div>
-              <div><div class="mc-title">Sustainable Management</div><div class="mc-sub">ESG, carbon & energy</div></div>
-            </div>
-            <div class="mc-items">
-              <div class="mc-item">Int'l Sustainability Certification<span class="mc-item-std">ISCC</span></div>
-              <div class="mc-item">Environmental Management<span class="mc-item-std">ISO 14001</span></div>
-              <div class="mc-item">Greenhouse Gases – Part 1<span class="mc-item-std">ISO 14064-1</span></div>
-              <div class="mc-item">Greenhouse Gases – Part 2<span class="mc-item-std">ISO 14064-2</span></div>
-              <div class="mc-item">Social Responsibility<span class="mc-item-std">ISO 26000</span></div>
-              <div class="mc-item">Energy Management<span class="mc-item-std">ISO 50001</span></div>
-            </div>
-          </a>
-
         </div>
       </div>
     </div>
@@ -748,7 +896,7 @@ button{font-family:inherit;cursor:pointer}
         <svg class="chevron" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg>
       </button>
       <div class="dropdown-menu" id="dd-academy">
-        <a class="dd-item" href="module-detail.html?module=training-system">
+        <a class="dd-item" href="training-system.html">
           <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3Z"/></svg>
           Training System
         </a>
@@ -756,7 +904,7 @@ button{font-family:inherit;cursor:pointer}
           <svg viewBox="0 0 24 24"><path d="M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm1 2v14h12V5H6Zm2 3h8v2H8V8Zm0 4h8v2H8v-2Z"/></svg>
           My Learning Path
         </a>
-        <a class="dd-item" href="#">
+        <a class="dd-item" href="certificates-earned.html">
           <svg viewBox="0 0 24 24"><path d="M8 2v3H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3V2H8Zm2 2h4v3h-4V4Zm-4 4h12v12H6V8Zm2 3v2h8v-2H8Zm0 4v2h5v-2H8Z"/></svg>
           Certificates Earned
         </a>
@@ -772,28 +920,195 @@ button{font-family:inherit;cursor:pointer}
       <div class="nav-notif-dot"></div>
     </button>
 
-    <div class="nav-avatar" onclick="toggleDropdown('dd-user',this)">
-      <div class="avatar-circle">PT</div>
-      <div class="avatar-info">
-        <strong>PT. Nexora Tech</strong>
-        <span>Enterprise Client</span>
+    <!-- Profile avatar (acts as My Profile dropdown) -->
+    <div class="nav-item-wrap" style="position:relative">
+      <div class="nav-avatar" onclick="toggleDropdown('dd-user',this)" style="cursor:pointer">
+        <div class="avatar-circle">PT</div>
+        <div class="avatar-info">
+          <strong>PT. Nexora Tech</strong>
+          <span>Enterprise Client</span>
+        </div>
+        <svg viewBox="0 0 24 24" style="width:13px;height:13px;opacity:.55;margin-left:2px;flex-shrink:0;transition:transform .22s" id="avatar-chev"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      </div>
+      <div class="dropdown-menu" id="dd-user" style="right:0;left:auto;min-width:220px">
+        <!-- User header -->
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px 12px;border-bottom:1px solid var(--line);margin-bottom:6px">
+          <div class="avatar-circle" style="width:38px;height:38px;font-size:14px">PT</div>
+          <div style="line-height:1.3">
+            <div style="font-size:13px;font-weight:700;color:#fff">PT. Nexora Tech</div>
+            <div style="font-size:11px;color:var(--muted)">Enterprise Client</div>
+          </div>
+        </div>
+        <a class="dd-item" href="account-settings.html">
+          <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm7-2h-1.1a6 6 0 0 0-.5-1.2l.8-.8-1.4-1.4-.8.8A6 6 0 0 0 14 9.1V8h-2v1.1a6 6 0 0 0-1.2.5l-.8-.8-1.4 1.4.8.8A6 6 0 0 0 9.1 12H8v2h1.1a6 6 0 0 0 .5 1.2l-.8.8 1.4 1.4.8-.8a6 6 0 0 0 1.2.5V19h2v-1.1a6 6 0 0 0 1.2-.5l.8.8 1.4-1.4-.8-.8a6 6 0 0 0 .5-1.2H19v-2Z"/></svg>
+          Account Settings
+        </a>
+        <a class="dd-item" href="my-certifications.html">
+          <svg viewBox="0 0 24 24"><path d="M8 2v3H5a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3V2H8Zm2 2h4v3h-4V4Zm-4 4h12v12H6V8Zm2 3v2h8v-2H8Zm0 4v2h5v-2H8Z"/></svg>
+          My Certifications
+        </a>
+        <a class="dd-item" href="training-records.html">
+          <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3Zm0 2.3L18.8 9 12 12.7 5.2 9 12 5.3ZM5 13.2V17c0 1.8 3.1 4 7 4s7-2.2 7-4v-3.8l-7 3.8-7-3.8Z"/></svg>
+          Training Records
+        </a>
+        <a class="dd-item" href="help-support.html">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-2h2v2Zm0-4h-2V7h2v6Z"/></svg>
+          Help &amp; Support
+        </a>
+        <div class="dd-divider"></div>
+        <a class="dd-item" href="login.html" style="color:#fca5a5">
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
+          Logout
+        </a>
       </div>
     </div>
-    <div class="dropdown-menu" id="dd-user" style="right:0;left:auto">
-      <a class="dd-item" href="#"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/></svg>Account Settings</a>
-      <div class="dd-divider"></div>
-      <a class="dd-item" href="login.html" style="color:#fca5a5">
-        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
-        Logout
-      </a>
-    </div>
-
-    <a class="nav-logout" href="login.html">
-      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
-      Logout
-    </a>
   </div>
+
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleDrawer()" aria-label="Menu" aria-expanded="false">
+    <svg class="icon-menu" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+    <svg class="icon-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+  </button>
 </nav>
+
+<!-- ═══════════════ MOBILE DRAWER ═══════════════ -->
+<div class="nav-drawer" id="navDrawer">
+
+  <!-- Home -->
+  <a class="drawer-btn drawer-btn-link" href="dashboard.html">
+    <svg viewBox="0 0 24 24"><path d="M10 19v-5h4v5h5v-7h3L12 3 2 12h3v7h5Z"/></svg>
+    Home
+  </a>
+
+  <!-- My Profile -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-profile',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5.3 0-8 2.7-8 4v1h16v-1c0-1.3-2.7-4-8-4Z"/></svg>
+      My Profile
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-profile">
+      <a class="drawer-sub-item" href="account-settings.html">Account Settings</a>
+      <a class="drawer-sub-item" href="my-certifications.html">My Certifications</a>
+      <a class="drawer-sub-item" href="help-support.html">Help &amp; Support</a>
+      <a class="drawer-sub-item" href="training-records.html">Training Records</a>
+    </div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
+  <!-- GRC Platform -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-grc',this)">
+      <svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM4 6h3v2H4V6Zm0 5h3v2H4v-2Zm0 5h3v2H4v-2Zm5 0h11v2H9v-2Zm7-5h4v2h-4v-2Zm0-5h4v2h-4V6Z"/></svg>
+      GRC Platform
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-grc">
+      <div class="drawer-sub-label">Governance &amp; Risk</div>
+      <a class="drawer-sub-item" href="#">Business Continuity Management <span class="drawer-sub-std">ISO 22301</span></a>
+      <a class="drawer-sub-item" href="#">Management Systems for Records <span class="drawer-sub-std">ISO 30301</span></a>
+      <a class="drawer-sub-item" href="#">Risk Management <span class="drawer-sub-std">ISO 31000</span></a>
+      <a class="drawer-sub-item" href="#">Anti-Bribery Management <span class="drawer-sub-std">ISO 37001</span></a>
+      <a class="drawer-sub-item" href="#">IT Governance <span class="drawer-sub-std">ISO/IEC 38500</span></a>
+      <div class="drawer-sub-label">Regulatory Frameworks</div>
+      <a class="drawer-sub-item" href="#">Service Organization Controls 1 <span class="drawer-sub-std">SOC 1</span></a>
+      <a class="drawer-sub-item" href="#">Service Organization Controls 2 <span class="drawer-sub-std">SOC 2</span></a>
+      <a class="drawer-sub-item" href="#">Payment Card Industry Security <span class="drawer-sub-std">PCI-DSS</span></a>
+      <a class="drawer-sub-item" href="#">Health Insurance Portability <span class="drawer-sub-std">HIPAA</span></a>
+      <a class="drawer-sub-item" href="#">Digital Operational Resilience <span class="drawer-sub-std">DORA</span></a>
+      <a class="drawer-sub-item" href="#">Customer Security Programme <span class="drawer-sub-std">SWIFT</span></a>
+    </div>
+  </div>
+
+  <!-- Cyber & Privacy -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-cyber',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Z"/></svg>
+      Cyber &amp; Privacy
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-cyber">
+      <div class="drawer-sub-label">Cybersecurity &amp; AI</div>
+      <a class="drawer-sub-item" href="#">Information Security Management <span class="drawer-sub-std">ISO/IEC 27001</span></a>
+      <a class="drawer-sub-item" href="#">Cloud Services Security <span class="drawer-sub-std">ISO/IEC 27017</span></a>
+      <a class="drawer-sub-item" href="#">PII Protection in Public Cloud <span class="drawer-sub-std">ISO/IEC 27018</span></a>
+      <a class="drawer-sub-item" href="#">Cyber Security <span class="drawer-sub-std">ISO/IEC 27032</span></a>
+      <a class="drawer-sub-item" href="#">IT Service Management <span class="drawer-sub-std">ISO/IEC 20000-1</span></a>
+      <a class="drawer-sub-item" href="#">AI Management System <span class="drawer-sub-std">ISO/IEC 42001</span></a>
+      <a class="drawer-sub-item" href="#">AI Risk Assessment <span class="drawer-sub-std">ISO/IEC 42005</span></a>
+      <a class="drawer-sub-item" href="#">Threat &amp; Vulnerability Risk <span class="drawer-sub-std">TVRA</span></a>
+      <a class="drawer-sub-item" href="#">Cyber Security Competencies <span class="drawer-sub-std">KKS</span></a>
+      <div class="drawer-sub-label">Privacy &amp; Data Protection</div>
+      <a class="drawer-sub-item" href="#">Privacy Information Management <span class="drawer-sub-std">ISO/IEC 27701</span></a>
+      <a class="drawer-sub-item" href="#">Privacy Framework <span class="drawer-sub-std">ISO/IEC 29100</span></a>
+      <a class="drawer-sub-item" href="#">Privacy Impact Assessment <span class="drawer-sub-std">ISO/IEC 29134</span></a>
+    </div>
+  </div>
+
+  <!-- Sustainability -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-sustain',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.2a15.5 15.5 0 0 0-1.1-5 8 8 0 0 1 4.3 5ZM12 4c.7 1 1.4 3.4 1.7 7h-3.4C10.6 7.4 11.3 5 12 4Z"/></svg>
+      Sustainability
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-sustain">
+      <div class="drawer-sub-label">Environmental Management</div>
+      <a class="drawer-sub-item" href="#">Environmental Management <span class="drawer-sub-std">ISO 14001</span></a>
+      <a class="drawer-sub-item" href="#">Greenhouse Gases – Part 1 <span class="drawer-sub-std">ISO 14064-1</span></a>
+      <a class="drawer-sub-item" href="#">Greenhouse Gases – Part 2 <span class="drawer-sub-std">ISO 14064-2</span></a>
+      <a class="drawer-sub-item" href="#">Social Responsibility <span class="drawer-sub-std">ISO 26000</span></a>
+      <a class="drawer-sub-item" href="#">Energy Management <span class="drawer-sub-std">ISO 50001</span></a>
+      <div class="drawer-sub-label">Sustainability Standards</div>
+      <a class="drawer-sub-item" href="#">Int'l Sustainability Certification <span class="drawer-sub-std">ISCC</span></a>
+      <a class="drawer-sub-item" href="#">National Sustainability Standard <span class="drawer-sub-std">INS</span></a>
+    </div>
+  </div>
+
+  <!-- HSQ Platform -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-hsq',this)">
+      <svg viewBox="0 0 24 24"><path d="m10.2 14.8-2.5-2.5 1.4-1.4 1.1 1.1 2.7-2.7 1.4 1.4-4.1 4.1ZM12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg>
+      HSQ Platform
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-hsq">
+      <div class="drawer-sub-label">Health &amp; Safety</div>
+      <a class="drawer-sub-item" href="#">Occupational H&amp;S Management <span class="drawer-sub-std">ISO 45001</span></a>
+      <a class="drawer-sub-item" href="#">Road Traffic Safety Management <span class="drawer-sub-std">ISO 39001</span></a>
+      <a class="drawer-sub-item" href="#">OHS Management System <span class="drawer-sub-std">SMK3</span></a>
+      <div class="drawer-sub-label">Quality &amp; Service Management</div>
+      <a class="drawer-sub-item" href="#">Quality Management Systems <span class="drawer-sub-std">ISO 9001</span></a>
+      <a class="drawer-sub-item" href="#">Building Information Modelling <span class="drawer-sub-std">ISO 19650</span></a>
+      <a class="drawer-sub-item" href="#">Asset Management <span class="drawer-sub-std">ISO 55001</span></a>
+      <a class="drawer-sub-item" href="#">Educational Organizations <span class="drawer-sub-std">ISO 21001</span></a>
+      <a class="drawer-sub-item" href="#">Project Management <span class="drawer-sub-std">ISO 21500</span></a>
+    </div>
+  </div>
+
+  <div class="drawer-divider"></div>
+
+  <!-- Academy -->
+  <div class="drawer-section">
+    <button class="drawer-btn" onclick="toggleDrawerSub('ds-academy',this)">
+      <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3Zm0 2.3L18.8 9 12 12.7 5.2 9 12 5.3ZM5 13.2V17c0 1.8 3.1 4 7 4s7-2.2 7-4v-3.8l-7 3.8-7-3.8Z"/></svg>
+      Academy
+      <svg class="d-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <div class="drawer-sub" id="ds-academy">
+      <a class="drawer-sub-item" href="training-system.html">Training System</a>
+      <a class="drawer-sub-item" href="my-learning-path.html">My Learning Path</a>
+      <a class="drawer-sub-item" href="certificates-earned.html">Certificates Earned</a>
+    </div>
+  </div>
+
+  <div class="drawer-divider"></div>
+  <a class="drawer-btn drawer-btn-link" href="login.html" style="color:rgba(252,165,165,0.9)">
+    <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4v2H5v14h4v2Zm7-4-1.4-1.4 2.6-2.6H9v-2h8.2l-2.6-2.6L16 7l5 5-5 5Z"/></svg>
+    Logout
+  </a>
+</div>
 
 <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
 <main class="main">
@@ -973,31 +1288,6 @@ button{font-family:inherit;cursor:pointer}
         <div class="mc-meta">Ready to begin</div>
         <a class="mc-action" href="selfassessment_iso42005.html">
           Start
-          <svg viewBox="0 0 24 24"><path d="M13.2 5.2 20 12l-6.8 6.8-1.4-1.4 4.4-4.4H4v-2h12.2l-4.4-4.4 1.4-1.4Z"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Audit Platform -->
-    <div class="module-card">
-      <div class="mc-top">
-        <div class="module-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 4h7v7H4V4Zm2 2v3h3V6H6Zm7-2h7v7h-7V4Zm2 2v3h3V6h-3ZM4 13h7v7H4v-7Zm2 2v3h3v-3H6Zm9.5-2H20v2h-4.5v-2ZM13 16h7v2h-7v-2Zm2.5 3H20v2h-4.5v-2Z"/></svg>
-        </div>
-        <div class="module-status ms-active">Active</div>
-      </div>
-      <div>
-        <h3>Integration Audit Tools</h3>
-        <p>Centralized audit workspace — evidence management, findings tracker, and structured audit reporting.</p>
-      </div>
-      <div class="module-progress-row">
-        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-        <div class="progress-pct">Access</div>
-      </div>
-      <div class="module-card-footer">
-        <div class="mc-meta">Always available</div>
-        <a class="mc-action" href="module-detail.html?module=integration-audit-tools">
-          Open
           <svg viewBox="0 0 24 24"><path d="M13.2 5.2 20 12l-6.8 6.8-1.4-1.4 4.4-4.4H4v-2h12.2l-4.4-4.4 1.4-1.4Z"/></svg>
         </a>
       </div>
@@ -1213,14 +1503,18 @@ function toggleDropdown(id, btn) {
   const menu = document.getElementById(id);
   const isOpen = menu.classList.contains('open');
   closeAll();
+  // rotate avatar chevron
+  const chev = document.getElementById('avatar-chev');
+  if (chev) chev.style.transform = '';
   if (!isOpen) {
     menu.classList.add('open');
     if(btn) btn.setAttribute('aria-expanded', 'true');
+    if (id === 'dd-user' && chev) chev.style.transform = 'rotate(180deg)';
   }
 }
 
-function toggleMega(btn) {
-  const menu = document.getElementById('megaGRC');
+function toggleMega(id, btn) {
+  const menu = document.getElementById(id);
   const isOpen = menu.classList.contains('open');
   closeAll();
   if (!isOpen) {
@@ -1234,14 +1528,62 @@ function closeAll() {
   document.querySelectorAll('[aria-expanded]').forEach(b => b.setAttribute('aria-expanded', 'false'));
 }
 
+// ─── MOBILE DRAWER ────────────────────────────────────────────────────────────
+function toggleDrawer() {
+  const drawer = document.getElementById('navDrawer');
+  const btn    = document.getElementById('navHamburger');
+  const isOpen = drawer.classList.contains('open');
+  closeAll();
+  if (!isOpen) {
+    drawer.classList.add('open');
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+  } else {
+    drawer.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+  }
+}
+
+function toggleDrawerSub(id, btn) {
+  const sub    = document.getElementById(id);
+  const isOpen = sub.classList.contains('open');
+  document.querySelectorAll('.drawer-sub').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.drawer-btn').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    sub.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.nav-item-wrap') && !e.target.closest('.nav-item')) {
+  if (!e.target.closest('.nav-item-wrap') && !e.target.closest('.nav-item')
+      && !e.target.closest('#navDrawer') && !e.target.closest('#navHamburger')) {
     closeAll();
+    const drawer = document.getElementById('navDrawer');
+    const hbtn   = document.getElementById('navHamburger');
+    if (drawer) { drawer.classList.remove('open'); }
+    if (hbtn)   { hbtn.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); }
   }
 });
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeAll();
+  if (e.key === 'Escape') {
+    closeAll();
+    const drawer = document.getElementById('navDrawer');
+    const hbtn   = document.getElementById('navHamburger');
+    if (drawer) drawer.classList.remove('open');
+    if (hbtn)   { hbtn.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); }
+  }
+});
+
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 767) {
+    const drawer = document.getElementById('navDrawer');
+    const hbtn   = document.getElementById('navHamburger');
+    if (drawer) drawer.classList.remove('open');
+    if (hbtn)   { hbtn.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); }
+  }
 });
 
 // ─── STAT COUNTER ANIMATION ────────────────────────────────────────────────────
