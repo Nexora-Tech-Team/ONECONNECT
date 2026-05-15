@@ -32,7 +32,7 @@ const modules = {
      GRC PLATFORM
   ══════════════════════════════════════ */
   "tvra": {
-    platform: "GRC Platform",
+    platform: "Cyber & Privacy Platform",
     title: "TVRA",
     subtitle: "Threat & Vulnerability Risk Assessment",
     icon: "shield",
@@ -42,7 +42,7 @@ const modules = {
     serviceNarrative: ""
   },
   "kks": {
-    platform: "GRC Platform",
+    platform: "Cyber & Privacy Platform",
     title: "KKS",
     subtitle: "Cyber Resilience Assessment",
     icon: "monitor",
@@ -52,7 +52,7 @@ const modules = {
     serviceNarrative: ""
   },
   "ins": {
-    platform: "GRC Platform",
+    platform: "Sustainability Platform",
     title: "INS",
     subtitle: "Sustainability Certification Readiness",
     icon: "home",
@@ -225,6 +225,56 @@ const modules = {
     service: "Run a self assessment to review cloud security control coverage, shared responsibility clarity, and cloud-specific risk treatment.",
     serviceNarrative: ""
   },
+  "iso-27018": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 27018",
+    subtitle: "Protection of PII in Public Cloud",
+    icon: "cloud",
+    description: "International code of practice for protection of personally identifiable information (PII) in public cloud computing environments.",
+    body: "ISO 27018 extends ISO 27001 and ISO 27002 with specific controls for cloud service providers acting as PII processors. It covers consent and transparency for PII processing, restrictions on use of PII for marketing purposes, data subject rights for cloud-held PII, data return and deletion at contract end, disclosure of sub-processors, and audit rights for cloud customers — making it a key standard for GDPR-aligned cloud services.",
+    service: "Run a self assessment to review cloud PII protection controls, processor obligations, and GDPR alignment in public cloud environments.",
+    serviceNarrative: ""
+  },
+  "iso-27032": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 27032",
+    subtitle: "Cybersecurity Guidelines",
+    icon: "shield",
+    description: "International guidelines for improving the state of cybersecurity — addressing gaps between internet security, web security, network security, and critical information infrastructure protection.",
+    body: "ISO 27032 provides a framework for collaboration and information sharing between stakeholders in cyberspace. It covers cybersecurity risk management, technical controls for preventing and detecting cybersecurity incidents, threat intelligence sharing, coordination between organizations, and guidance for consumers, businesses, and governments on maintaining a secure cyberspace.",
+    service: "Use self assessment to review cybersecurity control coverage, threat management maturity, and incident coordination readiness.",
+    serviceNarrative: ""
+  },
+  "iso-29100": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 29100",
+    subtitle: "Privacy Framework",
+    icon: "shield",
+    description: "International standard providing a high-level privacy framework for protecting personally identifiable information within ICT systems.",
+    body: "ISO 29100 establishes 11 privacy principles: consent and choice, purpose legitimacy and specification, collection limitation, data minimization, use-retention-disclosure limitation, accuracy and quality, openness and transparency, individual participation and access, accountability, information security, and privacy compliance. It provides a common privacy terminology and framework used as the foundation for other ISO privacy standards including ISO 27701 and ISO 29134.",
+    service: "Use self assessment to review privacy principle implementation, PII handling practices, and accountability mechanisms across your organization.",
+    serviceNarrative: ""
+  },
+  "iso-29134": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 29134",
+    subtitle: "Privacy Impact Assessment",
+    icon: "chart",
+    description: "International guidelines for Privacy Impact Assessment (PIA) — a systematic process for evaluating privacy risks of information systems and processes.",
+    body: "ISO 29134 provides requirements and guidelines for conducting Privacy Impact Assessments (PIA), equivalent to the DPIA required under GDPR Article 35. It covers PIA threshold assessment, scope definition, data flow analysis, privacy risk identification and evaluation, risk treatment and mitigation, consultation with stakeholders and supervisory authorities, and reporting of PIA outcomes. It is designed to be used alongside ISO 29100 and ISO 27701.",
+    service: "Use self assessment to review PIA/DPIA process maturity, documentation completeness, and integration with system development and procurement lifecycles.",
+    serviceNarrative: ""
+  },
+  "iso-20000": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 20000",
+    subtitle: "IT Service Management System",
+    icon: "monitor",
+    description: "International standard for IT Service Management Systems — enabling organizations to deliver managed IT services that meet business and customer requirements.",
+    body: "ISO 20000 aligns closely with ITIL practices and covers the full IT service lifecycle: service planning, design, transition, delivery, and improvement. Requirements include service level management, incident and problem management, change management, configuration management, capacity and availability management, and continual improvement. It is applicable to internal IT departments, managed service providers, and outsourced IT service organizations.",
+    service: "Run a self assessment to evaluate IT service management process maturity, SLA compliance, and readiness for ISO 20000 certification.",
+    serviceNarrative: ""
+  },
 
   /* ══════════════════════════════════════
      SUSTAINABILITY PLATFORM
@@ -250,7 +300,7 @@ const modules = {
     serviceNarrative: ""
   },
   "iso-45001": {
-    platform: "Sustainability Platform",
+    platform: "HSQ Platform",
     title: "ISO 45001",
     subtitle: "Occupational Health & Safety",
     icon: "hard_hat",
@@ -260,13 +310,63 @@ const modules = {
     serviceNarrative: ""
   },
   "iso-9001": {
-    platform: "Sustainability Platform",
+    platform: "HSQ Platform",
     title: "ISO 9001",
     subtitle: "Quality Management System",
     icon: "quality",
     description: "International standard for Quality Management Systems — the most widely adopted management system standard with over one million certifications globally.",
     body: "ISO 9001:2015 is built on seven quality management principles: customer focus, leadership, engagement of people, process approach, improvement, evidence-based decision making, and relationship management. It requires risk-based thinking throughout, customer requirements determination, process controls, internal audit, management review, and corrective action processes.",
     service: "Run a self assessment to evaluate QMS readiness, process documentation coverage, customer satisfaction monitoring, and audit programme effectiveness.",
+    serviceNarrative: ""
+  },
+  "iso-14064-1": {
+    platform: "Sustainability Platform",
+    title: "ISO 14064-1",
+    subtitle: "GHG Inventory — Organization Level",
+    icon: "globe",
+    description: "International standard for the quantification and reporting of greenhouse gas emissions and removals at the organizational level.",
+    body: "ISO 14064-1 specifies principles and requirements for designing, developing, managing, and reporting organization-level GHG inventories. It covers organizational and operational boundaries, GHG source identification and categorization (Scope 1, 2, and 3), activity data collection, emission factor selection, GHG quantification methodologies, uncertainty assessment, data quality management, and preparation of inventory reports for external verification.",
+    service: "Use self assessment to review GHG inventory boundaries, data collection processes, emission calculation methodologies, and verification readiness.",
+    serviceNarrative: ""
+  },
+  "iso-14064-2": {
+    platform: "Sustainability Platform",
+    title: "ISO 14064-2",
+    subtitle: "GHG Quantification — Project Level",
+    icon: "leaf",
+    description: "International standard for quantification, monitoring, and reporting of GHG emission reductions or removal enhancements from specific projects.",
+    body: "ISO 14064-2 is used for GHG projects — renewable energy, reforestation, efficiency improvements, and carbon capture initiatives. It requires a GHG project plan, selection of baseline scenarios, identification and quantification of project emissions and removals, monitoring plans, and documentation for third-party validation and verification. It is widely used alongside carbon credit and offset programmes.",
+    service: "Run a self assessment to review GHG project documentation, baseline methodology, monitoring plan design, and readiness for third-party validation.",
+    serviceNarrative: ""
+  },
+  "iso-26000": {
+    platform: "Sustainability Platform",
+    title: "ISO 26000",
+    subtitle: "Social Responsibility",
+    icon: "home",
+    description: "International guidance standard on social responsibility — covering human rights, labor practices, environment, fair operating practices, consumer issues, and community involvement.",
+    body: "ISO 26000 is a guidance standard (not certifiable) that helps organizations understand and integrate social responsibility into their operations and strategies. It covers seven core subjects: organizational governance, human rights, labor practices, the environment, fair operating practices, consumer issues, and community involvement and development. It aligns with the UN Sustainable Development Goals (SDGs) and is used widely in ESG reporting and supply chain due diligence.",
+    service: "Use self assessment to review social responsibility integration across the seven core subjects and identify priority areas for ESG reporting and stakeholder engagement.",
+    serviceNarrative: ""
+  },
+  "iscc": {
+    platform: "Sustainability Platform",
+    title: "ISCC",
+    subtitle: "International Sustainability & Carbon Certification",
+    icon: "leaf",
+    description: "Global sustainability certification system for biomass, bioenergy, and renewable fuels — ensuring sustainability, traceability, and greenhouse gas reduction requirements are met.",
+    body: "ISCC (International Sustainability and Carbon Certification) is a globally recognized certification system covering the full supply chain of sustainable raw materials, biofuels, and bio-based products. It verifies compliance with sustainability criteria including GHG emission savings, no conversion of high carbon stock land, no damage to biodiversity, compliance with social standards, and mass balance traceability throughout the supply chain. ISCC EU and ISCC PLUS are recognized under the EU Renewable Energy Directive (RED II).",
+    service: "Use self assessment to review supply chain traceability documentation, GHG calculation methodology, land use evidence, and readiness for ISCC certification audit.",
+    serviceNarrative: ""
+  },
+  "iso-55001": {
+    platform: "HSQ Platform",
+    title: "ISO 55001",
+    subtitle: "Asset Management System",
+    icon: "chart",
+    description: "International standard for Asset Management Systems — enabling organizations to realize value from physical and non-physical assets.",
+    body: "ISO 55001 provides requirements for establishing, implementing, maintaining, and improving an Asset Management System (AMS). It covers asset policy and strategic asset management plan (SAMP), asset lifecycle planning from acquisition through disposal, risk management for assets, performance evaluation, and continual improvement. It is particularly relevant for infrastructure, utilities, manufacturing, and transport sectors managing large physical asset portfolios.",
+    service: "Run a self assessment to review asset management framework maturity, lifecycle planning practices, and risk-based maintenance approaches.",
     serviceNarrative: ""
   },
 
@@ -281,6 +381,46 @@ const modules = {
     description: "Sistem Manajemen K3 berdasarkan PP No. 50 Tahun 2012 — wajib bagi perusahaan dengan 100 tenaga kerja atau lebih, atau tingkat bahaya tinggi.",
     body: "SMK3 mencakup 5 prinsip utama: Kebijakan K3, Perencanaan, Pelaksanaan, Pemantauan dan Evaluasi, serta Peninjauan Ulang dan Peningkatan Kinerja. Audit SMK3 dilakukan oleh lembaga audit independen yang ditunjuk Menteri Ketenagakerjaan RI, mencakup identifikasi bahaya, penilaian risiko, prosedur kerja aman, penyelidikan kecelakaan, dan pelaporan kepada pemerintah.",
     service: "Gunakan self assessment untuk mengidentifikasi kesenjangan dalam pengendalian K3, dokumentasi, dan kesiapan regulasi.",
+    serviceNarrative: ""
+  },
+  "iso-21500": {
+    platform: "HSQ Platform",
+    title: "ISO 21500",
+    subtitle: "Project Management",
+    icon: "chart",
+    description: "International standard providing guidance on project management concepts and practices for effective project delivery.",
+    body: "ISO 21500 provides a high-level framework for project management applicable to any type of organization and project. It defines key project management concepts — scope, time, cost, quality, human resources, communication, risk, procurement, and stakeholder management — organized across five process groups: Initiating, Planning, Implementing, Controlling, and Closing. It aligns with PMBOK and PRINCE2 frameworks and provides a common language for project governance.",
+    service: "Use self assessment to review project management process maturity, documentation practices, and governance framework alignment.",
+    serviceNarrative: ""
+  },
+  "iso-19650": {
+    platform: "HSQ Platform",
+    title: "ISO 19650",
+    subtitle: "Information Management — BIM",
+    icon: "home",
+    description: "International standard for organizing and digitizing information about buildings and civil engineering works using Building Information Modelling (BIM).",
+    body: "ISO 19650 provides a framework for managing information throughout the full asset lifecycle using BIM — from design and construction through operation and maintenance. It defines concepts for information management, appointment processes, information delivery planning, collaborative production of information, and quality assurance of information assets. Parts 1 and 2 cover concept and delivery phase; Parts 3 and 5 address operational phase and security-minded information management.",
+    service: "Run a self assessment to review BIM information management processes, data exchange standards, and ISO 19650 appointment documentation readiness.",
+    serviceNarrative: ""
+  },
+  "iso-21001": {
+    platform: "HSQ Platform",
+    title: "ISO 21001",
+    subtitle: "Educational Organizations Management System",
+    icon: "academy",
+    description: "International standard for Management Systems for Educational Organizations (EOMS) — enhancing the satisfaction of learners, staff, and other interested parties.",
+    body: "ISO 21001 provides a management system framework specifically designed for educational organizations — schools, universities, training providers, and e-learning platforms. It covers learner-centered design of educational products and services, inclusive education and accessibility, competence of educators, learning environment management, monitoring of learner progress and satisfaction, and continual improvement. It follows the High Level Structure, integrating naturally with ISO 9001.",
+    service: "Use self assessment to review educational management system readiness, learner satisfaction measurement, and curriculum quality assurance processes.",
+    serviceNarrative: ""
+  },
+  "iso-39001": {
+    platform: "HSQ Platform",
+    title: "ISO 39001",
+    subtitle: "Road Traffic Safety Management System",
+    icon: "hard_hat",
+    description: "International standard for Road Traffic Safety (RTS) Management Systems — reducing death and serious injury from road traffic crashes.",
+    body: "ISO 39001 provides a framework for organizations that interact with the road transport system — fleet operators, logistics companies, road authorities, and infrastructure managers — to systematically eliminate or reduce death and serious injuries. It covers road traffic safety policy, risk assessment for road use, operational controls for vehicles and drivers, journey planning and fatigue management, incident investigation, and performance monitoring against safety targets.",
+    service: "Run a self assessment to review road traffic safety management processes, driver risk controls, vehicle safety standards, and incident reporting practices.",
     serviceNarrative: ""
   },
 
