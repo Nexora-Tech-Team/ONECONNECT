@@ -56,7 +56,7 @@ const modules = {
     title: "INS",
     subtitle: "Sustainability Certification Readiness",
     icon: "home",
-    description: "The Italian National Certification System ensures renewable and low-carbon fuels meet strict sustainability, traceability, and greenhouse gas reduction standards.",
+    description: "The Italian National Sustainability Standard (INS) ensures renewable and low-carbon fuels meet strict sustainability, traceability, and greenhouse gas reduction standards.",
     body: "INS supports preparation for sustainability, traceability, and GHG reduction requirements by organizing documentation, process controls, and compliance evidence across the full fuel supply chain.",
     service: "Use self assessment to review documentation readiness, traceability records, and sustainability compliance gaps.",
     serviceNarrative: ""
