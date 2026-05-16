@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO 30301:2019 Self-Assessment | CBQA Global</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{
+  --navy:#174e59;--navy-dark:#143f49;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;
+  --green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;
+  --text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;
+  --success:#0d8c72;--success-bg:#e6f8f3;--danger:#e84040;--danger-bg:#fef1f1;
+  --warning:#e07b20;--warning-bg:#fef3e8;--info:#174e59;--info-bg:#e7f8f9;
+  --shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px
+}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+/* NAV */
+.topnav{height:76px;background:linear-gradient(135deg,#143f49 0%,#1e6470 55%,#2b8a96 100%);box-shadow:0 14px 36px rgba(16,37,43,.22);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:50px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand{display:flex;flex-direction:column;gap:1px}
+.nav-brand-main{font-size:17px;font-weight:700;color:#fff;letter-spacing:.2px;line-height:1.2}
+.nav-brand-sub{font-size:11.5px;font-weight:400;color:rgba(255,255,255,.65);letter-spacing:.1px;line-height:1.3}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-back-link{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 26px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:.1px;box-shadow:0 4px 20px rgba(16,37,43,.15);transition:background .2s ease,border-color .2s ease,transform .18s ease;white-space:nowrap}
+.nav-back-link:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.85);transform:translateY(-1px)}
+.nav-back-link svg{width:18px;height:18px;flex-shrink:0}
+/* LAYOUT */
+.layout{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+/* START PAGE */
+#page-start{display:block}
+.role-hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem 2rem 1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.role-hero:after{content:'';position:absolute;right:-60px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08)}
+.role-hero h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;position:relative;z-index:1}
+.role-hero p{font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.65;max-width:680px;position:relative;z-index:1}
+.role-eyebrow{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:10px}
+.role-note{background:#e9f8fa;border:1px solid #b7e0e5;border-radius:var(--radius-md);padding:14px 18px;margin-bottom:1.5rem;font-size:13px;color:#174e59;line-height:1.7}
+.role-note strong{font-weight:700}
+.role-items-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.rip{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 14px;text-align:center}
+.rip-val{font-size:22px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.rip-lbl{font-size:11px;color:var(--text-tertiary)}
+.btn-start{background:var(--teal);color:#fff;font-size:15px;font-weight:700;padding:14px 36px;border-radius:var(--radius-lg);border:none;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .2s;box-shadow:0 14px 30px rgba(49,158,169,.22);animation:fadeUp .3s ease}
+.btn-start:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 18px 36px rgba(49,158,169,.28)}
+/* WIZARD */
+.wizard-steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid rgba(49,158,169,.18);padding:1rem 1.5rem;overflow-x:auto;box-shadow:var(--shadow-sm)}
+.wstep{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-tertiary);transition:all .3s}
+.wstep.active .wstep-dot{background:var(--teal);border-color:var(--teal);color:#fff}
+.wstep.done .wstep-dot{background:var(--success);border-color:var(--success);color:#fff}
+.wstep-label{font-size:12px;font-weight:500;color:var(--text-tertiary);white-space:nowrap}
+.wstep.active .wstep-label{color:var(--text-primary)}
+.wstep.done .wstep-label{color:var(--success)}
+.wstep-line{flex:1;height:1px;background:var(--border);margin:0 8px;min-width:24px}
+/* PROGRESS */
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+/* HERO CARD */
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:700;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.76);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card{background:linear-gradient(180deg,#fff,#f8fcfd);border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:500;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:#174e59}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+/* DOMAIN TABS */
+.domain-tabs{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:8px;box-shadow:var(--shadow-sm)}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:12px;padding:9px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+/* NOTE */
+.note{background:#e9f8fa;border:1px solid #b7e0e5;padding:14px 16px;border-radius:10px;margin-bottom:1.5rem}
+.note-title{font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px}
+.note ul{margin-left:18px;font-size:12.5px;color:#4A6360;line-height:1.7}
+/* ASSESSMENT CARD */
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.ac-objective{background:#f0fbfc;border-left:3px solid var(--teal);padding:10px 14px;font-size:12px;color:#174e59;line-height:1.6;border-bottom:1px solid var(--border)}
+/* TOOLBAR */
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.toolbar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:.6rem 1.5rem;border-bottom:1px solid var(--border);background:#fafcfc}
+.tba-btn{height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:#fff;font:600 11px Helvetica,Arial,sans-serif;color:var(--text-secondary);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tba-btn:hover{border-color:var(--teal);color:var(--navy);background:var(--teal-light)}
+.tba-doc{border-color:rgba(49,158,169,.3);color:#174e59;background:#edfbfc}
+.tba-impl{border-color:rgba(13,140,114,.3);color:#0d5c3c;background:#e6f8f3}
+.tba-clear{border-color:rgba(232,64,64,.25);color:#8a1010;background:#fef8f8}
+.tba-save{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-load{border-color:rgba(49,158,169,.4);color:#174e59;background:#e7f8f9}
+.tba-divider{width:1px;height:22px;background:var(--border);margin:0 4px}
+/* CONTROL LIST */
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:92px 1fr 140px 140px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #f3f5f8;border-radius:12px;transition:background-color .18s ease,box-shadow .18s ease}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:#f2fbfc;box-shadow:inset 3px 0 0 var(--teal)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:12px;padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary)}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+/* ACTION BAR */
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:12px;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);background:var(--green-mid)}
+.btn-secondary:hover{background:var(--off-white)}
+/* SUMMARY PAGE */
+#page-summary{display:none}
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+/* SUM GRID */
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm)}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+/* SECTION CARDS */
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-icon-success{background:var(--success-bg);color:var(--success)}
+.sc-body{padding:.75rem 1.25rem}
+/* GAUGE */
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:240px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+/* STATUS */
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f3f5f8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+/* REC */
+.rec-item{padding:12px 0;border-bottom:1px solid #f3f5f8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+/* FOOTER */
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid rgba(49,158,169,.22);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+/* LEAD MODAL */
+.lead-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,30,36,.58);backdrop-filter:blur(10px)}
+.lead-modal.active{display:flex}
+.lead-dialog{width:min(100%,720px);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.32);border-radius:24px;background:linear-gradient(180deg,#fff,#f4fbfc);box-shadow:0 32px 90px rgba(16,37,43,.28)}
+.lead-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:26px 28px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#143f49,#319ea9);color:#fff;border-radius:24px 24px 0 0}
+.lead-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:8px}
+.lead-head h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.lead-head p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.76);max-width:560px;margin:0}
+.lead-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lead-form{padding:24px 28px 28px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-field{display:grid;gap:7px}
+.lead-field.lead-full{grid-column:1 / -1}
+.lead-field span{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{width:100%;min-height:42px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text-primary);font:13px Helvetica,Arial,sans-serif;padding:10px 12px;outline:none}
+.lead-field textarea{min-height:88px;resize:vertical}
+.lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(49,158,169,.14)}
+.lead-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.lead-note{font-size:12px;line-height:1.55;color:var(--text-tertiary);max-width:360px}
+.lead-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 14px Helvetica,Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.lead-submit:hover{background:var(--green-mid)}
+.lead-success{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(13,140,114,.28);border-radius:14px;background:var(--success-bg);color:var(--success);font-size:13px;line-height:1.55}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:10px;background:var(--success);color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}
+  .control-row{grid-template-columns:76px 1fr 130px 130px}
+  .toolbar{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .role-items-preview{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+  .topnav{padding:0 1rem}
+  .layout{padding:1.25rem .9rem}
+  .nav-brand-sub{display:none}
+  .dashboard-grid,.sum-grid{grid-template-columns:1fr}
+  .control-row{grid-template-columns:68px 1fr}
+  .check-pill{grid-column:1 / -1}
+  .action-bar,.footer-bar{flex-direction:column;align-items:stretch}
+  .gauge-wrap{flex-direction:column;align-items:flex-start;gap:6px}
+  .gauge-lbl{width:auto}
+  .gauge-track{width:100%}
+  .lead-grid{grid-template-columns:1fr}
+  .lead-actions{flex-direction:column;align-items:stretch}
+  .lead-submit{width:100%}
+}
+@media print{
+  .topnav,.wizard-steps,.domain-tabs,.toolbar,.toolbar-actions,.action-bar,.btn,
+  #page-start,#page-assessment,.footer-bar button{display:none!important}
+  body{background:#fff!important}
+  .layout{padding:1rem!important}
+  .summary-banner{background:linear-gradient(135deg,#143f49,#319ea9)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .summary-banner *{color:#fff!important}
+  .section-card{break-inside:avoid;border:1px solid #d4e7ea!important;box-shadow:none!important}
+  .gauge-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.page-enter{animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO 30301:2019 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="nav-back-link" href="module-detail.html?module=iso-30301" aria-label="Back to ISO 30301 Module">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span>Back to OneConnect Platform</span>
+    </a>
+  </div>
+</nav>
+
+<div class="layout">
+
+<!-- START PAGE -->
+<div id="page-start" class="page-enter">
+  <div class="role-hero">
+    <div class="role-eyebrow">OneConnect &middot; ISO 30301:2019</div>
+    <h1>Management Systems for Records (MSR)<br>Self-Assessment</h1>
+    <p>Evaluate your organisation's readiness against ISO 30301:2019 — the international standard for Management Systems for Records. This assessment covers 35 evidence-based checkpoints across 7 domains, including context, leadership, planning, support, operations, records controls, and performance evaluation.</p>
+  </div>
+
+  <div class="role-note">
+    <strong>About ISO 30301:2019:</strong> ISO 30301 specifies requirements for a Management System for Records (MSR) — a systematic approach to creating, capturing, classifying, retaining, and disposing of records as evidence of business activities, decisions, and regulatory obligations. Annex A provides implementation controls for records processes, records controls, and records systems.
+  </div>
+
+  <div class="role-items-preview">
+    <div class="rip"><div class="rip-val">35</div><div class="rip-lbl">Assessment Items</div></div>
+    <div class="rip"><div class="rip-val">7</div><div class="rip-lbl">Domains Covered</div></div>
+    <div class="rip"><div class="rip-val" style="color:#319ea9">70</div><div class="rip-lbl">Evidence Checkpoints</div></div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-end">
+    <button class="btn-start" onclick="startAssessment()">
+      <span>Start Assessment</span>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ASSESSMENT PAGE -->
+<div id="page-assessment" style="display:none" class="page-enter">
+
+  <div class="wizard-steps" id="wizard-steps"></div>
+
+  <div class="progress-header">
+    <span id="progress-label">ISO 30301:2019 MSR Readiness Assessment &mdash; 35 items</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+
+  <div class="hero">
+    <div>
+      <h1>ISO 30301:2019 Self-Assessment</h1>
+      <p>Management Systems for Records readiness based on documented and implemented evidence — practical questions with evidence mapping to identify records management gaps in your organisation.</p>
+    </div>
+    <div class="hero-badge" id="hero-badge">Domain 1</div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="score-card">
+      <div class="eyebrow">Overall Readiness Score</div>
+      <div class="score-main"><span class="score-num" id="score-display">0</span><span class="score-denom">/ 5</span></div>
+      <div class="score-level" id="score-level">Initial</div>
+      <div class="score-desc" id="score-desc">No evidence or very limited readiness</div>
+      <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Evidence Checked</div>
+      <div class="metric-value" id="check-display">0 / 70</div>
+      <div class="metric-sub">Documented + Implemented</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Items Ready</div>
+      <div class="metric-value" id="ready-display">0 / 35</div>
+      <div class="metric-sub">Both evidence boxes checked</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Open Gaps</div>
+      <div class="metric-value" id="gap-display">35</div>
+      <div class="metric-sub">Need action or evidence</div>
+    </div>
+  </div>
+
+  <div class="domain-tabs" id="domain-tabs"></div>
+
+  <div class="note">
+    <div class="note-title">Checklist Completion Notes</div>
+    <ul>
+      <li>Tick <strong>Documented</strong> only if a policy, procedure, register, or official record exists and has been approved.</li>
+      <li>Tick <strong>Implemented</strong> only if there is operational evidence: logs, screenshots, tickets, review records, or audit trails.</li>
+      <li>Controls labelled <strong>Annex A</strong> (Domains 5&ndash;7) cover specific records process, control, and system requirements from ISO 30301.</li>
+      <li>Use the summary page as an initial gap list before formal MSR audit preparation.</li>
+    </ul>
+  </div>
+
+  <div class="assessment-card">
+    <div class="ac-header">
+      <div class="ac-title-wrap">
+        <span class="ac-code" id="domain-code">D1</span>
+        <div>
+          <h2 id="domain-title">Context &amp; Scope</h2>
+          <p id="domain-desc"></p>
+        </div>
+      </div>
+      <div class="ac-meta">
+        <div class="big" id="domain-count">0 / 5</div>
+        <div class="small">ready items</div>
+      </div>
+    </div>
+    <div class="ac-objective" id="domain-objective" style="display:none"></div>
+    <div class="toolbar">
+      <input class="search-box" id="search-box" type="search" placeholder="Search clause, control, question, or evidence..." oninput="renderDomain()">
+      <select class="filter-select" id="filter-select" onchange="renderDomain()">
+        <option value="all">Show all items</option>
+        <option value="gap">Only open gaps</option>
+        <option value="ready">Only ready items</option>
+        <option value="docgap">Missing documents</option>
+        <option value="implgap">Missing implementation</option>
+      </select>
+    </div>
+    <div class="toolbar-actions">
+      <button class="tba-btn" onclick="selectAllDomain(true,true)">&#10003; All Ready</button>
+      <button class="tba-btn tba-doc" onclick="selectAllDomain(true,false)">+ All Documented</button>
+      <button class="tba-btn tba-impl" onclick="selectAllDomain(false,true)">+ All Implemented</button>
+      <button class="tba-btn tba-clear" onclick="selectAllDomain(false,false)">&#10007; Clear All</button>
+      <span class="tba-divider"></span>
+      <button class="tba-btn tba-save" onclick="saveProgress()" title="Save progress to browser storage">&#128190; Save</button>
+      <button class="tba-btn tba-load" onclick="loadProgress()" title="Load previously saved progress">&#128194; Load Saved</button>
+    </div>
+    <div class="control-list" id="control-list"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="prevDomain()">&larr; Previous</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="btn btn-secondary" id="next-section-btn" onclick="nextDomain()">Next Section &rarr;</button>
+      <button class="btn btn-teal" onclick="goToSummary()">View Summary</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUMMARY PAGE -->
+<div id="page-summary" class="page-enter" style="display:none">
+
+  <div class="summary-banner">
+    <div class="summary-banner-content">
+      <div class="sb-eyebrow">MSR Assessment Report</div>
+      <div class="sb-title">ISO 30301:2019 Readiness Summary</div>
+      <div class="sb-sub">Management Systems for Records readiness based on documented and implemented evidence across 7 domains.</div>
+      <div class="sb-score-row">
+        <div>
+          <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:4px">Overall Score</div>
+          <div style="display:flex;align-items:baseline;gap:6px">
+            <span class="sb-score-big" id="sum-score-big">0</span>
+            <span class="sb-score-denom">/ 5</span>
+          </div>
+        </div>
+        <span class="sb-level-pill" id="sum-level-pill">Initial</span>
+      </div>
+      <div class="sb-meta" id="sum-meta">Generated: &mdash;</div>
+    </div>
+  </div>
+
+  <div class="sum-grid">
+    <div class="sum-metric"><div class="sm-val" id="sm-score">0/5</div><div class="sm-lbl">Readiness Score</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-pct">0%</div><div class="sm-lbl">Evidence Completion</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-ready">0/35</div><div class="sm-lbl">Items Ready</div></div>
+    <div class="sum-metric"><div class="sm-val" id="sm-gaps">35</div><div class="sm-lbl">Open Gaps</div></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">&#128202;</div>Domain Readiness Breakdown</div>
+    <div class="sc-body" id="domain-breakdown"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Missing Documents Summary</div>
+    <div class="sc-body" id="missing-doc-summary"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-teal">&#128196;</div>Need ISO 30301 Document Templates?</div>
+    <div class="sc-body">
+      <p class="rec-text">If your team does not yet have records policies, procedures, retention schedules, classification schemes, or records system documentation compliant with ISO 30301:2019, CBQA Global can provide ready-to-use document templates and paid implementation assistance.</p>
+      <div style="margin-top:12px"><button class="btn btn-teal" onclick="openLeadModal()">Request Template Package</button></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Recommendations &amp; Action Items</div>
+    <div class="sc-body" id="sum-recs"></div>
+  </div>
+
+  <div class="footer-bar">
+    <div class="footer-meta">OneConnect ISO 30301:2019 Self-Assessment<br>CBQA Global Indonesia</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="printSummary()">&#128424; Print Summary</button>
+      <button class="btn btn-secondary" onclick="backToAssessment()">Edit Assessment</button>
+      <button class="btn btn-primary" onclick="openLeadModal()">Request Full Report</button>
+    </div>
+  </div>
+
+</div>
+</div><!-- /layout -->
+
+<!-- LEAD MODAL -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO 30301 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps for MSR implementation.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Company Size</span>
+          <select name="size" required>
+            <option value="">Select size</option>
+            <option>1 - 50 employees</option>
+            <option>51 - 200 employees</option>
+            <option>201 - 1000 employees</option>
+            <option>1000+ employees</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Industry Sector</span>
+          <select name="industry">
+            <option value="">Select sector</option>
+            <option>Government / Public Sector</option>
+            <option>Banking &amp; Financial Services</option>
+            <option>Healthcare</option>
+            <option>Legal &amp; Compliance</option>
+            <option>Technology / SaaS</option>
+            <option>Education</option>
+            <option>Oil &amp; Gas / Energy</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>ISO 30301 readiness assessment</option>
+            <option>Records management gap analysis</option>
+            <option>MSR certification preparation</option>
+            <option>Regulatory compliance</option>
+            <option>Internal improvement planning</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Your Readiness Score</span>
+          <input name="score" id="lead-score-field" readonly placeholder="Auto-filled from assessment">
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your target timeline, scope, or current records management challenges."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">CBQA Global can provide paid templates, review support, or assisted MSR implementation based on your selected need.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 business hour.
+        <div class="lead-success-actions"><a href="oneconnect.html">Back to OneConnect Platform</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   DATA — ISO 30301:2019 Management Systems for Records (MSR)
+   35 items across 7 domains | maxChecks = 70
+   ================================================================ */
+const DOMAINS = [
+  {
+    id:"D1", label:"Domain 1", title:"Context &amp; Scope",
+    desc:"Understanding the organisation and its context, identification of interested parties, and defining the MSR scope (Clauses 4.1–4.4).",
+    objective:"Ensure the organisation establishes the internal and external context relevant to records management, identifies stakeholders and their requirements, and defines a clear MSR scope.",
+    items:[
+      ["4.1.1","Has the organisation identified and documented external and internal issues relevant to the purpose of the MSR, including legal, regulatory, and operational requirements for records?","Context analysis register, PESTLE or equivalent assessment, regulatory and legal requirements list"],
+      ["4.1.2","Has the organisation determined its records management policy intent and objectives based on the context analysis outcomes?","Records management policy approved by management, documented objectives aligned with context"],
+      ["4.2","Have interested parties relevant to the MSR been identified, and have their records-related requirements and expectations been determined and documented?","Interested parties register, stakeholder requirements matrix, contractual and regulatory obligations list"],
+      ["4.3","Has the scope of the MSR been defined and documented, specifying which records processes, business areas, and systems are covered?","MSR scope statement, boundary documentation, system and business function inventory"],
+      ["4.4","Have the MSR processes — including their interactions and sequence — been established, implemented, and maintained in line with the defined scope?","MSR process map, process ownership assignments, documented management system procedures"]
+    ]
+  },
+  {
+    id:"D2", label:"Domain 2", title:"Leadership &amp; Policy",
+    desc:"Top management commitment, records management policy, and organisational roles and responsibilities (Clause 5).",
+    objective:"Ensure top management actively leads the MSR, establishes and communicates a records management policy, and allocates clear roles and responsibilities across the organisation.",
+    items:[
+      ["5.1","Does top management demonstrate leadership and commitment to the MSR — providing resources, communicating importance, and ensuring the MSR achieves its intended outcomes?","Management commitment evidence (signed statements, meeting minutes), MSR budget allocation, leadership engagement records"],
+      ["5.2","Has a records management policy been established, approved by top management, communicated to all relevant personnel, and made available to interested parties?","Records management policy document, version-controlled approval, distribution evidence, periodic review records"],
+      ["5.3.a","Have MSR roles, responsibilities, and authorities been formally assigned and communicated throughout the organisation?","RACI matrix for records management, records officer appointment documents, job descriptions with records duties"],
+      ["5.3.b","Has a Records Manager or equivalent role been appointed with authority over the MSR and reporting responsibilities to top management?","Records Manager appointment letter or organisational chart position, MSR performance reporting records"],
+      ["5.3.c","Are top management informed of MSR performance and outcomes at planned intervals, with action taken on findings?","Management review meeting minutes, MSR performance reports, management action items and decisions log"]
+    ]
+  },
+  {
+    id:"D3", label:"Domain 3", title:"Planning",
+    desc:"Risk and opportunity assessment for records, records management objectives, and planning for changes to the MSR (Clause 6).",
+    objective:"Ensure the organisation systematically identifies risks and opportunities related to records management and establishes measurable objectives aligned with the records management policy.",
+    items:[
+      ["6.1.1","Has the organisation identified risks and opportunities related to the MSR and its ability to achieve its intended outcomes, and planned actions to address them?","MSR risk and opportunity register, risk assessment methodology, action plans with owners and timelines"],
+      ["6.1.2","Are records-related risks (loss, unauthorised access, destruction, falsification, non-availability) assessed, prioritised, and treated with documented actions?","Records risk assessment, risk treatment plans per risk, residual risk acceptance and approval evidence"],
+      ["6.2.a","Have records management objectives been established at relevant functions and levels, aligned with the records management policy and measurable against defined criteria?","Records management objectives register, KPIs and metrics, monitoring schedules and responsibility assignments"],
+      ["6.2.b","Are the records management objectives communicated, monitored, updated as necessary, and reported on at defined intervals?","Objective tracking records, monitoring reports, update and review evidence with dates"],
+      ["6.3","Are changes to the MSR planned in a structured and controlled manner, considering purpose, potential consequences, resource availability, and responsibility assignments?","Change management procedure for MSR changes, change approval and impact assessment records"]
+    ]
+  },
+  {
+    id:"D4", label:"Domain 4", title:"Support &amp; Resources",
+    desc:"Resources, competence, awareness, communication, and documented information for the MSR (Clause 7).",
+    objective:"Ensure the MSR is adequately resourced, personnel have the required competence, awareness is established, and documented information is properly controlled and maintained.",
+    items:[
+      ["7.1","Have the resources needed to establish, implement, maintain, and continually improve the MSR been determined and provided?","MSR budget allocation, infrastructure and tool inventory, resource provision evidence"],
+      ["7.2","Has the necessary competence been determined for personnel responsible for records management activities, and is evidence of competence maintained?","Competence framework for records roles, training records, professional certifications (e.g., CRM, IGP), competence gap analysis"],
+      ["7.3","Are relevant personnel aware of the records management policy, their contribution to MSR effectiveness, and the consequences of not conforming to MSR requirements?","Awareness training attendance records, policy acknowledgment evidence, onboarding records management training materials"],
+      ["7.4","Have internal and external communications relevant to the MSR been planned and implemented — covering what, when, with whom, and how?","MSR communication plan, communication records and evidence, stakeholder notification procedures"],
+      ["7.5","Is MSR documented information properly created, identified, reviewed, approved, controlled, and protected from unintended alteration or loss?","Document control procedure, MSR master document register, version control records, access and retention controls for documents"]
+    ]
+  },
+  {
+    id:"D5", label:"Domain 5", title:"Operation &amp; Records Processes",
+    desc:"Operational planning, control, records creation and capture, and Annex A.1 records process implementation (Clauses 8 + A.1).",
+    objective:"Ensure the MSR processes are operationally controlled, records are systematically created and captured with required metadata, and Annex A.1 records process requirements are implemented.",
+    items:[
+      ["8.1","Are the MSR processes needed to meet requirements planned, implemented, and controlled, including evidence of conformity with planned arrangements?","Operational records procedures, process control records, process performance evidence and conformity results"],
+      ["8.2","Is records risk assessment performed at planned intervals or when significant changes occur to business activities, systems, or regulatory context?","Periodic records risk assessment reports, triggered assessment records, review schedule and completion evidence"],
+      ["8.3","Has the records risk treatment plan been implemented and documented, with evidence of action taken and residual risk acceptance?","Risk treatment implementation records, control implementation evidence, residual risk sign-off"],
+      ["A.1.1","Has the organisation determined which records must be created and captured as evidence of business activities, decisions, and compliance obligations?","Records requirements analysis, business rules for record creation, regulatory mapping, records inventory"],
+      ["A.1.2","Are records created and captured at the point of transaction or decision, with appropriate metadata (date, author, context, format, version) attached?","Record creation and capture procedures, metadata schema documentation, system configuration evidence, sample records"]
+    ]
+  },
+  {
+    id:"D6", label:"Domain 6", title:"Records Controls",
+    desc:"Classification, retention, disposition, access, and protection controls for records (Annex A.2).",
+    objective:"Ensure records are classified, retained, stored, protected, and disposed of in a controlled and auditable manner aligned with legal, regulatory, and business requirements.",
+    items:[
+      ["A.2.1","Has a records classification scheme (file plan or taxonomy) been established and implemented to organise records logically and enable timely retrieval?","Records classification scheme or file plan document, classification training evidence, system configuration showing applied classification"],
+      ["A.2.2","Has a retention and disposition schedule been established covering all records types, with retention periods aligned to legal, regulatory, and business requirements?","Retention and disposition schedule, documented legal basis for each retention period, schedule approval evidence"],
+      ["A.2.3","Are records stored in a manner that ensures their authenticity, integrity, reliability, and usability throughout the required retention period?","Storage system specifications, integrity controls (checksums, audit trails), migration and conversion records, access controls"],
+      ["A.2.4","Are records protected from unauthorised access, alteration, and destruction, with access controls applied, enforced, and periodically reviewed?","Access control policy for records systems, access provisioning and review logs, audit trail evidence, physical security controls"],
+      ["A.2.5","Are records disposed of in a controlled and documented manner at the end of the retention period, with appropriate authorisation and evidence of destruction?","Disposition authorisation procedure, disposal/destruction records, certificate of destruction or transfer evidence"]
+    ]
+  },
+  {
+    id:"D7", label:"Domain 7", title:"Systems, Performance &amp; Improvement",
+    desc:"Records systems management (Annex A.3), performance evaluation, and continual improvement (Clauses 9–10).",
+    objective:"Ensure records systems meet MSR requirements, MSR performance is systematically monitored, internal audits are conducted, and continual improvement is embedded in the organisation.",
+    items:[
+      ["A.3.1","Do records systems capture, manage, and provide access to records in accordance with MSR requirements, including metadata management, audit trails, and access controls?","Records system (EDRMS/RMS) functional specifications, audit trail logs, access control configuration evidence, user acceptance testing records"],
+      ["A.3.2","Are records systems periodically tested, reviewed, and maintained to ensure their continued reliability and the integrity of records held within them?","System maintenance logs, testing records (including restoration tests), business continuity plans for records systems"],
+      ["9.1","Are MSR performance and the effectiveness of records controls monitored, measured, analysed, and evaluated against defined criteria at planned intervals?","MSR metrics dashboard, performance monitoring reports, KPI tracking and trend analysis evidence"],
+      ["9.2","Has an MSR internal audit programme been planned and executed, with documented audit results, auditor objectivity, and findings communicated to management?","MSR audit programme, internal audit reports, auditor objectivity evidence, audit finding follow-up records"],
+      ["10.1 / 10.2","Are MSR nonconformities identified, corrected, analysed for root cause, and addressed with documented corrective actions? Is the MSR continually improved based on findings and trend analysis?","NC/CAPA records, corrective action effectiveness review evidence, MSR improvement log, trend analysis and improvement decisions"]
+    ]
+  }
+];
+
+/* ================================================================
+   STATE
+   ================================================================ */
+let state = DOMAINS.map(d => d.items.map(() => ({doc:false, impl:false})));
+let currentDomain = 0;
+const totalItems = 35;
+const maxChecks = 70;
+
+const LEVELS = [
+  {min:0,  label:'Initial',     desc:'No evidence or very limited readiness',               color:'#E84040', pill:'rgba(232,64,64,.2)',   pillTxt:'#C82020'},
+  {min:20, label:'Basic',       desc:'Some documents or evidence exist',                    color:'#E07B20', pill:'rgba(224,123,32,.2)',   pillTxt:'#B05010'},
+  {min:40, label:'Developing',  desc:'Core MSR elements are partially established',         color:'#D4A200', pill:'rgba(212,162,0,.2)',    pillTxt:'#806000'},
+  {min:60, label:'Defined',     desc:'Most requirements are documented and implemented',    color:'#0D8C72', pill:'rgba(13,140,114,.2)',   pillTxt:'#0D5C3C'},
+  {min:80, label:'Managed',     desc:'Controls are mature and consistently evidenced',      color:'#0D5C55', pill:'rgba(13,92,85,.2)',     pillTxt:'#083D38'},
+  {min:95, label:'Audit Ready', desc:'Strong evidence base for MSR certification readiness',color:'#083D38', pill:'rgba(8,61,56,.2)',      pillTxt:'#319ea9'}
+];
+
+/* ================================================================
+   UTILITY
+   ================================================================ */
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function totals(){
+  let checked=0, ready=0;
+  state.forEach(rows => rows.forEach(r => {
+    checked += (r.doc?1:0) + (r.impl?1:0);
+    if(r.doc && r.impl) ready++;
+  }));
+  const pct = Math.round(checked / maxChecks * 100);
+  const score = Math.round((pct/100)*5*10)/10;
+  return {checked, ready, pct, score, gaps: totalItems - ready};
+}
+
+function domainTotals(i){
+  const rows = state[i];
+  let checked=0, ready=0;
+  rows.forEach(r => {
+    checked += (r.doc?1:0) + (r.impl?1:0);
+    if(r.doc && r.impl) ready++;
+  });
+  const n = rows.length;
+  return {checked, ready, max:n*2, pct:n?Math.round(checked/(n*2)*100):0, items:n};
+}
+
+function levelFor(pct){return LEVELS.filter(l => pct >= l.min).pop();}
+
+function updateScore(){
+  const t = totals();
+  const lv = levelFor(t.pct);
+  document.getElementById('score-display').textContent = t.score;
+  document.getElementById('score-display').style.color = lv.color;
+  document.getElementById('score-level').textContent = lv.label;
+  document.getElementById('score-level').style.color = lv.color;
+  document.getElementById('score-desc').textContent = lv.desc;
+  document.getElementById('score-bar').style.width = t.pct + '%';
+  document.getElementById('score-bar').style.background = lv.color;
+  document.getElementById('check-display').textContent = t.checked + ' / ' + maxChecks;
+  document.getElementById('ready-display').textContent = t.ready + ' / ' + totalItems;
+  document.getElementById('gap-display').textContent = t.gaps;
+  document.getElementById('progress-bar').style.width = t.pct + '%';
+  document.getElementById('progress-pct').textContent = t.pct + '%';
+}
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+function startAssessment(){
+  document.getElementById('page-start').style.display = 'none';
+  document.getElementById('page-assessment').style.display = 'block';
+  renderWizardSteps();
+  renderTabs();
+  renderDomain();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function goToDomain(i){
+  currentDomain = i;
+  document.getElementById('search-box').value = '';
+  document.getElementById('filter-select').value = 'all';
+  renderWizardSteps();
+  renderTabs();
+  renderDomain();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function prevDomain(){if(currentDomain > 0) goToDomain(currentDomain - 1);}
+function nextDomain(){if(currentDomain < DOMAINS.length - 1) goToDomain(currentDomain + 1);}
+
+function goToSummary(){
+  document.getElementById('page-assessment').style.display = 'none';
+  document.getElementById('page-summary').style.display = 'block';
+  buildSummary();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function backToAssessment(){
+  document.getElementById('page-summary').style.display = 'none';
+  document.getElementById('page-assessment').style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================================================================
+   RENDER
+   ================================================================ */
+function renderWizardSteps(){
+  const c = document.getElementById('wizard-steps');
+  let html = '';
+  DOMAINS.forEach((d, i) => {
+    const dt = domainTotals(i);
+    const done = dt.ready === dt.items && dt.items > 0;
+    const active = i === currentDomain;
+    html += `<div class="wstep${done?' done':active?' active':''}">
+      <div class="wstep-dot">${done?'&#10003;':(i+1)}</div>
+      <span class="wstep-label">${d.label}</span>
+    </div>`;
+    if(i < DOMAINS.length - 1) html += '<div class="wstep-line"></div>';
+  });
+  c.innerHTML = html;
+}
+
+function renderTabs(){
+  const c = document.getElementById('domain-tabs');
+  let html = '';
+  DOMAINS.forEach((d, i) => {
+    const dt = domainTotals(i);
+    const done = dt.ready === dt.items && dt.items > 0;
+    const active = i === currentDomain;
+    let cls = 'domain-tab';
+    if(done) cls += ' done';
+    if(active) cls += ' active';
+    const shortTitle = d.title.replace(/&amp;/g,'&').substring(0, 22) + (d.title.length > 22 ? '…' : '');
+    html += `<button class="${cls}" onclick="goToDomain(${i})">${d.label}: ${shortTitle}</button>`;
+  });
+  c.innerHTML = html;
+}
+
+function renderDomain(){
+  const d = DOMAINS[currentDomain];
+  const rows = state[currentDomain];
+  const dt = domainTotals(currentDomain);
+  const q = (document.getElementById('search-box').value || '').toLowerCase();
+  const filter = document.getElementById('filter-select').value;
+
+  document.getElementById('domain-code').textContent = d.id;
+  document.getElementById('domain-title').innerHTML = d.title;
+  document.getElementById('domain-desc').textContent = d.desc.replace(/&amp;/g,'&');
+  document.getElementById('domain-count').textContent = dt.ready + ' / ' + dt.items;
+  document.getElementById('hero-badge').textContent = d.label;
+
+  const objEl = document.getElementById('domain-objective');
+  if(d.objective){
+    objEl.innerHTML = '<strong>Objective:</strong> ' + esc(d.objective);
+    objEl.style.display = 'block';
+  } else {
+    objEl.style.display = 'none';
+  }
+
+  let html = '';
+  d.items.forEach((item, idx) => {
+    const [ref, text, ev] = item;
+    const r = rows[idx];
+    const isReady = r.doc && r.impl;
+    if(q){
+      const hay = (ref + ' ' + text + ' ' + ev).toLowerCase();
+      if(!hay.includes(q)) return;
+    }
+    if(filter === 'gap' && isReady) return;
+    if(filter === 'ready' && !isReady) return;
+    if(filter === 'docgap' && r.doc) return;
+    if(filter === 'implgap' && r.impl) return;
+
+    const chkSvg = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    html += `<div class="control-row">
+      <span class="control-ref">${esc(ref)}</span>
+      <div>
+        <div class="control-text">${esc(text)}</div>
+        <div class="control-evidence">&#128206; ${esc(ev)}</div>
+      </div>
+      <div class="check-pill${r.doc?' checked':''}" onclick="toggle(${currentDomain},${idx},'doc')">
+        <span class="box">${r.doc?chkSvg:''}</span>
+        <span>Documented</span>
+      </div>
+      <div class="check-pill${r.impl?' checked':''}" onclick="toggle(${currentDomain},${idx},'impl')">
+        <span class="box">${r.impl?chkSvg:''}</span>
+        <span>Implemented</span>
+      </div>
+    </div>`;
+  });
+  document.getElementById('control-list').innerHTML = html || '<div class="empty">No items match the current filter.</div>';
+  updateScore();
+}
+
+function toggle(di, ii, field){
+  state[di][ii][field] = !state[di][ii][field];
+  renderWizardSteps();
+  renderTabs();
+  renderDomain();
+}
+
+function selectAllDomain(doc, impl){
+  state[currentDomain].forEach(r => {r.doc = doc; r.impl = impl;});
+  renderWizardSteps();
+  renderTabs();
+  renderDomain();
+}
+
+function saveProgress(){
+  try{
+    sessionStorage.setItem('msr30301_state', JSON.stringify(state));
+    alert('Progress saved!');
+  }catch(e){alert('Unable to save: ' + e.message);}
+}
+function loadProgress(){
+  try{
+    const s = sessionStorage.getItem('msr30301_state');
+    if(!s){alert('No saved progress found.'); return;}
+    state = JSON.parse(s);
+    renderWizardSteps(); renderTabs(); renderDomain();
+    alert('Progress loaded!');
+  }catch(e){alert('Unable to load: ' + e.message);}
+}
+
+/* ================================================================
+   SUMMARY BUILD
+   ================================================================ */
+function buildSummary(){
+  const t = totals();
+  const lv = levelFor(t.pct);
+
+  document.getElementById('sum-score-big').textContent = t.score;
+  const pill = document.getElementById('sum-level-pill');
+  pill.textContent = lv.label;
+  pill.style.background = lv.pill;
+  pill.style.color = lv.pillTxt;
+  document.getElementById('sum-meta').textContent = 'Generated: ' + new Date().toLocaleString('en-GB',{dateStyle:'long',timeStyle:'short'});
+
+  document.getElementById('sm-score').textContent = t.score + '/5';
+  document.getElementById('sm-pct').textContent = t.pct + '%';
+  document.getElementById('sm-ready').textContent = t.ready + '/' + totalItems;
+  document.getElementById('sm-gaps').textContent = t.gaps;
+
+  // Domain gauge breakdown
+  const gaugeColors = ['#319ea9','#48b795','#278a94','#1a6b74','#0d8c72','#0d5c55','#083D38'];
+  let bd = '';
+  DOMAINS.forEach((d, i) => {
+    const dt = domainTotals(i);
+    const color = dt.pct >= 80 ? '#0d8c72' : dt.pct >= 50 ? '#e07b20' : '#e84040';
+    const rawTitle = d.title.replace(/&amp;/g,'&');
+    bd += `<div class="gauge-wrap">
+      <div class="gauge-lbl">${d.label}: ${rawTitle}</div>
+      <div class="gauge-track"><div class="gauge-bar" style="width:${dt.pct}%;background:${gaugeColors[i]}"></div></div>
+      <div class="gauge-pct" style="color:${color}">${dt.pct}%</div>
+    </div>`;
+  });
+  document.getElementById('domain-breakdown').innerHTML = bd;
+
+  // Missing docs
+  let md = '';
+  let hasMissing = false;
+  DOMAINS.forEach((d, i) => {
+    const missing = d.items.filter((_, j) => !state[i][j].doc);
+    if(missing.length){
+      hasMissing = true;
+      const rawTitle = d.title.replace(/&amp;/g,'&');
+      md += `<div style="margin-bottom:10px"><strong style="font-size:12px;color:var(--navy)">${d.label}: ${rawTitle}</strong>`;
+      missing.forEach(it => {
+        const short = it[1].length > 75 ? it[1].substring(0,75) + '...' : it[1];
+        md += `<div class="status-row">
+          <span class="status-name" style="font-size:12px">${esc(it[0])} &mdash; ${esc(short)}</span>
+          <span class="status-tag tag-ng">Missing</span>
+        </div>`;
+      });
+      md += '</div>';
+    }
+  });
+  document.getElementById('missing-doc-summary').innerHTML = hasMissing ? md :
+    '<div class="empty" style="color:var(--success)">&#10003; All documents are marked as present.</div>';
+
+  // Recommendations
+  let recs = '';
+  let recCount = 0;
+  DOMAINS.forEach((d, i) => {
+    const dt = domainTotals(i);
+    if(dt.pct < 60 && recCount < 8){
+      const gaps = d.items.filter((_, j) => !state[i][j].doc || !state[i][j].impl);
+      if(gaps.length){
+        const priority = dt.pct < 30 ? 'HIGH' : 'MEDIUM';
+        const rawTitle = d.title.replace(/&amp;/g,'&');
+        const gapRefs = gaps.slice(0, 2).map(g => g[0]).join(', ');
+        recs += `<div class="rec-item">
+          <span class="rec-priority ${priority==='HIGH'?'pri-high':'pri-med'}">${priority}</span>
+          <div class="rec-text">${d.label} (${rawTitle}): ${gaps.length} item(s) not fully evidenced. Focus on establishing documented procedures and operational evidence for: ${gapRefs}${gaps.length>2?' and more':''}.</div>
+          <div class="rec-ref">Ref: ISO 30301:2019 &mdash; ${rawTitle}</div>
+        </div>`;
+        recCount++;
+      }
+    }
+  });
+  if(!recs) recs = '<div class="empty" style="color:var(--success)">&#10003; No critical gaps identified. Consider scheduling a formal MSR internal audit.</div>';
+  document.getElementById('sum-recs').innerHTML = recs;
+
+  // Lead score auto-fill
+  const sf = document.getElementById('lead-score-field');
+  if(sf) sf.value = t.score + '/5 (' + lv.label + ', ' + t.pct + '%)';
+}
+
+function printSummary(){window.print();}
+
+/* ================================================================
+   LEAD MODAL
+   ================================================================ */
+function openLeadModal(){
+  const m = document.getElementById('leadModal');
+  m.classList.add('active');
+  m.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeLeadModal(){
+  const m = document.getElementById('leadModal');
+  m.classList.remove('active');
+  m.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.getElementById('leadModal').addEventListener('click', function(e){
+  if(e.target === this) closeLeadModal();
+});
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('leadSuccess').classList.add('active');
+  this.querySelector('.lead-submit').style.display = 'none';
+});
+</script>
+</body>
+</html>

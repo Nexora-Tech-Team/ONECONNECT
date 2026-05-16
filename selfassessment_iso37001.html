@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO 37001:2025 Self-Assessment | CBQA Global</title>
+<style>
+:root{--black:#1A1A1A;--navy:#529ca5;--teal:#529ca5;--teal-light:#E4F6F4;--teal-mid:#A0DDD8;--green-lime:#5DBF8A;--green-mid:#529ca5;--white:#FFFFFF;--off-white:#F4FAF9;--border:#D6EDEA;--text-primary:#1A1A1A;--text-secondary:#4A6360;--text-tertiary:#8AADA9;--danger:#E84040;--danger-bg:#FEF1F1;--warning:#E07B20;--warning-bg:#FEF3E8;--success:#0D8C72;--success-bg:#E4F6F1;--info:#0D5C55;--info-bg:#E4F6F4;--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px;--shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow-md:0 4px 16px rgba(0,0,0,.10)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:Helvetica,Arial,sans-serif;background:var(--off-white);color:var(--text-primary);min-height:100vh}.topnav{background:var(--navy);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}.nav-logo{display:flex;align-items:center;gap:12px}.nav-logo-img{height:42px;display:flex;align-items:center}.nav-logo-img img{height:42px;width:auto;object-fit:contain}.nav-brand{display:flex;flex-direction:column}.nav-brand-main{font-size:14px;font-weight:600;color:#fff;letter-spacing:.2px}.nav-brand-sub{font-size:11px;color:rgba(255,255,255,.6)}.nav-right{display:flex;align-items:center;gap:10px}.nav-badge{background:rgba(255,255,255,.14);color:#fff;font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.24)}.layout{max-width:1120px;margin:0 auto;padding:2rem 1.5rem}.wizard-steps{display:flex;align-items:center;gap:0;margin-bottom:1.5rem;background:#fff;border-radius:var(--radius-lg);border:1px solid var(--border);padding:1rem 1.5rem;overflow-x:auto}.wstep{display:flex;align-items:center;gap:8px;flex-shrink:0}.wstep-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-tertiary);transition:all .3s}.wstep.active .wstep-dot{background:var(--teal);border-color:var(--teal);color:#fff}.wstep.done .wstep-dot{background:var(--success);border-color:var(--success);color:#fff}.wstep-label{font-size:12px;font-weight:500;color:var(--text-tertiary);white-space:nowrap}.wstep.active .wstep-label{color:var(--text-primary)}.wstep.done .wstep-label{color:var(--success)}.wstep-line{flex:1;height:1px;background:var(--border);margin:0 8px;min-width:24px}.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--green-lime));border-radius:20px;transition:width .5s ease}.hero{background:var(--navy);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden}.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.10)}.hero h1{font-size:22px;font-weight:600;color:#fff;margin-bottom:5px}.hero p{font-size:13px;color:rgba(255,255,255,.64);line-height:1.6;max-width:760px}.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1}.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}.score-card,.metric-card,.assessment-card,.section-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}.score-card{padding:1.25rem 1.5rem}.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}.score-main{display:flex;align-items:baseline;gap:6px}.score-num{font-size:52px;font-weight:300;line-height:1;color:var(--danger);transition:all .3s}.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}.score-level{font-size:18px;font-weight:600;margin-top:6px}.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}.metric-card{padding:1rem}.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}.metric-value{font-size:24px;font-weight:600;color:var(--navy)}.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}.domain-tabs{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:var(--radius-sm);padding:9px 8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Helvetica,Arial,sans-serif}.domain-tab:hover{border-color:var(--teal);color:var(--navy)}.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}.domain-tab.done.active{background:var(--teal);color:#fff}.note{background:#EAF7F8;border:1px solid #B7DDE2;padding:14px 16px;border-radius:10px;margin-bottom:1.5rem}.note-title{font-size:13px;font-weight:600;color:#1A1A1A;margin-bottom:6px}.note ul{margin-left:18px;font-size:12.5px;color:#4A6360;line-height:1.7}.assessment-card{overflow:hidden;margin-bottom:1.5rem}.ac-header{background:#F4F8FB;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}.ac-meta{text-align:right;min-width:120px}.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}.ac-meta .small{font-size:11px;color:var(--text-tertiary)}.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-md);padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}.control-list{padding:.55rem 1.25rem}.control-row{display:grid;grid-template-columns:92px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #F3F5F8;border-radius:var(--radius-sm)}.control-row:last-child{border-bottom:none}.control-row:hover{background:var(--off-white)}.control-ref{font-size:12px;font-weight:700;color:var(--navy)}.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-sm);padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary)}.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:var(--radius-md);cursor:pointer;border:none;transition:all .2s}.btn-primary{background:var(--navy);color:#fff}.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}.btn-teal{background:var(--teal);color:#fff}.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}.btn-secondary:hover{background:var(--off-white)}#page-summary{display:none}.summary-banner{background:var(--navy);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden}.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.10)}.summary-banner-content{position:relative;z-index:1}.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}.sb-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:4px}.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}.sb-score-row{display:flex;align-items:center;gap:16px}.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}.sum-metric{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;text-align:center}.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}.sm-lbl{font-size:11px;color:var(--text-tertiary)}.section-card{overflow:hidden;margin-bottom:1rem}.sc-head{background:#F4F8FB;border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center}.sc-icon-teal{background:var(--teal-light);color:var(--teal)}.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}.sc-body{padding:.75rem 1.25rem}.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:250px;flex-shrink:0}.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F5F8;font-size:13px}.status-row:last-child{border-bottom:none}.status-name{flex:1}.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}.tag-ok{background:var(--success-bg);color:var(--success)}.tag-ng{background:var(--danger-bg);color:var(--danger)}.tag-mid{background:var(--warning-bg);color:var(--warning)}.rec-item{padding:12px 0;border-bottom:1px solid #F3F5F8}.rec-item:last-child{border-bottom:none}.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}.pri-high{background:var(--danger-bg);color:var(--danger)}.pri-med{background:var(--warning-bg);color:var(--warning)}.pri-low{background:var(--success-bg);color:var(--success)}.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid var(--border);margin-top:1rem}.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}.page-enter{animation:fadeUp .35s ease}@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@media(max-width:920px){.dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}.domain-tabs{grid-template-columns:repeat(4,1fr)}.control-row{grid-template-columns:76px 1fr 130px 130px}.control-evidence{grid-column:2 / -1}.toolbar{grid-template-columns:1fr}.hero{grid-template-columns:1fr}}@media(max-width:640px){.topnav{padding:0 1rem}.layout{padding:1.25rem .9rem}.nav-brand-sub{display:none}.dashboard-grid,.sum-grid{grid-template-columns:1fr}.domain-tabs{grid-template-columns:repeat(2,1fr)}.control-row{grid-template-columns:68px 1fr}.check-pill,.control-evidence{grid-column:1 / -1}.action-bar,.footer-bar{flex-direction:column;align-items:stretch}.gauge-wrap{align-items:flex-start;flex-direction:column;gap:6px}.gauge-lbl{width:auto}.gauge-track{width:100%}}@media print{.topnav,.wizard-steps,.domain-tabs,.toolbar,.action-bar,.btn{display:none!important}body{background:#fff}.layout{padding:1rem}.summary-banner,.hero{break-inside:avoid}}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{--black:#10252b;--navy:#174e59;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;--green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;--text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;--success:#0d8c72;--success-bg:#e6f8f3;--info:#174e59;--info-bg:#e7f8f9;--shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14)}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary)}
+.topnav{height:68px;background:linear-gradient(135deg,#143f49,#319ea9);box-shadow:0 14px 36px rgba(16,37,43,.18)}
+.nav-badge{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.34)}
+.layout{max-width:1200px}
+.wizard-steps,.score-card,.metric-card,.assessment-card,.section-card,.sum-metric{border-color:rgba(49,158,169,.18);box-shadow:var(--shadow-sm)}
+.hero,.summary-banner{border:1px solid rgba(255,255,255,.28);background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.hero h1,.sb-title{font-weight:700;letter-spacing:0}
+.hero p,.sb-sub{color:rgba(255,255,255,.76)}
+.hero-badge,.nav-badge{backdrop-filter:blur(10px)}
+.domain-tab,.btn,.search-box,.filter-select,.check-pill{border-radius:12px}
+.domain-tab:hover{background:#ecfbfc}
+.domain-tab.active,.btn-primary,.btn-teal,.ac-code,.wstep.active .wstep-dot,.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+.btn-primary:hover,.btn-teal:hover{background:#278a94;box-shadow:0 16px 34px rgba(49,158,169,.26)}
+.progress-fill{background:linear-gradient(90deg,#319ea9,#48b795)}
+.ac-header,.sc-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa)}
+.note{background:#e9f8fa;border-color:#b7e0e5}
+.control-row{border-radius:12px;transition:background-color .18s ease,box-shadow .18s ease}
+.control-row:hover{background:#f2fbfc;box-shadow:inset 3px 0 0 var(--teal)}
+.control-ref,.metric-value,.ac-meta .big,.sm-val{color:#174e59}
+.score-card{background:linear-gradient(180deg,#fff,#f8fcfd)}
+.score-num{font-weight:500}
+.footer-bar{border-color:rgba(49,158,169,.22)}
+.nav-back-link{display:inline-flex;align-items:center;gap:9px;min-height:40px;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.5);background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(255,255,255,.1));color:#fff;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 12px 28px rgba(16,37,43,.18);transition:transform .18s ease,background .18s ease,border-color .18s ease}
+.nav-back-link:hover,.nav-back-link:focus-visible{transform:translateY(-1px);border-color:rgba(255,255,255,.78);background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.16));outline:none}
+.nav-back-link svg{width:17px;height:17px;fill:currentColor}
+.nav-logo-img{height:50px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.lead-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(9,30,36,.58);backdrop-filter:blur(10px)}
+.lead-modal.active{display:flex}
+.lead-dialog{width:min(100%,720px);max-height:92vh;overflow:auto;border:1px solid rgba(255,255,255,.32);border-radius:24px;background:linear-gradient(180deg,#ffffff,#f4fbfc);box-shadow:0 32px 90px rgba(16,37,43,.28)}
+.lead-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:26px 28px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,#143f49,#319ea9);color:#fff}
+.lead-eyebrow{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:8px}
+.lead-head h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.lead-head p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.76);max-width:560px;margin:0}
+.lead-close{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:1;cursor:pointer}
+.lead-form{padding:24px 28px 28px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-field{display:grid;gap:7px}
+.lead-field.lead-full{grid-column:1 / -1}
+.lead-field span{font-size:12px;font-weight:700;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{width:100%;min-height:42px;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text-primary);font:13px Helvetica,Arial,sans-serif;padding:10px 12px;outline:none}
+.lead-field textarea{min-height:88px;resize:vertical}
+.lead-field input:focus,.lead-field select:focus,.lead-field textarea:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(49,158,169,.14)}
+.lead-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}
+.lead-note{font-size:12px;line-height:1.55;color:var(--text-tertiary);max-width:360px}
+.lead-submit{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 20px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 14px Helvetica,Arial,sans-serif;cursor:pointer;box-shadow:0 14px 30px rgba(49,158,169,.22)}
+.lead-submit:hover,.lead-submit:focus-visible{background:#278a94}
+.lead-success{display:none;margin-top:16px;padding:14px 16px;border:1px solid rgba(13,140,114,.28);border-radius:14px;background:var(--success-bg);color:var(--success);font-size:13px;line-height:1.55}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:10px;background:var(--success);color:#fff;font-size:12px;font-weight:700;text-decoration:none}
+@media(max-width:640px){.lead-grid{grid-template-columns:1fr}.lead-actions{align-items:stretch;flex-direction:column}.lead-submit{width:100%}.lead-head,.lead-form{padding:22px}}
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO 37001:2025 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="nav-back-link" href="module-detail.html?module=iso-37001" aria-label="Back to ISO 37001 Module">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10.8 5.2 4 12l6.8 6.8 1.4-1.4L7.8 13H20v-2H7.8l4.4-4.4-1.4-1.4Z"/></svg>
+      <span>Back to Module</span>
+    </a>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="wizard-steps">
+    <div class="wstep active" id="ws-1"><div class="wstep-dot">1</div><span class="wstep-label">Context &amp; Leadership</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep active" id="ws-2"><div class="wstep-dot">2</div><span class="wstep-label">Planning &amp; Support</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep active" id="ws-3"><div class="wstep-dot">3</div><span class="wstep-label">Operation</span></div>
+    <div class="wstep-line"></div>
+    <div class="wstep" id="ws-4"><div class="wstep-dot">4</div><span class="wstep-label">Summary</span></div>
+  </div>
+
+  <div id="page-assessment" class="page-enter">
+    <div class="progress-header">
+      <span id="progress-label">ISO 37001:2025 Readiness — 43 assessment items</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-bar"></div></div>
+
+    <div class="hero">
+      <div>
+        <h1>ISO 37001:2025 Self-Assessment</h1>
+        <p>Assess your Anti-Bribery Management System (ABMS) readiness against ISO 37001:2025 requirements. Complete both Documented and Implemented checks for each item based on available evidence.</p>
+      </div>
+      <div class="hero-badge" id="hero-badge">Clause 4</div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="score-card">
+        <div class="eyebrow">Overall Readiness Score</div>
+        <div class="score-main"><span class="score-num" id="score-display">0</span><span class="score-denom">/ 5</span></div>
+        <div class="score-level" id="score-level">Initial</div>
+        <div class="score-desc" id="score-desc">No evidence or very limited readiness</div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+      </div>
+      <div class="metric-card"><div class="metric-label">Evidence Checked</div><div class="metric-value" id="check-display">0 / 86</div><div class="metric-sub">Documented + implemented</div></div>
+      <div class="metric-card"><div class="metric-label">Items Ready</div><div class="metric-value" id="ready-display">0 / 43</div><div class="metric-sub">Both evidence boxes checked</div></div>
+      <div class="metric-card"><div class="metric-label">Open Gaps</div><div class="metric-value" id="gap-display">43</div><div class="metric-sub">Need action or evidence</div></div>
+    </div>
+
+    <div class="domain-tabs" id="domain-tabs"></div>
+
+    <div class="note">
+      <div class="note-title">How to Complete This Assessment</div>
+      <ul>
+        <li>Tick <b>Documented</b> only when a policy, procedure, register, report, or approved record exists for the item.</li>
+        <li>Tick <b>Implemented</b> only when there is operating evidence — audit trails, logs, meeting minutes, training records, or investigation files.</li>
+        <li>For bribery risk items, evidence must show the assessment was conducted, reviewed, and retained — not just planned.</li>
+      </ul>
+    </div>
+
+    <div class="assessment-card">
+      <div class="ac-header">
+        <div class="ac-title-wrap">
+          <span class="ac-code" id="domain-code">4</span>
+          <div>
+            <h2 id="domain-title">Context of the Organization</h2>
+            <p id="domain-desc"></p>
+          </div>
+        </div>
+        <div class="ac-meta"><div class="big" id="domain-count">0 / 0</div><div class="small">ready items</div></div>
+      </div>
+      <div class="toolbar">
+        <input class="search-box" id="search-box" type="search" placeholder="Search clause, requirement, or evidence type..." oninput="renderDomain()">
+        <select class="filter-select" id="filter-select" onchange="renderDomain()">
+          <option value="all">Show all items</option>
+          <option value="gap">Only open gaps</option>
+          <option value="ready">Only ready items</option>
+          <option value="docgap">Missing documents</option>
+          <option value="implgap">Missing implementation</option>
+        </select>
+      </div>
+      <div class="control-list" id="control-list"></div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-secondary" onclick="prevDomain()">Previous</button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+        <button class="btn btn-secondary" id="next-section-btn" onclick="nextDomain()">Next Section</button>
+        <button class="btn btn-teal" onclick="goToSummary()">View Summary</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="page-summary" class="page-enter">
+    <div class="summary-banner">
+      <div class="summary-banner-content">
+        <div class="sb-eyebrow">Assessment Report</div>
+        <div class="sb-title">ISO 37001:2025 Readiness Summary</div>
+        <div class="sb-sub">Anti-Bribery Management System readiness based on documented and implemented evidence.</div>
+        <div class="sb-score-row">
+          <div>
+            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:4px">Overall Score</div>
+            <div style="display:flex;align-items:baseline;gap:6px"><span class="sb-score-big" id="sum-score-big">0</span><span class="sb-score-denom">/ 5</span></div>
+          </div>
+          <span class="sb-level-pill" id="sum-level-pill">Initial</span>
+        </div>
+        <div class="sb-meta" id="sum-meta">Generated: -</div>
+      </div>
+    </div>
+
+    <div class="sum-grid">
+      <div class="sum-metric"><div class="sm-val" id="sm-score">0/5</div><div class="sm-lbl">Readiness Score</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-pct">0%</div><div class="sm-lbl">Evidence Completion</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-ready">0/43</div><div class="sm-lbl">Items Ready</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-gaps">43</div><div class="sm-lbl">Open Gaps</div></div>
+    </div>
+
+    <div class="section-card"><div class="sc-head"><div class="sc-icon sc-icon-teal">%</div>Section Breakdown</div><div class="sc-body" id="domain-breakdown"></div></div>
+    <div class="section-card"><div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Missing Documents Summary</div><div class="sc-body" id="missing-doc-summary"></div></div>
+    <div class="section-card">
+      <div class="sc-head"><div class="sc-icon sc-icon-teal">DOC</div>Need document templates?</div>
+      <div class="sc-body">
+        <p class="rec-text">If your organization does not have the required ISO 37001 anti-bribery policies, risk assessment procedures, due diligence processes, gifts registers, or whistleblowing mechanisms, CBQA Global can provide document templates and implementation assistance.</p>
+        <div style="margin-top:12px"><button class="btn btn-teal" onclick="openLeadModal()">Request Template Package</button></div>
+      </div>
+    </div>
+    <div class="section-card"><div class="sc-head"><div class="sc-icon sc-icon-warn">!</div>Recommendations &amp; Action Items</div><div class="sc-body" id="sum-recs"></div></div>
+
+    <div class="footer-bar">
+      <div class="footer-meta" id="sum-footer-date">OneConnect ISO 37001 Self-Assessment<br>CBQA Global Indonesia</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="backToAssessment()">Edit Assessment</button>
+        <button class="btn btn-primary" onclick="openLeadModal()">Request Full Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lead Modal -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO 37001 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Company Size</span>
+          <select name="size" required>
+            <option value="">Select size</option>
+            <option>1 - 50 employees</option>
+            <option>51 - 200 employees</option>
+            <option>201 - 1000 employees</option>
+            <option>1000+ employees</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>ISO 37001 certification readiness</option>
+            <option>Gap assessment</option>
+            <option>Anti-bribery policy development</option>
+            <option>Internal improvement planning</option>
+          </select>
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your industry, target timeline, scope, or current compliance challenges."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">This assessment is for initial readiness insight. The full report and advisory follow-up will be coordinated by CBQA Global.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 business hour.
+        <div class="lead-success-actions"><a href="oneconnect.html">Back to OneConnect Platform</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const DOMAINS = [
+  {
+    id:"C4", label:"Clause 4", group:"ABMS Clauses", title:"Context of the Organization",
+    desc:"Organizational context, interested parties, ABMS scope, and bribery risk assessment.",
+    accent:"teal",
+    items:[
+      ["4.1","Has the organization identified internal and external issues that can affect the ABMS — including size, structure, sectors, jurisdictions, and nature of business?","Context register, PESTLE/SWOT analysis, bribery risk factors documentation"],
+      ["4.2","Are interested parties relevant to the ABMS identified, along with their requirements and which requirements will be addressed?","Interested party register, legal/regulatory compliance matrix"],
+      ["4.3","Is the ABMS scope documented with boundaries, applicability, and exclusions justified?","ABMS scope statement, organizational chart, scope justification"],
+      ["4.4","Is the ABMS established, implemented, maintained, and continually improved — including documented measures to identify, evaluate, prevent, detect, and respond to bribery risk?","ABMS framework document, process map, management system manual"],
+      ["4.5.1","Is a bribery risk assessment conducted at planned intervals, identifying reasonably anticipated bribery risks from internal and external factors?","Bribery risk assessment report, risk register"],
+      ["4.5.2","Are criteria established for evaluating the level of bribery risk, taking into account the organization's policies and objectives?","Risk evaluation criteria, risk appetite/tolerance statement"],
+      ["4.5.3","Is the bribery risk assessment reviewed at planned intervals and when significant organizational changes occur?","Risk assessment review records, update log"],
+      ["4.5.4","Is documented information retained demonstrating the bribery risk assessment has been conducted and used to design or improve the ABMS?","Signed-off risk assessment records, version history"]
+    ]
+  },
+  {
+    id:"C5", label:"Clause 5", group:"ABMS Clauses", title:"Leadership",
+    desc:"Governing body commitment, top management leadership, anti-bribery culture, policy, and roles.",
+    accent:"teal",
+    items:[
+      ["5.1.1","Does the governing body approve the anti-bribery policy, ensure strategic alignment, review ABMS information, and exercise oversight over top management implementation?","Board/governing body meeting minutes, policy approval records, oversight review evidence"],
+      ["5.1.2","Does top management demonstrate leadership by establishing objectives, integrating ABMS into business processes, allocating resources, communicating importance, and promoting continual improvement?","Management commitment statement, integration evidence, resource allocation records"],
+      ["5.1.3","Does the organization develop, maintain, and promote an anti-bribery culture — with visible, consistent, and sustained commitment from governance, top management, and all levels?","Culture programme records, tone-at-the-top communications, code of conduct evidence"],
+      ["5.2","Is the anti-bribery policy approved by top management, prohibiting bribery, requiring legal compliance, providing a framework for objectives, encouraging raising concerns, and communicated to all personnel and relevant business associates?","Anti-bribery policy document, distribution records, acknowledgement evidence"],
+      ["5.3.1","Are ABMS roles, responsibilities, and authorities assigned, communicated, and understood at all levels including managers and governing body?","RACI matrix, role descriptions, appointment records"],
+      ["5.3.2","Is an anti-bribery function established with responsibility and authority to ensure ABMS conformance, report to governing body, oversee design and implementation, and provide advice — with adequate resources and appropriate independence?","Anti-bribery function charter, appointment evidence, independence documentation"],
+      ["5.3.3","Where decision-making authority is delegated, are processes in place to ensure decisions are appropriate, at the right level of authority, and free from actual or potential conflicts of interest?","Delegation of authority framework, conflicts of interest register, review evidence"]
+    ]
+  },
+  {
+    id:"C6", label:"Clause 6", group:"ABMS Clauses", title:"Planning",
+    desc:"Actions to address risks and opportunities, anti-bribery objectives, and change planning.",
+    accent:"teal",
+    items:[
+      ["6.1","Are risks and opportunities for the ABMS identified, with planned actions integrated into ABMS processes and effectiveness evaluated?","Risks and opportunities register, action plans, effectiveness review records"],
+      ["6.2","Are measurable anti-bribery objectives established at relevant functions/levels — consistent with policy, monitored, communicated, updated, and documented with who, what, when, and how?","Anti-bribery objectives register, KPI tracker, objective review records"],
+      ["6.3","Are planned changes to the ABMS managed in a controlled manner, with consequences of unintended changes reviewed?","Change management procedure, change log, impact assessment records"]
+    ]
+  },
+  {
+    id:"C7", label:"Clause 7", group:"ABMS Clauses", title:"Support",
+    desc:"Resources, competence, employment process, awareness, training, communication, and documented information.",
+    accent:"teal",
+    items:[
+      ["7.1","Are adequate resources determined and provided for establishing, implementing, maintaining, and improving the ABMS?","Budget allocation records, resource plan, ABMS staffing evidence"],
+      ["7.2.1","Are competence requirements for personnel affecting anti-bribery performance defined, and evidence of competence retained?","Competence framework, training records, qualifications evidence"],
+      ["7.2.2","Does the employment process require compliance with anti-bribery policy, provide for disciplinary action on violations, protect personnel from retaliation for good-faith reports, and include due diligence for high-risk positions?","Employment contracts, screening records, non-retaliation policy, disciplinary procedure"],
+      ["7.3.1","Are personnel aware of the anti-bribery policy, their responsibilities, implications of non-compliance, and how to report concerns?","Awareness programme records, attendance logs, acknowledgement sign-offs"],
+      ["7.3.2","Is adequate and appropriate anti-bribery training provided to personnel, covering bribery risks, recognition, response, and prevention — with training records retained?","Training programme content, completion records, training schedule"],
+      ["7.3.3","Are procedures in place to provide anti-bribery training for business associates posing more than low bribery risk, with training records retained?","Third-party training procedures, business associate training records"],
+      ["7.4","Is a communication plan established for internal and external ABMS communications — including what, when, with whom, how, who, and in which languages? Is the policy distributed to all personnel and relevant business associates?","Communication plan, policy distribution evidence, multi-language policy versions"],
+      ["7.5","Is documented information created, updated, and controlled to ensure availability, suitability for use, and adequate protection?","Document control procedure, master document list, access controls evidence"]
+    ]
+  },
+  {
+    id:"C8", label:"Clause 8", group:"ABMS Clauses", title:"Operation",
+    desc:"Due diligence, financial and non-financial controls, commitments, gifts, raising concerns, and investigations.",
+    accent:"teal",
+    items:[
+      ["8.1","Are operational processes planned, implemented, and controlled — with documented information available to confirm processes run as planned?","Operational control procedures, process records, control evidence"],
+      ["8.2","Are due diligence procedures implemented for transactions, business associates, and personnel in categories with more than low bribery risk — updated at defined frequency?","Due diligence procedure, due diligence reports, third-party assessment records"],
+      ["8.3","Are financial controls implemented to manage bribery risk — including approval authorities, segregation of duties, payment controls, and financial audit?","Financial control policy, approval authority matrix, financial audit records"],
+      ["8.4","Are non-financial controls implemented for procurement, sales, HR, legal, M&A, and regulatory activities to manage bribery risk?","Non-financial control procedures, operational review records, control logs"],
+      ["8.5","Do procedures require controlled organizations to implement the organization's ABMS or their own equivalent controls, and do procedures address business associates posing more than low bribery risk?","Third-party AB requirements, controlled organization monitoring records, business associate assessment"],
+      ["8.6","Are procedures in place requiring business associates posing more than low bribery risk to commit to preventing bribery, and enabling contract termination in the event of bribery?","Contract anti-bribery clauses, business associate commitment letters, termination rights evidence"],
+      ["8.7","Are procedures implemented to prevent offering, provision, or acceptance of gifts, hospitality, donations, and similar benefits that could be perceived as bribery?","Gifts and hospitality policy, gifts register, approval/pre-approval records"],
+      ["8.8","Where due diligence reveals bribery risks that cannot be managed by existing controls, are procedures in place to escalate, terminate, discontinue, or decline transactions or relationships?","Escalation procedure, decision records, risk exception approvals, exit/declination evidence"],
+      ["8.9","Is a raising concerns/whistleblowing procedure implemented that encourages reporting, maintains confidentiality, allows anonymous reporting, prohibits retaliation, and enables staff to seek advice?","Whistleblowing policy, reporting channel evidence, anonymous reporting system, non-retaliation protection records"],
+      ["8.10","Are investigation procedures in place requiring assessment and investigation of bribery or ABMS violations, with appropriate action, empowered investigators, and confidential reporting?","Investigation procedure, investigation case records, investigator independence evidence"]
+    ]
+  },
+  {
+    id:"C9", label:"Clause 9", group:"ABMS Clauses", title:"Performance Evaluation",
+    desc:"Monitoring, internal audit, management review, and anti-bribery function review.",
+    accent:"teal",
+    items:[
+      ["9.1","Are ABMS performance and effectiveness monitored, measured, analysed, and evaluated — with documented information as evidence?","KPIs and metrics dashboard, monitoring reports, evaluation records"],
+      ["9.2","Is an internal audit programme planned and implemented at defined intervals, covering ABMS conformance, bribery risks, and weaknesses — with results reported to relevant managers, anti-bribery function, and governing body?","Audit programme, audit reports, auditor independence evidence, findings and actions log"],
+      ["9.3","Does management review the ABMS at planned intervals, covering context changes, interested party changes, performance trends, audit results, bribery reports, investigations, and risk exposure? Are results documented and reported to governing body?","Management review agenda and minutes, action log, governing body reporting evidence"],
+      ["9.4","Does the anti-bribery function continually assess ABMS adequacy and effectiveness — reporting regularly to governing body and top management on adequacy, investigation results, and audit findings?","Anti-bribery function review reports, governing body submission records, ad-hoc reporting evidence"]
+    ]
+  },
+  {
+    id:"C10", label:"Clause 10", group:"ABMS Clauses", title:"Improvement",
+    desc:"Continual improvement and nonconformity and corrective action.",
+    accent:"teal",
+    items:[
+      ["10.1","Is the suitability, adequacy, and effectiveness of the ABMS continually improved based on monitoring results, audit findings, management review outputs, and changing risk landscape?","Improvement log, trend analysis, continual improvement records"],
+      ["10.2","When a nonconformity occurs, is it corrected, its causes eliminated, effectiveness of corrective action reviewed, and documented information retained on the nature of nonconformity and actions taken?","NC/CAPA register, root cause analysis records, corrective action effectiveness review"]
+    ]
+  }
+];
+
+let currentDomain = 0;
+const state = DOMAINS.map(d => d.items.map(() => ({doc:false, impl:false})));
+const LEVELS = [
+  {min:0,  label:'Initial',     desc:'No evidence or very limited readiness',                    color:'#E84040', pill:'rgba(232,64,64,.2)',    pillTxt:'#F4A0A0'},
+  {min:20, label:'Basic',       desc:'Some documents or initial evidence exist',                  color:'#E07B20', pill:'rgba(224,123,32,.2)',   pillTxt:'#F0B070'},
+  {min:40, label:'Developing',  desc:'Core ABMS elements are partially established',             color:'#D4A200', pill:'rgba(212,162,0,.2)',    pillTxt:'#E8C84A'},
+  {min:60, label:'Defined',     desc:'Most requirements are documented and implemented',          color:'#0D8C72', pill:'rgba(13,140,114,.2)',   pillTxt:'#5DCAB0'},
+  {min:80, label:'Managed',     desc:'Controls are mature and consistently evidenced',            color:'#0D5C55', pill:'rgba(13,92,85,.2)',     pillTxt:'#5ABFB3'},
+  {min:95, label:'Audit Ready', desc:'Strong evidence base for ISO 37001 certification readiness',color:'#083D38', pill:'rgba(8,61,56,.2)',      pillTxt:'var(--teal)'}
+];
+const totalItems = DOMAINS.reduce((s,d) => s + d.items.length, 0);
+const maxChecks  = totalItems * 2;
+
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function totals(){
+  let checked=0, ready=0;
+  state.forEach(rows => rows.forEach(r => {checked+=(r.doc?1:0)+(r.impl?1:0); if(r.doc&&r.impl)ready++;}));
+  const pct   = Math.round(checked/maxChecks*100);
+  const score = Math.round((pct/100)*5*10)/10;
+  return {checked, ready, pct, score, gaps:totalItems-ready};
+}
+function domainTotals(i){
+  const rows=state[i]; let checked=0, ready=0;
+  rows.forEach(r=>{checked+=(r.doc?1:0)+(r.impl?1:0); if(r.doc&&r.impl)ready++;});
+  return {checked, ready, max:rows.length*2, pct:Math.round(checked/(rows.length*2)*100), items:rows.length};
+}
+function levelFor(pct){return LEVELS.filter(l=>pct>=l.min).pop();}
+
+function renderTabs(){
+  document.getElementById('domain-tabs').innerHTML = DOMAINS.map((d,i)=>{
+    const dt = domainTotals(i);
+    return '<button class="domain-tab '+(i===currentDomain?'active ':'')+(dt.ready===dt.items?'done':'')+'" onclick="goToDomain('+i+')">'+esc(d.label)+'</button>';
+  }).join('');
+}
+
+function renderDomain(){
+  const d  = DOMAINS[currentDomain];
+  const dt = domainTotals(currentDomain);
+  const q  = (document.getElementById('search-box')?.value||'').toLowerCase();
+  const filter = document.getElementById('filter-select')?.value||'all';
+  document.getElementById('domain-title').textContent = d.title;
+  document.getElementById('domain-desc').textContent  = d.desc;
+  document.getElementById('domain-code').textContent  = d.label;
+  document.getElementById('hero-badge').textContent   = d.label;
+  document.getElementById('domain-count').textContent = dt.ready+' / '+dt.items;
+  const nextBtn = document.getElementById('next-section-btn');
+  if(nextBtn) nextBtn.textContent = currentDomain===DOMAINS.length-1?'End Section':'Next Section';
+  const rows = d.items.map((it,idx)=>({it,idx,r:state[currentDomain][idx]})).filter(row=>{
+    const hay=(row.it[0]+' '+row.it[1]+' '+row.it[2]).toLowerCase();
+    if(q && !hay.includes(q)) return false;
+    if(filter==='gap'    && row.r.doc&&row.r.impl)  return false;
+    if(filter==='ready'  && !(row.r.doc&&row.r.impl)) return false;
+    if(filter==='docgap' && row.r.doc)  return false;
+    if(filter==='implgap'&& row.r.impl) return false;
+    return true;
+  });
+  document.getElementById('control-list').innerHTML = rows.map(row =>
+    '<div class="control-row">'+
+    '<div class="control-ref">'+esc(row.it[0])+'</div>'+
+    '<div class="control-text">'+esc(row.it[1])+'</div>'+
+    '<div class="check-pill '+(row.r.doc?'checked':'')+'" onclick="toggleCheck('+row.idx+',0)"><span class="box">'+(row.r.doc?'✓':'')+'</span>Documented</div>'+
+    '<div class="check-pill '+(row.r.impl?'checked':'')+'" onclick="toggleCheck('+row.idx+',1)"><span class="box">'+(row.r.impl?'✓':'')+'</span>Implemented</div>'+
+    '<div class="control-evidence">'+esc(row.it[2])+'</div>'+
+    '</div>'
+  ).join('') || '<div class="empty">No items match the current filter.</div>';
+  renderTabs();
+  updateScore();
+}
+
+function updateScore(){
+  const t  = totals();
+  const lv = levelFor(t.pct);
+  document.getElementById('score-display').textContent = t.score;
+  document.getElementById('score-display').style.color  = lv.color;
+  document.getElementById('score-level').textContent    = lv.label;
+  document.getElementById('score-level').style.color    = lv.color;
+  document.getElementById('score-desc').textContent     = lv.desc;
+  document.getElementById('score-bar').style.width      = t.pct+'%';
+  document.getElementById('score-bar').style.background = lv.color;
+  document.getElementById('check-display').textContent  = t.checked+' / '+maxChecks;
+  document.getElementById('ready-display').textContent  = t.ready+' / '+totalItems;
+  document.getElementById('gap-display').textContent    = t.gaps;
+  document.getElementById('progress-bar').style.width   = t.pct+'%';
+  document.getElementById('progress-pct').textContent   = t.pct+'%';
+}
+
+function toggleCheck(idx, type){
+  state[currentDomain][idx][type===0?'doc':'impl'] = !state[currentDomain][idx][type===0?'doc':'impl'];
+  renderDomain();
+}
+function goToDomain(i){ currentDomain=i; renderDomain(); window.scrollTo({top:0,behavior:'smooth'}); }
+function nextDomain(){ if(currentDomain<DOMAINS.length-1){ currentDomain++; renderDomain(); window.scrollTo({top:0,behavior:'smooth'}); } }
+function prevDomain(){ if(currentDomain>0){ currentDomain--; renderDomain(); window.scrollTo({top:0,behavior:'smooth'}); } }
+
+function goToSummary(){
+  document.getElementById('page-assessment').style.display='none';
+  const pg = document.getElementById('page-summary');
+  pg.style.display='block'; pg.classList.add('page-enter');
+  const t  = totals();
+  const lv = levelFor(t.pct);
+  document.getElementById('sum-score-big').textContent  = t.score;
+  document.getElementById('sum-level-pill').textContent = lv.label;
+  document.getElementById('sum-level-pill').style.background = lv.pill;
+  document.getElementById('sum-level-pill').style.color      = lv.pillTxt;
+  document.getElementById('sum-meta').textContent  = 'Generated: '+new Date().toLocaleString();
+  document.getElementById('sm-score').textContent  = t.score+'/5';
+  document.getElementById('sm-pct').textContent    = t.pct+'%';
+  document.getElementById('sm-ready').textContent  = t.ready+'/'+totalItems;
+  document.getElementById('sm-gaps').textContent   = t.gaps;
+  document.getElementById('sum-footer-date').innerHTML = 'OneConnect ISO 37001:2025 Self-Assessment<br>CBQA Global Indonesia — '+new Date().toLocaleDateString();
+
+  // Section breakdown
+  document.getElementById('domain-breakdown').innerHTML = DOMAINS.map((d,i)=>{
+    const dt=domainTotals(i); const pct=dt.pct;
+    const col = pct>=80?'#0D8C72':pct>=50?'#D4A200':'#E84040';
+    return '<div class="gauge-wrap"><div class="gauge-lbl">'+esc(d.label)+' — '+esc(d.title)+'</div>'+
+      '<div class="gauge-track"><div class="gauge-bar" style="width:'+pct+'%;background:'+col+'"></div></div>'+
+      '<div class="gauge-pct" style="color:'+col+'">'+pct+'%</div></div>';
+  }).join('');
+
+  // Missing docs
+  const missingDocs = [];
+  DOMAINS.forEach((d,i)=>{
+    d.items.forEach((it,j)=>{
+      if(!state[i][j].doc) missingDocs.push({clause:it[0], text:it[1].substring(0,80)+'…', evidence:it[2]});
+    });
+  });
+  document.getElementById('missing-doc-summary').innerHTML = missingDocs.length===0
+    ? '<p style="color:var(--success);font-size:13px">All required documents are marked as available.</p>'
+    : missingDocs.slice(0,10).map(m=>'<div class="status-row"><div class="status-name"><strong>'+esc(m.clause)+'</strong> — '+esc(m.text)+'<br><span style="font-size:11px;color:var(--text-tertiary)">Expected: '+esc(m.evidence)+'</span></div><span class="status-tag tag-ng">Missing</span></div>').join('')
+      +(missingDocs.length>10?'<p style="padding:8px 0;font-size:12px;color:var(--text-tertiary)">…and '+(missingDocs.length-10)+' more missing documents.</p>':'');
+
+  // Recommendations
+  const recs = [];
+  const gapItems = [];
+  DOMAINS.forEach((d,i)=>{
+    d.items.forEach((it,j)=>{
+      if(!state[i][j].doc || !state[i][j].impl) gapItems.push({domain:d.label, clause:it[0], text:it[1], doc:state[i][j].doc, impl:state[i][j].impl});
+    });
+  });
+  const highPrio = ['4.5','5.2','8.2','8.3','8.7','8.9','8.10'];
+  gapItems.sort((a,b)=>{
+    const aH = highPrio.some(p=>a.clause.startsWith(p))?0:1;
+    const bH = highPrio.some(p=>b.clause.startsWith(p))?0:1;
+    return aH-bH;
+  }).slice(0,8).forEach(g=>{
+    const isHigh = highPrio.some(p=>g.clause.startsWith(p));
+    recs.push('<div class="rec-item"><span class="rec-priority '+(isHigh?'pri-high':'pri-med')+'">'+(isHigh?'High':'Medium')+'</span>'+
+      '<div class="rec-text"><strong>'+esc(g.clause)+'</strong> — '+esc(g.text.substring(0,120))+'…</div>'+
+      '<div class="rec-ref">'+(g.doc?'':'Document required. ')+(g.impl?'':'Implementation evidence required.')+'</div></div>');
+  });
+  document.getElementById('sum-recs').innerHTML = recs.join('') || '<p style="color:var(--success);padding:8px 0;font-size:13px">No open gaps — assessment complete.</p>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backToAssessment(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-assessment').style.display='block';
+}
+
+function openLeadModal(){
+  document.getElementById('leadModal').classList.add('active');
+  document.getElementById('leadModal').setAttribute('aria-hidden','false');
+}
+function closeLeadModal(){
+  document.getElementById('leadModal').classList.remove('active');
+  document.getElementById('leadModal').setAttribute('aria-hidden','true');
+}
+document.getElementById('leadModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLeadModal();});
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('leadSuccess').classList.add('active');
+  e.target.querySelector('.lead-submit').disabled=true;
+});
+
+renderDomain();
+</script>
+</body>
+</html>

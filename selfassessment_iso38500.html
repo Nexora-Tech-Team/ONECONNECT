@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO/IEC 38500:2015 Self-Assessment | CBQA Global</title>
+<style>
+:root{
+  --navy:#143f49;--teal:#319ea9;--teal-light:#e8f7f9;--green-lime:#48b795;
+  --off-white:#f4f7f8;--border:#e2e8ea;--text-primary:#1a2e32;--text-secondary:#4a6368;
+  --text-tertiary:#7a9499;--success:#0d8c72;--success-bg:#e6f7f3;--danger:#c0392b;
+  --danger-bg:#fdf0ef;--warning:#d97706;--warning-bg:#fef3e2;--radius-sm:8px;
+  --radius-md:10px;--radius-lg:14px;--shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+.topnav{height:68px;background:linear-gradient(135deg,#143f49,#319ea9);box-shadow:0 14px 36px rgba(16,37,43,.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:40px;width:auto;object-fit:contain}
+.nav-brand{display:flex;flex-direction:column}
+.nav-brand-main{font-size:14px;font-weight:600;color:#fff;letter-spacing:.2px}
+.nav-brand-sub{font-size:11px;color:rgba(255,255,255,.65)}
+.nav-back-link{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:500;text-decoration:none;padding:7px 14px;border-radius:20px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);transition:background .2s}
+.nav-back-link:hover{background:rgba(255,255,255,.22)}
+.nav-back-link svg{width:17px;height:17px;fill:currentColor}
+.layout{max-width:1120px;margin:0 auto;padding:2rem 1.5rem}
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(16,37,43,.15)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:600;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card,.metric-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.score-card{padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:300;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:var(--navy)}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+.domain-tabs{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:var(--radius-sm);padding:9px 8px;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Helvetica,Arial,sans-serif;text-align:center}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:#F4F8FB;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-md);padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:80px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #F3F5F8;border-radius:var(--radius-sm)}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:var(--off-white)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-sm);padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary);transition:all .2s}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:var(--radius-md);cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.btn-secondary:hover{background:var(--off-white)}
+#page-summary{display:none}
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(16,37,43,.15)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;text-align:center}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:#F4F8FB;border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-body{padding:.75rem 1.25rem}
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:210px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F5F8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+.rec-item{padding:12px 0;border-bottom:1px solid #F3F5F8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.pri-low{background:var(--success-bg);color:var(--success)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid var(--border);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+/* Lead Modal */
+.lead-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s}
+.lead-modal.active{opacity:1;pointer-events:all}
+.lead-dialog{background:#fff;border-radius:var(--radius-lg);padding:2rem;max-width:540px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.2)}
+.lead-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.lead-eyebrow{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.lead-head h2{font-size:18px;color:var(--navy)}
+.lead-head p{font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.5}
+.lead-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-tertiary);line-height:1;padding:4px}
+.lead-form{}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.lead-field{display:flex;flex-direction:column;gap:4px}
+.lead-field.lead-full{grid-column:1/-1}
+.lead-field span{font-size:12px;font-weight:600;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary);background:var(--off-white)}
+.lead-field textarea{height:80px;resize:vertical}
+.lead-actions{display:flex;flex-direction:column;gap:10px}
+.lead-note{font-size:11px;color:var(--text-tertiary);line-height:1.5}
+.lead-submit{background:var(--teal);color:#fff;border:none;border-radius:var(--radius-md);padding:12px 24px;font:600 14px Helvetica,Arial,sans-serif;cursor:pointer;width:100%;transition:background .2s}
+.lead-submit:hover{background:#278a94}
+.lead-success{display:none;background:var(--success-bg);border:1px solid rgba(13,140,114,.3);border-radius:var(--radius-md);padding:1rem;font-size:13px;color:var(--success);line-height:1.6;text-align:center}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{color:var(--teal);font-weight:600;text-decoration:none}
+@media(max-width:920px){.dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}.domain-tabs{grid-template-columns:repeat(4,1fr)}.control-row{grid-template-columns:72px 1fr 130px 130px}.control-evidence{grid-column:2/-1}.toolbar{grid-template-columns:1fr}.hero{grid-template-columns:1fr}}
+@media(max-width:640px){.topnav{padding:0 1rem}.layout{padding:1.25rem .9rem}.dashboard-grid,.sum-grid{grid-template-columns:1fr}.domain-tabs{grid-template-columns:repeat(2,1fr)}.control-row{grid-template-columns:64px 1fr}.check-pill,.control-evidence{grid-column:1/-1}.action-bar,.footer-bar{flex-direction:column;align-items:stretch}.gauge-lbl{width:auto}.gauge-track{width:100%}}
+@media print{.topnav,.domain-tabs,.toolbar,.action-bar,.btn{display:none!important}body{background:#fff}.layout{padding:1rem}.summary-banner,.hero{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">
+    <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO/IEC 38500:2015 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <a class="nav-back-link" href="module-detail.html?module=iso-38500" aria-label="Back to ISO 38500 Module">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10.8 5.2 4 12l6.8 6.8 1.4-1.4L7.8 13H20v-2H7.8l4.4-4.4-1.4-1.4Z"/></svg>
+    <span>Back to Module Detail</span>
+  </a>
+</nav>
+
+<div class="layout">
+  <div class="progress-header">
+    <span id="progress-label">ISO/IEC 38500:2015 Readiness Assessment</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+
+  <div id="page-assessment">
+    <div class="hero">
+      <div>
+        <h1>ISO/IEC 38500:2015 Self-Assessment</h1>
+        <p>Governance of IT for the organization — 6 Principles with Evaluate-Direct-Monitor model. Assess your governing body's effectiveness across Responsibility, Strategy, Acquisition, Performance, Conformance, and Human Behaviour.</p>
+      </div>
+      <div class="hero-badge" id="hero-badge">Foundation</div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="score-card">
+        <div class="eyebrow">Readiness Score</div>
+        <div class="score-main">
+          <span class="score-num" id="score-num">0</span>
+          <span class="score-denom" id="score-denom">/66</span>
+        </div>
+        <div class="score-level" id="score-level">Initial</div>
+        <div class="score-desc" id="score-desc">No formal IT governance structure in place</div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Documented</div>
+        <div class="metric-value" id="m-doc">0</div>
+        <div class="metric-sub">policies &amp; frameworks</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Implemented</div>
+        <div class="metric-value" id="m-impl">0</div>
+        <div class="metric-sub">practices in operation</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Domains Done</div>
+        <div class="metric-value" id="m-dom">0/7</div>
+        <div class="metric-sub">principles complete</div>
+      </div>
+    </div>
+
+    <div class="domain-tabs" id="domain-tabs"></div>
+
+    <div class="assessment-card" id="assessment-card">
+      <div class="ac-header">
+        <div class="ac-title-wrap">
+          <span class="ac-code" id="ac-code">Cl. 4</span>
+          <div>
+            <h2 id="ac-title">Foundation</h2>
+            <p id="ac-desc">IT governance framework, EDM model, and organizational accountability</p>
+          </div>
+        </div>
+        <div class="ac-meta">
+          <div class="big" id="ac-score">0/8</div>
+          <div class="small">domain score</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input class="search-box" type="search" id="search-box" placeholder="Search controls...">
+        <select class="filter-select" id="filter-sel">
+          <option value="all">All Items</option>
+          <option value="undone">Not Started</option>
+          <option value="partial">Partial</option>
+          <option value="done">Complete</option>
+        </select>
+      </div>
+      <div class="control-list" id="control-list"></div>
+      <div class="action-bar">
+        <button class="btn btn-secondary" id="btn-prev" onclick="prevDomain()">← Previous</button>
+        <button class="btn btn-teal" id="btn-next" onclick="nextDomain()">Next Principle →</button>
+      </div>
+    </div>
+
+    <div style="text-align:right;margin-top:-.5rem;margin-bottom:1.5rem">
+      <button class="btn btn-primary" onclick="showSummary()">View Summary Report →</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY PAGE -->
+  <div id="page-summary">
+    <div class="summary-banner">
+      <div class="summary-banner-content">
+        <div class="sb-eyebrow">ISO/IEC 38500:2015 · IT Governance</div>
+        <div class="sb-title">Readiness Summary Report</div>
+        <div class="sb-sub">Based on 6 governance principles and the Evaluate-Direct-Monitor model</div>
+        <div class="sb-score-row">
+          <span class="sb-score-big" id="sb-score">0</span>
+          <span class="sb-score-denom">/66</span>
+          <span class="sb-level-pill" id="sb-level-pill" style="background:rgba(255,255,255,.15);color:#fff">Initial</span>
+        </div>
+        <div class="sb-meta" id="sb-meta"></div>
+      </div>
+    </div>
+
+    <div class="sum-grid">
+      <div class="sum-metric"><div class="sm-val" id="sm-score">0%</div><div class="sm-lbl">Overall Readiness</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-doc">0</div><div class="sm-lbl">Documented</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-impl">0</div><div class="sm-lbl">Implemented</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-dom">0/7</div><div class="sm-lbl">Domains Complete</div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-teal"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m4 15 5-5 4 4 5.6-6H15V6h7v7h-2V9.4L13 17l-4-4-3.6 3.6L4 15Z"/></svg></div>
+        Readiness by Principle
+      </div>
+      <div class="sc-body" id="gauge-container"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-warn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/></svg></div>
+        Principle Status Overview
+      </div>
+      <div class="sc-body" id="status-container"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-warn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 3.5L20.5 19h-17L12 5.5ZM11 10v4h2v-4h-2Zm0 6v2h2v-2h-2Z"/></svg></div>
+        Priority Recommendations
+      </div>
+      <div class="sc-body" id="rec-container"></div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-meta" id="sum-footer">ISO/IEC 38500:2015 IT Governance Self-Assessment<br>CBQA Global Indonesia</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-secondary" onclick="backToAssessment()">← Back to Assessment</button>
+        <button class="btn btn-teal" onclick="openLeadModal()">Request Full Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lead Modal -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO/IEC 38500 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, consultation path, and recommended next steps.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Organization Type</span>
+          <select name="industry" required>
+            <option value="">Select type</option>
+            <option>Listed Corporation / Tbk</option>
+            <option>Government Agency / BUMN</option>
+            <option>Financial Services / OJK-regulated</option>
+            <option>Healthcare Organization</option>
+            <option>Educational Institution</option>
+            <option>Technology / IT Company</option>
+            <option>Other Private Organization</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>IT Governance framework setup</option>
+            <option>Board/C-suite readiness review</option>
+            <option>Regulatory compliance (OJK, BSSN)</option>
+            <option>ISO 38500 certification preparation</option>
+            <option>IT governance maturity improvement</option>
+          </select>
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your governing body's current IT oversight structure and your target timeline."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">This preview is for initial readiness insight. The full report and advisory follow-up will be coordinated by CBQA Global.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 hour.
+        <div class="lead-success-actions"><a href="module-detail.html?module=iso-38500">Back to Module Detail</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'cbqa_38500_progress';
+
+const DOMAINS = [
+  {
+    id:'foundation', label:'Foundation', code:'Cl. 4–3',
+    title:'Governance Foundation',
+    desc:'IT governance framework, EDM model adoption, stakeholder accountability, and benefits realization',
+    items:[
+      {ref:'4.1/Gov', text:'IT Governance is formally recognized as a subset of organizational/corporate governance, with governing body accountable for IT oversight.', evidence:'Board charter, IT governance policy, governance framework document', hi:true},
+      {ref:'4.2/EDM', text:'The Evaluate-Direct-Monitor (EDM) model is formally adopted: governing body evaluates, directs, and monitors IT use on a structured basis.', evidence:'Board minutes, IT committee terms of reference, governance meeting cadence', hi:true},
+      {ref:'Cl.3/Ben', text:'The organization has articulated the expected benefits of good IT governance (innovation, alignment, accountability, business continuity, ROI realization).', evidence:'IT governance policy, strategy documents, board presentations'},
+      {ref:'Cl.3/Stk', text:'Key stakeholders (internal and external) for IT governance are identified and their expectations are considered in governance decisions.', evidence:'Stakeholder register, governance framework, engagement records'},
+    ]
+  },
+  {
+    id:'responsibility', label:'Responsibility', code:'5.2/P1',
+    title:'Principle 1 — Responsibility',
+    desc:'Individuals and groups understand and accept their IT responsibilities; authority matches accountability',
+    items:[
+      {ref:'5.2.E', text:'Governing body has evaluated options for assigning IT responsibilities across the organization (supply and demand sides).', evidence:'Responsibility assignment matrix, RACI chart, governance evaluation records'},
+      {ref:'5.2.E2', text:'Competence of those given IT decision-making responsibility has been assessed and is appropriate (business managers supported by IT specialists).', evidence:'Role descriptions, competency assessments, IT committee member profiles', hi:true},
+      {ref:'5.2.D', text:'IT responsibilities are formally documented, assigned, and communicated; governing body receives information needed to meet its oversight obligations.', evidence:'IT governance policy, delegation of authority, board information packs', hi:true},
+      {ref:'5.2.M', text:'Mechanisms for IT governance are established and operating (e.g. IT Steering Committee, CIO reporting line, board IT subcommittee).', evidence:'Committee terms of reference, meeting minutes, attendance records'},
+      {ref:'5.2.M2', text:'Those assigned IT responsibilities acknowledge, understand, and demonstrate their obligations; their performance is monitored by the governing body.', evidence:'Performance reviews, committee reporting, board evaluation outcomes'},
+    ]
+  },
+  {
+    id:'strategy', label:'Strategy', code:'5.3/P2',
+    title:'Principle 2 — Strategy',
+    desc:'Business strategy accounts for current and future IT capabilities; IT plans satisfy ongoing business needs',
+    items:[
+      {ref:'5.3.E', text:'Governing body regularly evaluates IT developments and capabilities to ensure IT supports future business needs and strategic objectives.', evidence:'IT strategic review, technology radar, board agenda items on IT strategy', hi:true},
+      {ref:'5.3.E2', text:'IT risk management is integrated into business strategy evaluation; risks from IT misalignment are considered at governance level.', evidence:'Enterprise risk framework, IT risk reports to board, strategy papers'},
+      {ref:'5.3.D', text:'IT strategy and supporting policies are formally prepared, approved by the governing body, and communicated across the organization.', evidence:'IT strategic plan, board-approved IT policy, IT roadmap', hi:true},
+      {ref:'5.3.D2', text:'Proposals for innovative uses of IT are encouraged and submitted for governing body review to respond to new opportunities or challenges.', evidence:'Innovation pipeline, proposal register, board minutes on IT innovation'},
+      {ref:'5.3.M', text:'Progress of approved IT proposals/projects is monitored against objectives, timelines, and allocated resources; benefits realization is tracked.', evidence:'Project dashboard, portfolio status reports, board performance reports'},
+    ]
+  },
+  {
+    id:'acquisition', label:'Acquisition', code:'5.4/P3',
+    title:'Principle 3 — Acquisition',
+    desc:'IT acquisitions made for valid reasons with appropriate analysis, transparent decisions, and balanced risk/benefit',
+    items:[
+      {ref:'5.4.E', text:'Governing body evaluates IT investment options with appropriate analysis of risks, costs, opportunities, and value-for-money before approving acquisitions.', evidence:'Business cases, investment appraisals, board papers on IT acquisitions', hi:true},
+      {ref:'5.4.D', text:'IT assets (systems, infrastructure) are acquired through documented approval processes including preparation of suitable business case documentation.', evidence:'Procurement policy, IT acquisition procedure, approval authority matrix'},
+      {ref:'5.4.D2', text:'Supply arrangements (internal and external) are directed to support business needs; a shared understanding of acquisition intent exists with suppliers.', evidence:'Vendor contracts, SLAs, supplier management framework, intent documentation'},
+      {ref:'5.4.M', text:'IT investments are monitored to ensure required capabilities are delivered as planned; cost and benefit tracking is in place.', evidence:'Investment tracking reports, post-implementation reviews, benefit realization log'},
+      {ref:'5.4.M2', text:'Ongoing alignment between the organization and suppliers regarding acquisition intent is monitored and maintained.', evidence:'Supplier review meetings, contract monitoring records, relationship management reports'},
+    ]
+  },
+  {
+    id:'performance', label:'Performance', code:'5.5/P4',
+    title:'Principle 4 — Performance',
+    desc:'IT is fit for purpose, supporting the organization with services and quality required for current and future needs',
+    items:[
+      {ref:'5.5.E', text:'Governing body evaluates IT capability/capacity plans to ensure IT supports business processes with required performance and treats operational risk.', evidence:'IT capacity plan, operational risk register, board IT performance review'},
+      {ref:'5.5.E2', text:'Risks to information integrity and protection of IT assets (including intellectual property and organizational memory) are evaluated at governance level.', evidence:'Information security risk report, asset protection policy, IP register', hi:true},
+      {ref:'5.5.D', text:'Sufficient resources (budget, people, infrastructure) are allocated to IT based on agreed business priorities; governing body directs resource prioritization.', evidence:'IT budget approval, resource allocation framework, board budget papers', hi:true},
+      {ref:'5.5.D2', text:'IT systems provide correct, up-to-date data that is protected from loss or misuse; governing body has directed appropriate data management policies.', evidence:'Data management policy, backup and recovery procedures, data quality reports'},
+      {ref:'5.5.M', text:'IT's contribution to business support is monitored and reported to governing body; resource allocation is tracked against business objectives.', evidence:'IT performance dashboard, board IT reports, KPI/SLA monitoring'},
+    ]
+  },
+  {
+    id:'conformance', label:'Conformance', code:'5.6/P5',
+    title:'Principle 5 — Conformance',
+    desc:'IT use complies with mandatory legislation, regulations, and contractual obligations; policies are defined and enforced',
+    items:[
+      {ref:'5.6.E', text:'Governing body regularly evaluates IT's compliance with all mandatory obligations: regulatory (OJK, BSSN, UU ITE), legislative, and contractual.', evidence:'Compliance register, regulatory review reports, legal compliance assessments', hi:true},
+      {ref:'5.6.E2', text:'Internal conformance to the IT governance framework is evaluated periodically by the governing body.', evidence:'Internal audit reports, governance framework review records, self-assessment results'},
+      {ref:'5.6.D', text:'Routine mechanisms for ensuring IT regulatory compliance are established and enforced; internal IT policies are clearly defined and implemented.', evidence:'Compliance management program, IT policy register, enforcement procedures', hi:true},
+      {ref:'5.6.D2', text:'IT staff follow relevant professional behaviour guidelines; all IT actions and decisions are directed to be ethical.', evidence:'Code of conduct, IT professional development records, ethics training logs'},
+      {ref:'5.6.M', text:'IT compliance is monitored through appropriate audit and reporting practices; asset disposal, privacy, and environmental obligations are tracked.', evidence:'Internal/external audit reports, compliance monitoring dashboard, disposal records', hi:true},
+    ]
+  },
+  {
+    id:'human', label:'Human Behaviour', code:'5.7/P6',
+    title:'Principle 6 — Human Behaviour',
+    desc:'IT policies, practices, and decisions demonstrate respect for human behaviour, needs, and aspirations',
+    items:[
+      {ref:'5.7.E', text:'IT activities are evaluated to identify and appropriately consider human behaviour impacts (cultural needs, accessibility, ergonomics, role changes due to IT).', evidence:'Change impact assessments, user needs analysis, stakeholder engagement records'},
+      {ref:'5.7.D', text:'IT activities are designed and implemented consistent with identified human behaviours; change management is integrated into IT initiatives.', evidence:'Change management plans, HR/IT alignment procedures, communication plans', hi:true},
+      {ref:'5.7.D2', text:'Mechanisms exist for anyone in the organization to identify and report IT-related risks, opportunities, issues, and concerns at any time.', evidence:'IT risk reporting channel, incident reporting system, feedback mechanisms'},
+      {ref:'5.7.M', text:'IT activities are monitored to ensure human behaviour considerations remain relevant; work practices are monitored for appropriate IT use.', evidence:'User satisfaction surveys, IT behaviour monitoring reports, work practice reviews'},
+    ]
+  }
+];
+
+const totalItems = DOMAINS.reduce((s,d)=>s+d.items.length,0);
+const maxChecks  = totalItems * 2;
+
+let state = {};
+try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }catch(e){}
+
+function save(){ try{localStorage.setItem(STORAGE_KEY, JSON.stringify(state));}catch(e){} }
+
+function getScore(){
+  let doc=0,impl=0;
+  DOMAINS.forEach(d=>d.items.forEach(it=>{
+    if(state[it.ref+'_doc'])  doc++;
+    if(state[it.ref+'_impl']) impl++;
+  }));
+  return {doc,impl,total:doc+impl};
+}
+
+function domainScore(d){
+  let s=0;
+  d.items.forEach(it=>{
+    if(state[it.ref+'_doc'])  s++;
+    if(state[it.ref+'_impl']) s++;
+  });
+  return s;
+}
+
+function maturityInfo(pct){
+  if(pct>=0.95) return {level:'Audit Ready',    desc:'Evidence complete, ready for external assessment',      color:'#0d8c72', bar:'#0d8c72'};
+  if(pct>=0.80) return {level:'Managed',         desc:'Governance actively managed and measured',              color:'#319ea9', bar:'#319ea9'};
+  if(pct>=0.60) return {level:'Defined',          desc:'Governance formally defined and documented',           color:'#2b8a96', bar:'#2b8a96'};
+  if(pct>=0.40) return {level:'Developing',       desc:'Some governance practices in place but incomplete',    color:'#d97706', bar:'#d97706'};
+  if(pct>=0.20) return {level:'Basic',            desc:'Ad-hoc governance activities with minimal structure',  color:'#e08c3b', bar:'#e08c3b'};
+  return          {level:'Initial',              desc:'No formal IT governance structure in place',            color:'#c0392b', bar:'#c0392b'};
+}
+
+let currentDomain = 0;
+
+function renderTabs(){
+  const container = document.getElementById('domain-tabs');
+  container.innerHTML = DOMAINS.map((d,i)=>{
+    const ds = domainScore(d), dm = d.items.length*2;
+    const done = ds===dm;
+    const active = i===currentDomain;
+    return `<button class="domain-tab${done?' done':''}${active?' active':''}" onclick="switchDomain(${i})">${d.label}</button>`;
+  }).join('');
+}
+
+function renderDomain(){
+  const d = DOMAINS[currentDomain];
+  document.getElementById('ac-code').textContent = d.code;
+  document.getElementById('ac-title').textContent = d.title;
+  document.getElementById('ac-desc').textContent = d.desc;
+  document.getElementById('hero-badge').textContent = d.label;
+  const ds = domainScore(d), dm = d.items.length*2;
+  document.getElementById('ac-score').textContent = ds+'/'+dm;
+  document.getElementById('btn-prev').disabled = currentDomain===0;
+  document.getElementById('btn-next').textContent = currentDomain===DOMAINS.length-1 ? 'View Summary →' : 'Next Principle →';
+  renderList();
+}
+
+function renderList(){
+  const d = DOMAINS[currentDomain];
+  const q = document.getElementById('search-box').value.toLowerCase();
+  const f = document.getElementById('filter-sel').value;
+  const list = document.getElementById('control-list');
+  const svgCheck = `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>`;
+
+  const rows = d.items.filter(it=>{
+    if(q && !it.text.toLowerCase().includes(q) && !it.ref.toLowerCase().includes(q)) return false;
+    const doc  = !!state[it.ref+'_doc'];
+    const impl = !!state[it.ref+'_impl'];
+    if(f==='done'    && !(doc&&impl)) return false;
+    if(f==='partial' && !(doc||impl)) return false;
+    if(f==='undone'  && (doc||impl))  return false;
+    return true;
+  });
+
+  if(!rows.length){ list.innerHTML='<div class="empty">No items match your filter.</div>'; return; }
+
+  list.innerHTML = rows.map(it=>{
+    const doc  = !!state[it.ref+'_doc'];
+    const impl = !!state[it.ref+'_impl'];
+    return `<div class="control-row">
+      <div class="control-ref">${it.ref}</div>
+      <div>
+        <div class="control-text">${it.text}</div>
+        <div class="control-evidence">📋 ${it.evidence}</div>
+      </div>
+      <div class="check-pill${doc?' checked':''}" onclick="toggle('${it.ref}','doc')">
+        <span class="box">${doc?svgCheck:''}</span>Documented
+      </div>
+      <div class="check-pill${impl?' checked':''}" onclick="toggle('${it.ref}','impl')">
+        <span class="box">${impl?svgCheck:''}</span>Implemented
+      </div>
+      <div style="font-size:11px;color:${it.hi?'var(--danger)':'var(--text-tertiary)'};font-weight:${it.hi?700:400}">
+        ${it.hi?'🔴 HIGH PRIORITY':'⚪ Standard'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggle(ref, type){
+  const key = ref+'_'+type;
+  state[key] = !state[key];
+  save();
+  updateScoreboard();
+  renderList();
+  renderTabs();
+}
+
+function updateScoreboard(){
+  const {doc,impl,total} = getScore();
+  const pct = maxChecks ? total/maxChecks : 0;
+  const m = maturityInfo(pct);
+  const domsDone = DOMAINS.filter(d=>domainScore(d)===d.items.length*2).length;
+
+  document.getElementById('score-num').textContent  = total;
+  document.getElementById('score-denom').textContent= '/'+maxChecks;
+  document.getElementById('score-level').textContent = m.level;
+  document.getElementById('score-level').style.color = m.color;
+  document.getElementById('score-desc').textContent  = m.desc;
+  const bar = document.getElementById('score-bar');
+  bar.style.width = (pct*100)+'%'; bar.style.background = m.bar;
+  document.getElementById('m-doc').textContent  = doc;
+  document.getElementById('m-impl').textContent = impl;
+  document.getElementById('m-dom').textContent  = domsDone+'/'+DOMAINS.length;
+  document.getElementById('progress-pct').textContent = Math.round(pct*100)+'%';
+  document.getElementById('progress-bar').style.width = (pct*100)+'%';
+}
+
+function switchDomain(i){ currentDomain=i; renderTabs(); renderDomain(); window.scrollTo({top:0,behavior:'smooth'}); }
+function prevDomain(){ if(currentDomain>0) switchDomain(currentDomain-1); }
+function nextDomain(){
+  if(currentDomain<DOMAINS.length-1) switchDomain(currentDomain+1);
+  else showSummary();
+}
+
+document.getElementById('search-box').addEventListener('input', renderList);
+document.getElementById('filter-sel').addEventListener('change', renderList);
+
+function showSummary(){
+  document.getElementById('page-assessment').style.display='none';
+  document.getElementById('page-summary').style.display='block';
+  buildSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function backToAssessment(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-assessment').style.display='block';
+  renderDomain();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildSummary(){
+  const {doc,impl,total} = getScore();
+  const pct = maxChecks ? total/maxChecks : 0;
+  const m = maturityInfo(pct);
+  const domsDone = DOMAINS.filter(d=>domainScore(d)===d.items.length*2).length;
+
+  document.getElementById('sb-score').textContent = total;
+  document.getElementById('sb-level-pill').textContent = m.level;
+  document.getElementById('sb-level-pill').style.background = m.color;
+
+  document.getElementById('sm-score').textContent  = Math.round(pct*100)+'%';
+  document.getElementById('sm-doc').textContent    = doc;
+  document.getElementById('sm-impl').textContent   = impl;
+  document.getElementById('sm-dom').textContent    = domsDone+'/'+DOMAINS.length;
+
+  const now = new Date();
+  const ds = now.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  const ts = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sb-meta').textContent = 'Generated '+ds+' at '+ts;
+  document.getElementById('sum-footer').innerHTML = ds+' '+ts+' | OneConnect ISO/IEC 38500:2015 IT Governance Self-Assessment<br>CBQA Global Indonesia';
+
+  // Gauges
+  const gc = document.getElementById('gauge-container');
+  gc.innerHTML = DOMAINS.map(d=>{
+    const ds2 = domainScore(d), dm2 = d.items.length*2;
+    const p = dm2 ? ds2/dm2 : 0;
+    const col = p>=0.8?'#0d8c72':p>=0.5?'#319ea9':p>=0.2?'#d97706':'#c0392b';
+    return `<div class="gauge-wrap">
+      <div class="gauge-lbl">${d.label}</div>
+      <div class="gauge-track"><div class="gauge-bar" style="width:${Math.round(p*100)}%;background:${col}"></div></div>
+      <div class="gauge-pct" style="color:${col}">${Math.round(p*100)}%</div>
+    </div>`;
+  }).join('');
+
+  // Status
+  const sc = document.getElementById('status-container');
+  sc.innerHTML = DOMAINS.map(d=>{
+    const ds2 = domainScore(d), dm2 = d.items.length*2;
+    const p = ds2/dm2;
+    const tag = p>=0.8?'tag-ok':p>=0.4?'tag-mid':'tag-ng';
+    const lbl = p>=0.8?'Strong':p>=0.4?'Developing':'Needs Work';
+    return `<div class="status-row">
+      <span class="status-name"><strong>${d.label}</strong> — ${d.title}</span>
+      <span class="status-tag ${tag}">${lbl} (${ds2}/${dm2})</span>
+    </div>`;
+  }).join('');
+
+  // Recommendations
+  const rc = document.getElementById('rec-container');
+  const highItems = [];
+  DOMAINS.forEach(d=>d.items.forEach(it=>{
+    if(it.hi){
+      const doc2  = !!state[it.ref+'_doc'];
+      const impl2 = !!state[it.ref+'_impl'];
+      if(!doc2||!impl2) highItems.push({...it, domain:d.label});
+    }
+  }));
+  const recs = [
+    ...highItems.map(it=>({priority:'HIGH', text: `Address ${it.ref}: ${it.text.substring(0,120)}...`, ref:it.ref+' — '+it.domain})),
+    {priority:'MEDIUM', text:'Establish a formal IT Steering Committee with board-level representation to operationalize the EDM model (Evaluate-Direct-Monitor).', ref:'5.2.M — Responsibility'},
+    {priority:'MEDIUM', text:'Align the annual IT strategic plan with board-approved business strategy; include IT risk appetite statement approved by governing body.', ref:'5.3.D — Strategy'},
+    {priority:'LOW',    text:'Implement an IT performance dashboard reported quarterly to the governing body with KPIs covering all 6 principles.', ref:'5.5.M — Performance'},
+  ];
+  rc.innerHTML = recs.slice(0,6).map(r=>`<div class="rec-item">
+    <span class="rec-priority ${r.priority==='HIGH'?'pri-high':r.priority==='MEDIUM'?'pri-med':'pri-low'}">${r.priority}</span>
+    <div class="rec-text">${r.text}</div>
+    <div class="rec-ref">📌 ${r.ref}</div>
+  </div>`).join('');
+}
+
+// Lead Modal
+function openLeadModal(){ const m=document.getElementById('leadModal'); m.classList.add('active'); m.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeLeadModal(){ const m=document.getElementById('leadModal'); m.classList.remove('active'); m.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLeadModal(); });
+document.getElementById('leadModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeLeadModal(); });
+document.getElementById('leadForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  document.getElementById('leadSuccess').classList.add('active');
+  e.target.querySelector('.lead-submit').textContent='Profile Submitted';
+  e.target.querySelector('.lead-submit').disabled=true;
+});
+
+// Init
+updateScoreboard();
+renderTabs();
+renderDomain();
+
+document.getElementById('score-denom').textContent = '/'+maxChecks;
+document.getElementById('progress-label').textContent = 'ISO/IEC 38500:2015 IT Governance Readiness — '+totalItems+' assessment items';
+</script>
+</body>
+</html>

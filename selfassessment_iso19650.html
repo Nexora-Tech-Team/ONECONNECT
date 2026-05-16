@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO 19650:2018 Self-Assessment | CBQA Global</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body,button,input,textarea,select,div,span,p,h1,h2,h3,h4,h5,h6{font-family:Helvetica,Arial,sans-serif!important}
+:root{
+  --navy:#174e59;--navy-dark:#143f49;--teal:#319ea9;--teal-light:#e7f8f9;--teal-mid:#a5dde2;
+  --green-lime:#48b795;--green-mid:#278a94;--white:#fff;--off-white:#f3f8f9;--border:#d4e7ea;
+  --text-primary:#10252b;--text-secondary:#4f6870;--text-tertiary:#7d9aa2;
+  --success:#0d8c72;--success-bg:#e6f8f3;--danger:#e84040;--danger-bg:#fef1f1;
+  --warning:#e07b20;--warning-bg:#fef3e8;--info:#174e59;--info-bg:#e7f8f9;
+  --shadow-sm:0 8px 24px rgba(16,37,43,.07);--shadow-md:0 18px 44px rgba(16,37,43,.14);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--radius-xl:20px
+}
+body{background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+
+/* NAV */
+.topnav{height:76px;background:linear-gradient(135deg,#143f49 0%,#1e6470 55%,#2b8a96 100%);box-shadow:0 14px 36px rgba(16,37,43,.22);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:50px}
+.nav-logo-img img{height:50px;width:94px;object-fit:cover;filter:brightness(0) invert(1)}
+.nav-brand{display:flex;flex-direction:column;gap:1px}
+.nav-brand-main{font-size:17px;font-weight:700;color:#fff;letter-spacing:.2px;line-height:1.2}
+.nav-brand-sub{font-size:11.5px;font-weight:400;color:rgba(255,255,255,.65);letter-spacing:.1px}
+.nav-back-link{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 26px;border-radius:999px;border:2px solid rgba(255,255,255,.55);background:rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff;font-size:15px;font-weight:700;text-decoration:none;letter-spacing:.1px;box-shadow:0 4px 20px rgba(16,37,43,.15);transition:background .2s,border-color .2s,transform .18s;white-space:nowrap}
+.nav-back-link:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.85);transform:translateY(-1px)}
+.nav-back-link svg{width:18px;height:18px;flex-shrink:0}
+
+/* LAYOUT */
+.layout{max-width:900px;margin:0 auto;padding:2rem 1.5rem}
+
+/* HERO */
+.cs-hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border-radius:var(--radius-lg);padding:2.5rem 2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(16,37,43,.18)}
+.cs-hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.07)}
+.cs-hero:before{content:'';position:absolute;left:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05)}
+.cs-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;position:relative;z-index:1}
+.cs-hero h1{font-size:26px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.25;position:relative;z-index:1}
+.cs-hero p{font-size:13.5px;color:rgba(255,255,255,.72);line-height:1.65;max-width:660px;position:relative;z-index:1;margin-bottom:20px}
+.cs-badge-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.cs-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff;font-size:12px;font-weight:700;padding:6px 16px;letter-spacing:.2px;backdrop-filter:blur(10px)}
+.cs-badge svg{width:14px;height:14px;flex-shrink:0}
+.cs-badge-coming{background:rgba(72,183,149,.22);border-color:rgba(72,183,149,.5);color:#a8f0d8}
+.cs-badge-platform{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85)}
+
+/* COMING SOON CARD */
+.cs-card{background:#fff;border:1px solid rgba(49,158,169,.18);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:1.5rem}
+.cs-card-head{background:linear-gradient(180deg,#f7fcfd,#edf8fa);border-bottom:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;align-items:center;gap:12px}
+.cs-card-icon{width:40px;height:40px;border-radius:10px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cs-card-icon svg{width:20px;height:20px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cs-card-head h2{font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:2px}
+.cs-card-head p{font-size:12px;color:var(--text-tertiary)}
+.cs-card-body{padding:1.5rem}
+
+/* COUNTDOWN / VISUAL */
+.cs-visual{display:flex;align-items:center;justify-content:center;padding:2rem 0 1.5rem;flex-direction:column;gap:16px}
+.cs-clock{width:96px;height:96px;border-radius:50%;border:3px solid rgba(49,158,169,.2);background:linear-gradient(135deg,#e7f8f9,#f0fbfc);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(49,158,169,.06)}
+.cs-clock svg{width:44px;height:44px;stroke:var(--teal);fill:none;stroke-width:1.5;stroke-linecap:round}
+.cs-coming-label{font-size:28px;font-weight:700;color:var(--navy);letter-spacing:-.3px}
+.cs-coming-sub{font-size:13px;color:var(--text-secondary);text-align:center;max-width:480px;line-height:1.65}
+
+/* FEATURES GRID */
+.cs-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1.25rem 0}
+.cs-feature{background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
+.cs-feature:hover{border-color:rgba(49,158,169,.4);background:var(--teal-light)}
+.cs-feature-icon{width:32px;height:32px;border-radius:8px;background:var(--teal-light);border:1px solid rgba(49,158,169,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cs-feature-icon svg{width:15px;height:15px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cs-feature strong{display:block;font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:3px}
+.cs-feature span{font-size:11.5px;color:var(--text-secondary);line-height:1.45}
+
+/* DOMAINS PREVIEW */
+.cs-domains{margin:1.25rem 0}
+.cs-domains-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-tertiary);margin-bottom:10px}
+.cs-domain-pills{display:flex;flex-wrap:wrap;gap:7px}
+.cs-domain-pill{display:inline-flex;align-items:center;gap:6px;background:var(--off-white);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:500;color:var(--text-secondary)}
+.cs-domain-pill svg{width:12px;height:12px;stroke:var(--teal-mid);fill:none;stroke-width:2}
+
+/* NOTIFY FORM */
+.cs-notify{background:linear-gradient(135deg,#e9f8fa,#f0fcfd);border:1px solid rgba(49,158,169,.22);border-radius:var(--radius-md);padding:1.25rem 1.5rem;margin-top:1.25rem}
+.cs-notify-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.cs-notify-title svg{width:16px;height:16px;stroke:var(--teal);fill:none;stroke-width:2;stroke-linecap:round}
+.cs-notify-sub{font-size:12px;color:var(--text-secondary);margin-bottom:14px;line-height:1.5}
+.cs-notify-form{display:flex;gap:8px;flex-wrap:wrap}
+.cs-notify-input{flex:1;min-width:200px;height:40px;border:1px solid var(--border);background:#fff;border-radius:10px;padding:0 13px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary);outline:none;transition:border-color .2s}
+.cs-notify-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(49,158,169,.12)}
+.cs-notify-btn{height:40px;padding:0 20px;border:none;border-radius:10px;background:var(--teal);color:#fff;font:700 13px Helvetica,Arial,sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
+.cs-notify-btn:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 6px 20px rgba(49,158,169,.28)}
+.cs-notify-success{display:none;margin-top:10px;padding:10px 14px;background:var(--success-bg);border:1px solid rgba(13,140,114,.25);border-radius:8px;font-size:12.5px;color:var(--success);font-weight:500}
+.cs-notify-success.active{display:block}
+
+/* ACTION BAR */
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0 .5rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:12px;cursor:pointer;border:none;transition:all .2s}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--off-white);border-color:var(--teal-mid)}
+
+/* FOOTER */
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid rgba(49,158,169,.22);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+
+@media(max-width:640px){
+  .topnav{padding:0 1rem}
+  .layout{padding:1.25rem .9rem}
+  .cs-features{grid-template-columns:1fr}
+  .nav-brand-sub{display:none}
+  .cs-hero h1{font-size:20px}
+  .cs-notify-form{flex-direction:column}
+  .cs-notify-btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="nav-logo-img"><img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global"></div>
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO 19650:2018 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="nav-back-link" href="module-detail.html?module=iso-19650" aria-label="Back to ISO 19650:2018 Module">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span>Back to OneConnect Platform</span>
+    </a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <div class="cs-eyebrow">OneConnect · ISO 19650:2018</div>
+    <h1>Building Information Modelling (BIM)<br>Self-Assessment</h1>
+    <p>Specifies concepts and principles for information management using Building Information Modelling (BIM) throughout the asset lifecycle — covering information requirements, delivery planning, production methods, quality assurance and information exchanges across project phases.</p>
+    <div class="cs-badge-row">
+      <span class="cs-badge cs-badge-coming">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Coming Soon
+      </span>
+      <span class="cs-badge cs-badge-platform">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Operations &amp; Sector Platform
+      </span>
+    </div>
+  </div>
+
+  <!-- COMING SOON CARD -->
+  <div class="cs-card">
+    <div class="cs-card-head">
+      <div class="cs-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h2>Self-Assessment Module — Under Development</h2>
+        <p>This module is being built. Register below to be notified on launch.</p>
+      </div>
+    </div>
+    <div class="cs-card-body">
+
+      <!-- Visual -->
+      <div class="cs-visual">
+        <div class="cs-clock">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="cs-coming-label">Coming Soon</div>
+        <p class="cs-coming-sub">We are building a comprehensive self-assessment module for <strong>ISO 19650:2018</strong>. It will follow the same proven framework as our existing assessments — covering all key clauses with structured domain-by-domain evaluation.</p>
+      </div>
+
+      <!-- Domain preview -->
+      <div class="cs-domains">
+        <div class="cs-domains-label">Planned Assessment Domains</div>
+        <div class="cs-domain-pills">
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Information Requirements</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>BIM Execution Planning</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Information Production &amp; QA</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Asset Information Management</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Support &amp; Resources</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Performance Evaluation</span>
+          <span class="cs-domain-pill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>Continual Improvement</span>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="cs-features">
+        <div class="cs-feature">
+          <div class="cs-feature-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div><strong>7-Domain Assessment</strong><span>Full clause-by-clause structured evaluation</span></div>
+        </div>
+        <div class="cs-feature">
+          <div class="cs-feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div>
+          <div><strong>Dual Evidence Checklist</strong><span>Documented + Implemented checkboxes per control</span></div>
+        </div>
+        <div class="cs-feature">
+          <div class="cs-feature-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+          <div><strong>Maturity Scoring</strong><span>6 levels — Initial through Audit Ready</span></div>
+        </div>
+        <div class="cs-feature">
+          <div class="cs-feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+          <div><strong>Gap Analysis &amp; Recommendations</strong><span>Prioritised next steps and evidence guidance</span></div>
+        </div>
+      </div>
+
+      <!-- Notify -->
+      <div class="cs-notify">
+        <div class="cs-notify-title">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Get Notified When This Module Launches
+        </div>
+        <p class="cs-notify-sub">Enter your work email and we will notify you as soon as the ISO 19650:2018 self-assessment is available.</p>
+        <div class="cs-notify-form">
+          <input class="cs-notify-input" type="email" id="notifyEmail" placeholder="your@email.com" />
+          <button class="cs-notify-btn" onclick="submitNotify()">Notify Me</button>
+        </div>
+        <div class="cs-notify-success" id="notifySuccess">
+          ✓ You are on the list! We will notify you when the ISO 19650:2018 self-assessment goes live.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <a class="btn btn-secondary" href="module-detail.html?module=iso-19650">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Module Detail
+    </a>
+    <a class="btn btn-secondary" href="oneconnect.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      OneConnect Home
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-bar">
+    <div class="footer-meta">CBQA Global Sdn Bhd · OneConnect Platform · ISO 19650:2018</div>
+    <div class="footer-meta">info@cbqaglobal.com</div>
+  </div>
+
+</div>
+
+<script>
+function submitNotify() {
+  const email = document.getElementById('notifyEmail').value.trim();
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  document.querySelector('.cs-notify-form').style.display = 'none';
+  document.getElementById('notifySuccess').classList.add('active');
+}
+</script>
+</body>
+</html>

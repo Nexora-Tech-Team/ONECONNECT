@@ -235,6 +235,16 @@ const modules = {
     service: "Run a self assessment to review cloud PII protection controls, processor obligations, and GDPR alignment in public cloud environments.",
     serviceNarrative: ""
   },
+  "iso-27005": {
+    platform: "Cyber & Privacy Platform",
+    title: "ISO 27005",
+    subtitle: "Information Security Risk Management",
+    icon: "risk",
+    description: "International standard providing guidelines for information security risk management — supporting ISO 27001 implementation through structured risk identification, assessment and treatment.",
+    body: "ISO 27005 provides a systematic approach to managing information security risks in alignment with ISO 27001. It covers establishing the risk management context, risk identification (assets, threats, vulnerabilities, impacts), risk analysis and evaluation, risk treatment options (accept, avoid, transfer, modify), risk communication and monitoring. It supports organizations in building a repeatable, documented risk management process that feeds directly into the ISMS.",
+    service: "Use self assessment to review information security risk management process maturity, risk register completeness, and alignment with ISO 27001 Clause 6.1.",
+    serviceNarrative: ""
+  },
   "iso-27032": {
     platform: "Cyber & Privacy Platform",
     title: "ISO 27032",
@@ -469,10 +479,34 @@ const modules = {
 
 /* ── Service link map ── */
 const serviceLinks = {
-  "iso-27001":  "selfasesment_iso27001.html",
+  "iso-27001":  "selfassessment_iso27001.html",
   "iso-27701":  "selfassessment_iso27701.html",
   "iso-42001":  "selfassessment_iso42001.html",
-  "iso-42005":  "selfassessment_iso42005.html"
+  "iso-42005":  "selfassessment_iso42005.html",
+  "iso-37001":  "selfassessment_iso37001.html",
+  "iso-14001":  "selfassessment_iso14001.html",
+  "iso-20000":  "selfassessment_iso20000.html",
+  "iso-9001":   "selfassessment_iso9001.html",
+  "iso-27005":  "selfassessment_iso27005.html",
+  "iso-27032":  "selfassessment_iso27032.html",
+  "iso-38500":  "selfassessment_iso38500.html",
+  "iso-27018":  "selfassessment_iso27018.html",
+  "iso-27017":  "selfassessment_iso27017.html",
+  "iso-30301":  "selfassessment_iso30301.html",
+  "iso-29100":  "selfassessment_iso29100.html",
+  "iso-29134":  "selfassessment_iso29134.html",
+  "iso-22301":  "selfassessment_iso22301.html",
+  "iso-31000":  "selfassessment_iso31000.html",
+  "iso-14064-1":"selfassessment_iso14064-1.html",
+  "iso-14064-2":"selfassessment_iso14064-2.html",
+  "iso-26000":  "selfassessment_iso26000.html",
+  "iso-50001":  "selfassessment_iso50001.html",
+  "iso-45001":  "selfassessment_iso45001.html",
+  "iso-39001":  "selfassessment_iso39001.html",
+  "iso-19650":  "selfassessment_iso19650.html",
+  "iso-55001":  "selfassessment_iso55001.html",
+  "iso-21001":  "selfassessment_iso21001.html",
+  "iso-21500":  "selfassessment_iso21500.html"
 };
 
 /* ── Render ── */

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneConnect - ISO/IEC 27018:2019 Self-Assessment | CBQA Global</title>
+<style>
+:root{
+  --navy:#143f49;--teal:#319ea9;--teal-light:#e8f7f9;--green-lime:#48b795;
+  --off-white:#f4f7f8;--border:#e2e8ea;--text-primary:#1a2e32;--text-secondary:#4a6368;
+  --text-tertiary:#7a9499;--success:#0d8c72;--success-bg:#e6f7f3;--danger:#c0392b;
+  --danger-bg:#fdf0ef;--warning:#d97706;--warning-bg:#fef3e2;--radius-sm:8px;
+  --radius-md:10px;--radius-lg:14px;--shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#eef7f8 0%,#f8fbfc 46%,#e8f5f7 100%);color:var(--text-primary);min-height:100vh}
+.topnav{height:68px;background:linear-gradient(135deg,#143f49,#319ea9);box-shadow:0 14px 36px rgba(16,37,43,.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:40px;width:auto;object-fit:contain}
+.nav-brand{display:flex;flex-direction:column}
+.nav-brand-main{font-size:14px;font-weight:600;color:#fff;letter-spacing:.2px}
+.nav-brand-sub{font-size:11px;color:rgba(255,255,255,.65)}
+.nav-back-link{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:500;text-decoration:none;padding:7px 14px;border-radius:20px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);transition:background .2s}
+.nav-back-link:hover{background:rgba(255,255,255,.22)}
+.nav-back-link svg{width:17px;height:17px;fill:currentColor}
+.layout{max-width:1120px;margin:0 auto;padding:2rem 1.5rem}
+.progress-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text-secondary)}
+.progress-track{height:4px;background:var(--border);border-radius:20px;overflow:hidden;margin-bottom:1.5rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,#319ea9,#48b795);border-radius:20px;transition:width .5s ease}
+.hero{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:start;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(16,37,43,.15)}
+.hero:after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero h1{font-size:22px;font-weight:600;color:#fff;margin-bottom:5px}
+.hero p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6;max-width:760px}
+.hero-badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:20px;white-space:nowrap;position:relative;z-index:1;backdrop-filter:blur(10px)}
+.dashboard-grid{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.score-card,.metric-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.score-card{padding:1.25rem 1.5rem}
+.eyebrow{font-size:11px;color:var(--text-tertiary);margin-bottom:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.score-main{display:flex;align-items:baseline;gap:6px}
+.score-num{font-size:52px;font-weight:300;line-height:1;color:var(--danger);transition:all .3s}
+.score-denom{font-size:20px;color:var(--text-tertiary);font-weight:300}
+.score-level{font-size:18px;font-weight:600;margin-top:6px}
+.score-desc{font-size:12px;color:var(--text-secondary);margin-top:3px}
+.score-bar-track{height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border);margin-top:14px}
+.score-bar-fill{height:100%;width:0;border-radius:20px;transition:width .5s ease,background .5s}
+.metric-card{padding:1rem}
+.metric-label{font-size:11px;color:var(--text-tertiary);margin-bottom:5px}
+.metric-value{font-size:24px;font-weight:600;color:var(--navy)}
+.metric-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+.domain-tabs{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:.875rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.domain-tab{border:1px solid var(--border);background:var(--off-white);color:var(--text-secondary);border-radius:var(--radius-sm);padding:9px 6px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Helvetica,Arial,sans-serif;text-align:center;line-height:1.3}
+.domain-tab:hover{border-color:var(--teal);color:var(--navy);background:#ecfbfc}
+.domain-tab.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.domain-tab.done{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.domain-tab.done.active{background:var(--teal);color:#fff}
+.assessment-card{overflow:hidden;margin-bottom:1.5rem;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.ac-header{background:#F4F8FB;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.ac-title-wrap{display:flex;gap:12px;align-items:flex-start}
+.ac-code{background:var(--navy);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.ac-header h2{font-size:17px;color:var(--text-primary);margin-bottom:4px}
+.ac-header p{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.ac-meta{text-align:right;min-width:120px}
+.ac-meta .big{font-size:22px;color:var(--navy);font-weight:600}
+.ac-meta .small{font-size:11px;color:var(--text-tertiary)}
+.toolbar{display:grid;grid-template-columns:1fr 170px;gap:10px;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:#fff}
+.search-box,.filter-select{height:38px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-md);padding:0 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary)}
+.search-box:focus,.filter-select:focus{outline:none;border-color:var(--teal)}
+.control-list{padding:.55rem 1.25rem}
+.control-row{display:grid;grid-template-columns:80px 1fr 140px 140px 150px;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid #F3F5F8;border-radius:var(--radius-sm)}
+.control-row:last-child{border-bottom:none}
+.control-row:hover{background:var(--off-white)}
+.control-ref{font-size:12px;font-weight:700;color:var(--navy)}
+.control-text{font-size:13px;line-height:1.45;color:var(--text-primary)}
+.control-evidence{font-size:11px;color:var(--text-tertiary);line-height:1.4}
+.check-pill{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--off-white);border-radius:var(--radius-sm);padding:7px 8px;cursor:pointer;user-select:none;font-size:11px;font-weight:600;color:var(--text-secondary);transition:all .2s}
+.check-pill .box{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.check-pill.checked{background:var(--success-bg);border-color:rgba(13,140,114,.35);color:var(--success)}
+.check-pill.checked .box{background:var(--teal);border-color:var(--teal)}
+.action-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:1rem 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;padding:11px 22px;border-radius:var(--radius-md);cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:#fff;color:var(--text-secondary);border:1px solid var(--border)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-primary:hover,.btn-teal:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.btn-secondary:hover{background:var(--off-white)}
+#page-summary{display:none}
+.summary-banner{background:linear-gradient(135deg,#143f49,#227b86 62%,#319ea9);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-lg);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;box-shadow:0 24px 60px rgba(16,37,43,.15)}
+.summary-banner:before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.summary-banner-content{position:relative;z-index:1}
+.sb-eyebrow{font-size:11px;font-weight:600;color:#DFF0EE;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.sb-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:4px}
+.sb-sub{font-size:13px;color:rgba(255,255,255,.62);margin-bottom:1.25rem}
+.sb-score-row{display:flex;align-items:center;gap:16px}
+.sb-score-big{font-size:56px;font-weight:300;color:#fff;line-height:1}
+.sb-score-denom{font-size:22px;color:rgba(255,255,255,.45)}
+.sb-level-pill{padding:6px 16px;border-radius:20px;font-size:14px;font-weight:600}
+.sb-meta{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.sum-metric{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;text-align:center}
+.sm-val{font-size:24px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.sm-lbl{font-size:11px;color:var(--text-tertiary)}
+.section-card{overflow:hidden;margin-bottom:1rem;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.sc-head{background:#F4F8FB;border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.sc-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.sc-icon-teal{background:var(--teal-light);color:var(--teal)}
+.sc-icon-warn{background:var(--warning-bg);color:var(--warning)}
+.sc-body{padding:.75rem 1.25rem}
+.gauge-wrap{display:flex;align-items:center;gap:12px;padding:7px 0}
+.gauge-lbl{font-size:12.5px;color:var(--text-secondary);width:220px;flex-shrink:0}
+.gauge-track{flex:1;height:8px;background:var(--off-white);border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.gauge-bar{height:100%;border-radius:20px;transition:width .6s ease}
+.gauge-pct{font-size:12px;font-weight:600;width:40px;text-align:right}
+.status-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #F3F5F8;font-size:13px}
+.status-row:last-child{border-bottom:none}
+.status-name{flex:1}
+.status-tag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:12px;white-space:nowrap}
+.tag-ok{background:var(--success-bg);color:var(--success)}
+.tag-ng{background:var(--danger-bg);color:var(--danger)}
+.tag-mid{background:var(--warning-bg);color:var(--warning)}
+.rec-item{padding:12px 0;border-bottom:1px solid #F3F5F8}
+.rec-item:last-child{border-bottom:none}
+.rec-priority{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 9px;border-radius:20px;margin-bottom:6px;text-transform:uppercase}
+.pri-high{background:var(--danger-bg);color:var(--danger)}
+.pri-med{background:var(--warning-bg);color:var(--warning)}
+.pri-low{background:var(--success-bg);color:var(--success)}
+.rec-text{font-size:13px;color:var(--text-primary);line-height:1.6}
+.rec-ref{font-size:11px;color:var(--text-tertiary);margin-top:4px}
+.footer-bar{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0 .5rem;border-top:1px solid var(--border);margin-top:1rem}
+.footer-meta{font-size:11px;color:var(--text-tertiary);line-height:1.6}
+.empty{padding:18px;text-align:center;color:var(--text-tertiary);font-size:13px}
+.lead-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s}
+.lead-modal.active{opacity:1;pointer-events:all}
+.lead-dialog{background:#fff;border-radius:var(--radius-lg);padding:2rem;max-width:540px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.2)}
+.lead-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.5rem}
+.lead-eyebrow{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.lead-head h2{font-size:18px;color:var(--navy)}
+.lead-head p{font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.5}
+.lead-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-tertiary);line-height:1;padding:4px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.lead-field{display:flex;flex-direction:column;gap:4px}
+.lead-field.lead-full{grid-column:1/-1}
+.lead-field span{font-size:12px;font-weight:600;color:var(--text-secondary)}
+.lead-field input,.lead-field select,.lead-field textarea{border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font:13px Helvetica,Arial,sans-serif;color:var(--text-primary);background:var(--off-white)}
+.lead-field textarea{height:80px;resize:vertical}
+.lead-actions{display:flex;flex-direction:column;gap:10px}
+.lead-note{font-size:11px;color:var(--text-tertiary);line-height:1.5}
+.lead-submit{background:var(--teal);color:#fff;border:none;border-radius:var(--radius-md);padding:12px 24px;font:600 14px Helvetica,Arial,sans-serif;cursor:pointer;width:100%;transition:background .2s}
+.lead-submit:hover{background:#278a94}
+.lead-success{display:none;background:var(--success-bg);border:1px solid rgba(13,140,114,.3);border-radius:var(--radius-md);padding:1rem;font-size:13px;color:var(--success);line-height:1.6;text-align:center}
+.lead-success.active{display:block}
+.lead-success-actions{margin-top:12px}
+.lead-success-actions a{color:var(--teal);font-weight:600;text-decoration:none}
+@media(max-width:920px){.dashboard-grid,.sum-grid{grid-template-columns:1fr 1fr}.domain-tabs{grid-template-columns:repeat(4,1fr)}.control-row{grid-template-columns:72px 1fr 130px 130px}.control-evidence{grid-column:2/-1}.toolbar{grid-template-columns:1fr}.hero{grid-template-columns:1fr}}
+@media(max-width:640px){.topnav{padding:0 1rem}.layout{padding:1.25rem .9rem}.dashboard-grid,.sum-grid{grid-template-columns:1fr}.domain-tabs{grid-template-columns:repeat(2,1fr)}.control-row{grid-template-columns:64px 1fr}.check-pill,.control-evidence{grid-column:1/-1}.action-bar,.footer-bar{flex-direction:column;align-items:stretch}}
+@media print{.topnav,.domain-tabs,.toolbar,.action-bar,.btn{display:none!important}body{background:#fff}.layout{padding:1rem}.summary-banner,.hero{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-logo">
+    <img src="assets/oneconnect/cbqa-logo.png" alt="CBQA Global">
+    <div class="nav-brand">
+      <span class="nav-brand-main">OneConnect</span>
+      <span class="nav-brand-sub">ISO/IEC 27018:2019 Self-Assessment Portal</span>
+    </div>
+  </div>
+  <a class="nav-back-link" href="module-detail.html?module=iso-27018" aria-label="Back to ISO 27018 Module">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10.8 5.2 4 12l6.8 6.8 1.4-1.4L7.8 13H20v-2H7.8l4.4-4.4-1.4-1.4Z"/></svg>
+    <span>Back to Module Detail</span>
+  </a>
+</nav>
+
+<div class="layout">
+  <div class="progress-header">
+    <span id="progress-label">ISO/IEC 27018:2019 Readiness Assessment</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-bar" style="width:0%"></div></div>
+
+  <div id="page-assessment">
+    <div class="hero">
+      <div>
+        <h1>ISO/IEC 27018:2019 Self-Assessment</h1>
+        <p>Code of Practice for PII Protection in Public Clouds (PII Processors) — Assess your cloud service against 35 controls across Policy, Access, Operations, Incidents, PII Purpose, Transparency, and Data Security domains including Annex A extended controls.</p>
+      </div>
+      <div class="hero-badge" id="hero-badge">Policy &amp; Org</div>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="score-card">
+        <div class="eyebrow">Readiness Score</div>
+        <div class="score-main">
+          <span class="score-num" id="score-num">0</span>
+          <span class="score-denom" id="score-denom">/70</span>
+        </div>
+        <div class="score-level" id="score-level">Initial</div>
+        <div class="score-desc" id="score-desc">No formal PII cloud protection controls in place</div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Documented</div>
+        <div class="metric-value" id="m-doc">0</div>
+        <div class="metric-sub">policies &amp; procedures</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Implemented</div>
+        <div class="metric-value" id="m-impl">0</div>
+        <div class="metric-sub">controls in operation</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Domains Done</div>
+        <div class="metric-value" id="m-dom">0/7</div>
+        <div class="metric-sub">domains complete</div>
+      </div>
+    </div>
+
+    <div class="domain-tabs" id="domain-tabs"></div>
+
+    <div class="assessment-card" id="assessment-card">
+      <div class="ac-header">
+        <div class="ac-title-wrap">
+          <span class="ac-code" id="ac-code">Cl. 5–7</span>
+          <div>
+            <h2 id="ac-title">Policy &amp; Organization</h2>
+            <p id="ac-desc">Information security policy with PII commitment, roles, designated PII contact point, HR security and awareness training</p>
+          </div>
+        </div>
+        <div class="ac-meta">
+          <div class="big" id="ac-score">0/10</div>
+          <div class="small">domain score</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <input class="search-box" type="search" id="search-box" placeholder="Search controls...">
+        <select class="filter-select" id="filter-sel">
+          <option value="all">All Items</option>
+          <option value="undone">Not Started</option>
+          <option value="partial">Partial</option>
+          <option value="done">Complete</option>
+        </select>
+      </div>
+      <div class="control-list" id="control-list"></div>
+      <div class="action-bar">
+        <button class="btn btn-secondary" id="btn-prev" onclick="prevDomain()">← Previous</button>
+        <button class="btn btn-teal" id="btn-next" onclick="nextDomain()">Next Domain →</button>
+      </div>
+    </div>
+
+    <div style="text-align:right;margin-top:-.5rem;margin-bottom:1.5rem">
+      <button class="btn btn-primary" onclick="showSummary()">View Summary Report →</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY PAGE -->
+  <div id="page-summary">
+    <div class="summary-banner">
+      <div class="summary-banner-content">
+        <div class="sb-eyebrow">ISO/IEC 27018:2019 · Cloud PII Protection</div>
+        <div class="sb-title">Readiness Summary Report</div>
+        <div class="sb-sub">Code of Practice for PII Protection in Public Clouds — PII Processor Assessment</div>
+        <div class="sb-score-row">
+          <span class="sb-score-big" id="sb-score">0</span>
+          <span class="sb-score-denom">/70</span>
+          <span class="sb-level-pill" id="sb-level-pill" style="background:rgba(255,255,255,.15);color:#fff">Initial</span>
+        </div>
+        <div class="sb-meta" id="sb-meta"></div>
+      </div>
+    </div>
+
+    <div class="sum-grid">
+      <div class="sum-metric"><div class="sm-val" id="sm-score">0%</div><div class="sm-lbl">Overall Readiness</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-doc">0</div><div class="sm-lbl">Documented</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-impl">0</div><div class="sm-lbl">Implemented</div></div>
+      <div class="sum-metric"><div class="sm-val" id="sm-dom">0/7</div><div class="sm-lbl">Domains Complete</div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-teal"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m4 15 5-5 4 4 5.6-6H15V6h7v7h-2V9.4L13 17l-4-4-3.6 3.6L4 15Z"/></svg></div>
+        Readiness by Domain
+      </div>
+      <div class="sc-body" id="gauge-container"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-warn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4Z"/></svg></div>
+        Domain Status Overview
+      </div>
+      <div class="sc-body" id="status-container"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="sc-head">
+        <div class="sc-icon sc-icon-warn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2Zm0 3.5L20.5 19h-17L12 5.5ZM11 10v4h2v-4h-2Zm0 6v2h2v-2h-2Z"/></svg></div>
+        Priority Recommendations
+      </div>
+      <div class="sc-body" id="rec-container"></div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-meta" id="sum-footer">ISO/IEC 27018:2019 Cloud PII Protection Self-Assessment<br>CBQA Global Indonesia</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-secondary" onclick="backToAssessment()">← Back to Assessment</button>
+        <button class="btn btn-teal" onclick="openLeadModal()">Request Full Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lead Modal -->
+<div class="lead-modal" id="leadModal" aria-hidden="true">
+  <div class="lead-dialog" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="lead-head">
+      <div>
+        <p class="lead-eyebrow">CBQA Global Sales</p>
+        <h2 id="leadTitle">Request the full ISO/IEC 27018 readiness report</h2>
+        <p>Complete your company profile and our team will contact you with the full report, gap analysis, and recommended next steps.</p>
+      </div>
+      <button class="lead-close" type="button" onclick="closeLeadModal()" aria-label="Close">&times;</button>
+    </div>
+    <form class="lead-form" id="leadForm">
+      <div class="lead-grid">
+        <label class="lead-field"><span>Company Name</span><input name="company" required placeholder="PT Example Indonesia"></label>
+        <label class="lead-field"><span>Contact Person</span><input name="name" required placeholder="Full name"></label>
+        <label class="lead-field"><span>Work Email</span><input type="email" name="email" required placeholder="name@company.com"></label>
+        <label class="lead-field"><span>Phone / WhatsApp</span><input name="phone" required placeholder="+62 ..."></label>
+        <label class="lead-field"><span>Cloud Service Type</span>
+          <select name="industry" required>
+            <option value="">Select type</option>
+            <option>SaaS Provider</option>
+            <option>PaaS Provider</option>
+            <option>IaaS Provider</option>
+            <option>Cloud-based Financial Services</option>
+            <option>Healthcare Cloud Services</option>
+            <option>Government Cloud Services</option>
+            <option>E-Commerce / Digital Platform</option>
+            <option>Other Public Cloud Service</option>
+          </select>
+        </label>
+        <label class="lead-field"><span>Assessment Objective</span>
+          <select name="objective" required>
+            <option value="">Select objective</option>
+            <option>ISO 27018 certification preparation</option>
+            <option>PII processor compliance gap assessment</option>
+            <option>GDPR / UU PDP alignment</option>
+            <option>Customer audit readiness</option>
+            <option>Cloud security maturity improvement</option>
+          </select>
+        </label>
+        <label class="lead-field lead-full"><span>Message</span><textarea name="message" placeholder="Tell us about your cloud PII processing scope, customer base, and compliance target timeline."></textarea></label>
+      </div>
+      <div class="lead-actions">
+        <p class="lead-note">This preview is for initial readiness insight. The full report and advisory follow-up will be coordinated by CBQA Global.</p>
+        <button class="lead-submit" type="submit">Submit Profile</button>
+      </div>
+      <div class="lead-success" id="leadSuccess">
+        Thank you. Your request has been captured for the CBQA Global sales team. Our team will contact you within 1 hour.
+        <div class="lead-success-actions"><a href="module-detail.html?module=iso-27018">Back to Module Detail</a></div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'cbqa_27018_progress';
+
+const DOMAINS = [
+  {
+    id:'policy', label:'Policy & Org', code:'Cl. 5–7',
+    title:'Policy & Organization',
+    desc:'Information security policy with PII commitment, roles & responsibilities, designated PII contact, HR security and awareness',
+    items:[
+      {ref:'5.1.1/a', text:'Information security policy is augmented with a statement of commitment to PII protection legislation and contractual terms agreed with cloud service customers.', evidence:'IS policy, PII commitment statement, contractual PII clauses', hi:true},
+      {ref:'5.1.1/b', text:'Contractual agreements clearly allocate PII protection responsibilities between the cloud PII processor, sub-contractors, and cloud service customers (IaaS/PaaS/SaaS distinctions addressed).', evidence:'Cloud service contracts, sub-contractor agreements, responsibility matrix', hi:true},
+      {ref:'6.1.1', text:'A designated point of contact exists for cloud service customers regarding PII processing under contract (accessible and documented in contracts).', evidence:'Contract clauses, contact directory, DPO or privacy officer designation'},
+      {ref:'7.2.2/a', text:'Staff are trained on consequences of breaching privacy/security rules: legal sanctions, business impact (loss of customers, brand damage), disciplinary consequences.', evidence:'Privacy/security awareness training records, training content, attendance logs'},
+      {ref:'7.2.2/b', text:'Training specifically covers obligations for handling PII in the cloud environment, including impact on PII principals (physical, material, emotional harm from breaches).', evidence:'Cloud PII training curriculum, e-learning modules, competency assessments'},
+    ]
+  },
+  {
+    id:'access', label:'Access & Crypto', code:'Cl. 9–10',
+    title:'Access Control & Cryptography',
+    desc:'User access management for PII, administrative rights for customers, secure log-on, cryptographic controls',
+    items:[
+      {ref:'9.2/cloud', text:'Cloud service customers are provided with administrative rights to manage or terminate access for cloud service users under their control (where appropriate per cloud service category).', evidence:'Admin portal documentation, customer IAM capabilities, access management procedures', hi:true},
+      {ref:'9.2.1', text:'User registration/de-registration procedures address compromised authentication scenarios (e.g. password corruption, inadvertent disclosure of credentials).', evidence:'User lifecycle management procedure, incident response for credential compromise'},
+      {ref:'9.4.2', text:'Secure log-on procedures are provided for any accounts requested by cloud service customers for their users under their control.', evidence:'Log-on security procedure, MFA configuration, customer account security guidelines'},
+      {ref:'10.1.1/a', text:'Information about circumstances in which cryptography is used to protect PII is documented and communicated to cloud service customers.', evidence:'Encryption policy, customer-facing encryption disclosure, cryptographic controls documentation', hi:true},
+      {ref:'10.1.1/b', text:'Capabilities provided to cloud service customers to apply their own cryptographic protection are documented (including key management options).', evidence:'Customer encryption capability documentation, bring-your-own-key (BYOK) options, key management guide'},
+    ]
+  },
+  {
+    id:'operations', label:'Operations', code:'Cl. 12–13',
+    title:'Operations & Communications Security',
+    desc:'PII in test environments, backup with PII provisions, event logging for PII, physical media transfer controls',
+    items:[
+      {ref:'12.1.4', text:'Where PII cannot be avoided in testing, a risk assessment is performed and technical/organizational measures are implemented to minimize identified risks.', evidence:'Test data policy, PII risk assessment for test environments, anonymization/pseudonymization procedures', hi:true},
+      {ref:'12.3.1', text:'Backup provisions include PII-specific requirements: multiple copies in diverse locations, documented restoration timelines, backup erasure policy, and customer communication of backup capabilities.', evidence:'Backup policy, BCP/DR documentation, restoration procedure, customer backup SLA'},
+      {ref:'12.4.1/a', text:'Event logs record whether PII has been changed (added, modified, deleted) and by whom; log review is performed at a specified documented periodicity.', evidence:'Logging standards, PII audit trail, log review procedure and records'},
+      {ref:'12.4.1/b', text:'Cloud service customers can only access log records relating to their own activities; isolation from other customers\' log data is enforced.', evidence:'Log access control configuration, customer log access documentation, isolation testing'},
+      {ref:'12.4.2', text:'Log information containing PII is access-controlled (using privileged access controls); an automatic procedure ensures log deletion within a specified documented period.', evidence:'Log access control policy, log retention schedule, automated deletion procedure'},
+      {ref:'13.2.1', text:'Physical media transfers containing PII are tracked with: type of media, authorized sender/recipient, date/time, count; encryption applied where possible.', evidence:'Physical media transfer log, media handling procedure, encryption requirement for PII media'},
+    ]
+  },
+  {
+    id:'incident', label:'Incident & Audit', code:'Cl. 16+18',
+    title:'Incident Management & Compliance',
+    desc:'Security incident → PII breach review, breach response records, independent audit evidence, compliance reviews',
+    items:[
+      {ref:'16.1.1', text:'Every security incident triggers a review to determine if a PII data breach has occurred; process clearly distinguishes security events (port scans, failed logins) from actual PII breaches.', evidence:'Incident response procedure, breach determination workflow, incident classification matrix', hi:true},
+      {ref:'16.1.5', text:'PII breach response records include: incident description, time period, consequences, reporter, notification steps, data compromised, regulatory notifications performed.', evidence:'Incident record template, breach register, notification log', hi:true},
+      {ref:'18.1', text:'Annex A controls (A.11 — Information Security) are reviewed and applied as part of compliance with legal and contractual PII protection requirements.', evidence:'Annex A control implementation register, legal compliance assessment, contractual compliance checklist'},
+      {ref:'18.2.1', text:'Independent audit evidence (e.g. ISO 27001 certificate + 27018 attestation) is made available to prospective customers before and during contract; individual customer audits are addressed through independent review.', evidence:'Audit reports, certification certificates, third-party attestation, audit sharing policy'},
+    ]
+  },
+  {
+    id:'purpose', label:'PII Purpose', code:'A.2–A.5',
+    title:'PII Consent, Purpose & Data Minimization',
+    desc:'PII principals\' rights, purpose limitation, no commercial use without consent, temporary file erasure',
+    items:[
+      {ref:'A.2.1', text:'Technical means are provided to cloud service customers to enable PII principals to exercise rights to access, correct, and erase their PII (as required by contract or law).', evidence:'Customer admin portal, data subject rights fulfillment procedure, API for rights management', hi:true},
+      {ref:'A.3.1', text:'PII is not processed for any purpose independent of the cloud service customer\'s instructions; compliance with purpose limitation is contractually mandated and operationally enforced.', evidence:'Data processing agreement, purpose limitation controls, sub-processor agreements', hi:true},
+      {ref:'A.3.2', text:'PII is not used for marketing or advertising without express, separate consent from the PII principal; such consent is not made a condition of receiving the service.', evidence:'Consent management system, marketing opt-in records, terms of service review'},
+      {ref:'A.5.1', text:'Temporary files and documents containing PII are erased or destroyed within a specified, documented period via automated garbage collection or scheduled deletion procedures.', evidence:'Temporary file retention policy, automated deletion logs, system configuration evidence'},
+    ]
+  },
+  {
+    id:'transparency', label:'Transparency', code:'A.6–A.10',
+    title:'Transparency, Disclosure & Accountability',
+    desc:'Law enforcement disclosure notification, PII disclosure records, sub-contractor transparency, breach notification, disposal policy',
+    items:[
+      {ref:'A.6.1', text:'Contractual obligations require notification to cloud service customers of legally binding PII disclosure requests (law enforcement), within agreed timeframes, unless prohibited by law.', evidence:'Contract clauses on disclosure notification, legal request handling procedure, notification records', hi:true},
+      {ref:'A.6.2', text:'All disclosures of PII to third parties are recorded: what PII was disclosed, to whom, at what time, and the authority for disclosure.', evidence:'PII disclosure register, disclosure log, audit trail for third-party data sharing'},
+      {ref:'A.8.1', text:'Use of sub-contractors to process PII is disclosed to cloud service customers before their use; countries of sub-contracted processing are identified; customers are informed of intended changes in advance.', evidence:'Sub-contractor disclosure list, contract provisions, geographic processing disclosure', hi:true},
+      {ref:'A.10.1', text:'Cloud service customers are promptly notified of unauthorized access to PII or processing equipment resulting in loss, disclosure, or alteration; breach record maintained with full details.', evidence:'Breach notification procedure, breach notification SLA, breach record template', hi:true},
+      {ref:'A.10.2', text:'Copies of security policies and operating procedures are retained for a specified documented period after replacement (minimum 5 years recommended).', evidence:'Document retention policy, version-controlled policy archive, retention schedule'},
+      {ref:'A.10.3', text:'Policy for PII return, transfer, and disposal (including secure deletion/erasure from backup systems) is documented and made available to cloud service customers.', evidence:'PII disposition policy, customer-facing disposal documentation, secure erasure procedures'},
+    ]
+  },
+  {
+    id:'datasec', label:'Data Security', code:'A.11–A.12',
+    title:'PII Data Security Controls',
+    desc:'Confidentiality obligations, encryption in transit, portable media controls, unique IDs, contract measures, geographic location disclosure',
+    items:[
+      {ref:'A.11.1', text:'All staff and agents with access to PII are subject to confidentiality obligations (in whatever form) that survive termination of any relevant employment or contract.', evidence:'Employment contracts, NDAs, confidentiality agreement register', hi:true},
+      {ref:'A.11.2', text:'Creation of hardcopy material displaying PII is restricted; secure disposal (cross-cutting, shredding, pulping) procedures exist for hardcopy PII materials.', evidence:'Clear desk policy, hardcopy restriction procedure, secure disposal records'},
+      {ref:'A.11.4+5', text:'PII on media leaving premises is subject to authorization and encryption; unencrypted portable storage media is avoided except where unavoidable, and any use is documented.', evidence:'Removable media policy, media transfer authorization log, encryption configuration', hi:true},
+      {ref:'A.11.6', text:'PII transmitted over public data-transmission networks is encrypted prior to transmission (TLS/HTTPS/VPN); encryption requirements are documented and enforced.', evidence:'Encryption-in-transit policy, TLS configuration records, network security assessment', hi:true},
+      {ref:'A.11.8+9', text:'Unique user IDs are required for all individuals accessing stored PII; an up-to-date record of all authorized users and user profiles is maintained.', evidence:'IAM system, unique ID enforcement policy, authorized user register, access review records'},
+      {ref:'A.11.11+12', text:'Contracts with cloud service customers and sub-contractors specify minimum technical and organizational measures for PII protection; measures cannot be unilaterally reduced.', evidence:'DPA / data processing agreements, sub-processor contracts, minimum security requirements clause'},
+      {ref:'A.12.1+2', text:'Countries where PII can possibly be stored (including via sub-contractors) are specified, documented, and disclosed to cloud service customers; PII transmitted over networks reaches intended destination.', evidence:'Geographic data location disclosure, cross-border transfer agreements (SCCs, BCRs), network routing controls'},
+    ]
+  }
+];
+
+const totalItems = DOMAINS.reduce((s,d)=>s+d.items.length,0);
+const maxChecks  = totalItems * 2;
+
+let state = {};
+try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }catch(e){}
+function save(){ try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){} }
+
+function getScore(){
+  let doc=0,impl=0;
+  DOMAINS.forEach(d=>d.items.forEach(it=>{
+    if(state[it.ref+'_doc'])  doc++;
+    if(state[it.ref+'_impl']) impl++;
+  }));
+  return {doc,impl,total:doc+impl};
+}
+
+function domainScore(d){
+  let s=0;
+  d.items.forEach(it=>{
+    if(state[it.ref+'_doc'])  s++;
+    if(state[it.ref+'_impl']) s++;
+  });
+  return s;
+}
+
+function maturityInfo(pct){
+  if(pct>=0.95) return {level:'Audit Ready',   desc:'Evidence complete, ready for certification assessment',    color:'#0d8c72',bar:'#0d8c72'};
+  if(pct>=0.80) return {level:'Managed',        desc:'PII controls actively managed and measured',              color:'#319ea9',bar:'#319ea9'};
+  if(pct>=0.60) return {level:'Defined',         desc:'PII protection formally defined and documented',         color:'#2b8a96',bar:'#2b8a96'};
+  if(pct>=0.40) return {level:'Developing',      desc:'Some PII controls in place but gaps remain',             color:'#d97706',bar:'#d97706'};
+  if(pct>=0.20) return {level:'Basic',           desc:'Ad-hoc PII protection with minimal structure',           color:'#e08c3b',bar:'#e08c3b'};
+  return          {level:'Initial',             desc:'No formal PII cloud protection controls in place',        color:'#c0392b',bar:'#c0392b'};
+}
+
+let currentDomain = 0;
+
+function renderTabs(){
+  const c = document.getElementById('domain-tabs');
+  c.innerHTML = DOMAINS.map((d,i)=>{
+    const ds=domainScore(d), dm=d.items.length*2, done=ds===dm, active=i===currentDomain;
+    return `<button class="domain-tab${done?' done':''}${active?' active':''}" onclick="switchDomain(${i})">${d.label}</button>`;
+  }).join('');
+}
+
+function renderDomain(){
+  const d=DOMAINS[currentDomain];
+  document.getElementById('ac-code').textContent=d.code;
+  document.getElementById('ac-title').textContent=d.title;
+  document.getElementById('ac-desc').textContent=d.desc;
+  document.getElementById('hero-badge').textContent=d.label;
+  const ds=domainScore(d), dm=d.items.length*2;
+  document.getElementById('ac-score').textContent=ds+'/'+dm;
+  document.getElementById('btn-prev').disabled=currentDomain===0;
+  document.getElementById('btn-next').textContent=currentDomain===DOMAINS.length-1?'View Summary →':'Next Domain →';
+  renderList();
+}
+
+function renderList(){
+  const d=DOMAINS[currentDomain];
+  const q=document.getElementById('search-box').value.toLowerCase();
+  const f=document.getElementById('filter-sel').value;
+  const list=document.getElementById('control-list');
+  const svgCheck=`<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>`;
+
+  const rows=d.items.filter(it=>{
+    if(q&&!it.text.toLowerCase().includes(q)&&!it.ref.toLowerCase().includes(q)) return false;
+    const doc=!!state[it.ref+'_doc'], impl=!!state[it.ref+'_impl'];
+    if(f==='done'&&!(doc&&impl)) return false;
+    if(f==='partial'&&!(doc||impl)) return false;
+    if(f==='undone'&&(doc||impl)) return false;
+    return true;
+  });
+
+  if(!rows.length){list.innerHTML='<div class="empty">No items match your filter.</div>';return;}
+
+  list.innerHTML=rows.map(it=>{
+    const doc=!!state[it.ref+'_doc'], impl=!!state[it.ref+'_impl'];
+    return `<div class="control-row">
+      <div class="control-ref">${it.ref}</div>
+      <div>
+        <div class="control-text">${it.text}</div>
+        <div class="control-evidence">📋 ${it.evidence}</div>
+      </div>
+      <div class="check-pill${doc?' checked':''}" onclick="toggle('${it.ref}','doc')">
+        <span class="box">${doc?svgCheck:''}</span>Documented
+      </div>
+      <div class="check-pill${impl?' checked':''}" onclick="toggle('${it.ref}','impl')">
+        <span class="box">${impl?svgCheck:''}</span>Implemented
+      </div>
+      <div style="font-size:11px;color:${it.hi?'var(--danger)':'var(--text-tertiary)'};font-weight:${it.hi?700:400}">
+        ${it.hi?'🔴 HIGH PRIORITY':'⚪ Standard'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggle(ref,type){
+  state[ref+'_'+type]=!state[ref+'_'+type];
+  save(); updateScoreboard(); renderList(); renderTabs();
+}
+
+function updateScoreboard(){
+  const {doc,impl,total}=getScore();
+  const pct=maxChecks?total/maxChecks:0;
+  const m=maturityInfo(pct);
+  const domsDone=DOMAINS.filter(d=>domainScore(d)===d.items.length*2).length;
+  document.getElementById('score-num').textContent=total;
+  document.getElementById('score-denom').textContent='/'+maxChecks;
+  document.getElementById('score-level').textContent=m.level;
+  document.getElementById('score-level').style.color=m.color;
+  document.getElementById('score-desc').textContent=m.desc;
+  const bar=document.getElementById('score-bar');
+  bar.style.width=(pct*100)+'%'; bar.style.background=m.bar;
+  document.getElementById('m-doc').textContent=doc;
+  document.getElementById('m-impl').textContent=impl;
+  document.getElementById('m-dom').textContent=domsDone+'/'+DOMAINS.length;
+  document.getElementById('progress-pct').textContent=Math.round(pct*100)+'%';
+  document.getElementById('progress-bar').style.width=(pct*100)+'%';
+}
+
+function switchDomain(i){currentDomain=i;renderTabs();renderDomain();window.scrollTo({top:0,behavior:'smooth'});}
+function prevDomain(){if(currentDomain>0)switchDomain(currentDomain-1);}
+function nextDomain(){if(currentDomain<DOMAINS.length-1)switchDomain(currentDomain+1);else showSummary();}
+
+document.getElementById('search-box').addEventListener('input',renderList);
+document.getElementById('filter-sel').addEventListener('change',renderList);
+
+function showSummary(){
+  document.getElementById('page-assessment').style.display='none';
+  document.getElementById('page-summary').style.display='block';
+  buildSummary(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function backToAssessment(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-assessment').style.display='block';
+  renderDomain(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildSummary(){
+  const {doc,impl,total}=getScore();
+  const pct=maxChecks?total/maxChecks:0;
+  const m=maturityInfo(pct);
+  const domsDone=DOMAINS.filter(d=>domainScore(d)===d.items.length*2).length;
+  document.getElementById('sb-score').textContent=total;
+  document.getElementById('sb-level-pill').textContent=m.level;
+  document.getElementById('sb-level-pill').style.background=m.color;
+  document.getElementById('sm-score').textContent=Math.round(pct*100)+'%';
+  document.getElementById('sm-doc').textContent=doc;
+  document.getElementById('sm-impl').textContent=impl;
+  document.getElementById('sm-dom').textContent=domsDone+'/'+DOMAINS.length;
+  const now=new Date();
+  const ds=now.toLocaleDateString('en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  const ts=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sb-meta').textContent='Generated '+ds+' at '+ts;
+  document.getElementById('sum-footer').innerHTML=ds+' '+ts+' | OneConnect ISO/IEC 27018:2019 Cloud PII Protection Self-Assessment<br>CBQA Global Indonesia';
+
+  const gc=document.getElementById('gauge-container');
+  gc.innerHTML=DOMAINS.map(d=>{
+    const ds2=domainScore(d),dm2=d.items.length*2;
+    const p=dm2?ds2/dm2:0;
+    const col=p>=0.8?'#0d8c72':p>=0.5?'#319ea9':p>=0.2?'#d97706':'#c0392b';
+    return `<div class="gauge-wrap">
+      <div class="gauge-lbl">${d.label} — ${d.title}</div>
+      <div class="gauge-track"><div class="gauge-bar" style="width:${Math.round(p*100)}%;background:${col}"></div></div>
+      <div class="gauge-pct" style="color:${col}">${Math.round(p*100)}%</div>
+    </div>`;
+  }).join('');
+
+  const sc=document.getElementById('status-container');
+  sc.innerHTML=DOMAINS.map(d=>{
+    const ds2=domainScore(d),dm2=d.items.length*2,p=ds2/dm2;
+    const tag=p>=0.8?'tag-ok':p>=0.4?'tag-mid':'tag-ng';
+    const lbl=p>=0.8?'Strong':p>=0.4?'Developing':'Needs Work';
+    return `<div class="status-row">
+      <span class="status-name"><strong>${d.label}</strong> — ${d.title}</span>
+      <span class="status-tag ${tag}">${lbl} (${ds2}/${dm2})</span>
+    </div>`;
+  }).join('');
+
+  const rc=document.getElementById('rec-container');
+  const highItems=[];
+  DOMAINS.forEach(d=>d.items.forEach(it=>{
+    if(it.hi){
+      const doc2=!!state[it.ref+'_doc'],impl2=!!state[it.ref+'_impl'];
+      if(!doc2||!impl2) highItems.push({...it,domain:d.label});
+    }
+  }));
+  const recs=[
+    ...highItems.map(it=>({priority:'HIGH',text:`Address ${it.ref}: ${it.text.substring(0,130)}...`,ref:it.ref+' — '+it.domain})),
+    {priority:'MEDIUM',text:'Establish a Data Processing Agreement (DPA) template covering all Annex A extended controls for use with all cloud service customers.',ref:'A.11.11 — Data Security'},
+    {priority:'MEDIUM',text:'Implement automated PII data lifecycle management: temporary file deletion, backup erasure, and log retention with documented timeframes.',ref:'A.5.1, 12.4.2, A.10.3 — Operations & Accountability'},
+    {priority:'LOW',text:'Obtain ISO/IEC 27001 certification as a prerequisite, then pursue ISO/IEC 27018 attestation to provide independent audit evidence to cloud customers.',ref:'18.2.1 — Incident & Audit'},
+  ];
+  rc.innerHTML=recs.slice(0,7).map(r=>`<div class="rec-item">
+    <span class="rec-priority ${r.priority==='HIGH'?'pri-high':r.priority==='MEDIUM'?'pri-med':'pri-low'}">${r.priority}</span>
+    <div class="rec-text">${r.text}</div>
+    <div class="rec-ref">📌 ${r.ref}</div>
+  </div>`).join('');
+}
+
+function openLeadModal(){const m=document.getElementById('leadModal');m.classList.add('active');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+function closeLeadModal(){const m=document.getElementById('leadModal');m.classList.remove('active');m.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLeadModal();});
+document.getElementById('leadModal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLeadModal();});
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('leadSuccess').classList.add('active');
+  e.target.querySelector('.lead-submit').textContent='Profile Submitted';
+  e.target.querySelector('.lead-submit').disabled=true;
+});
+
+updateScoreboard();
+renderTabs();
+renderDomain();
+document.getElementById('score-denom').textContent='/'+maxChecks;
+document.getElementById('progress-label').textContent='ISO/IEC 27018:2019 Cloud PII Protection — '+totalItems+' assessment items';
+</script>
+</body>
+</html>
